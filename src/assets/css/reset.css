@@ -15,3 +15,5 @@ div img { display: block; vertical-align: bottom;}
 /* 垂直居中 */
 .ghost-center:after { display: inline-block; height: 100%; width: 0%; visibility: hidden; vertical-align: middle; content: ""; }
 .ghost-center-target { display: inline-block; vertical-align: middle; }
+
+*{-webkit-tap-highlight-color: transparent;}
