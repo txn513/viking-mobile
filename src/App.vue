@@ -23,6 +23,7 @@ export default {
 
 <style lang="scss">
 $color: red;
+$fontsize:1.8rem;
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -31,5 +32,6 @@ $color: red;
   color: #2c3e50;
   margin-top: 60px;
   background: $color;
+  font-size: $fontsize;
 }
 </style>
