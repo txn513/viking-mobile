@@ -18,7 +18,7 @@
         if (width / dpr > 640) {
             width = 640 * dpr;
         }
-        docEle.style.fontSize = 10 * (width / 750) + 'px';
+        docEle.style.fontSize = 100 * (width / 750) + 'px';
     };
 
     recalCulate();
