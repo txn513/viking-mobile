@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 require('./assets/js/adaptive-rem.js');
-require('assets/css/reset.css');
+require('./assets/css/reset.css');
 
 Vue.config.productionTip = false
 
