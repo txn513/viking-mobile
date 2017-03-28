@@ -1,7 +1,6 @@
 <template>
   <div class="viking-one">
     <div class="one-outer">
-
       <div class="one">
         <h3 class="vk-title">巡游人文欧洲 &nbsp;体验内河游轮之魅</h3>
         <p class="vk-text">河流是人类文明的摇篮</p>
@@ -15,13 +14,12 @@
         <p class="vk-text">摩登艺术中心和璀璨的都市生活</p>
         <p class="vk-text">呈现于您的眼前</p>
         <div class="video-box">
-        	<!-- <span style="display: block;width: 100%;height: 1px;background-color: #cacaca"></span> -->
-        	<video id="mp4" src="http://image.linbaoyou.com/upload/test/video/2017032020302405.mp4" controls></video>
+          <!-- <span style="display: block;width: 100%;height: 1px;background-color: #cacaca"></span> -->
+          <video id="mp4" :src="firstLink" controls></video>
         </div>
-        <p class="more">更多视频<span class="more-icon"></span></p>
-
+        <p class="more" @click="xclick">更多视频<span class="more-icon"></span></p>
+        <div class="line"></div>
       </div>
-
     </div>
   </div>
 </template>
@@ -46,18 +44,25 @@ export default {
           'title': 'Vikinfg<游轮带你去旅行>主题宣传片3333',
           'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4'
         }, ],
+        firstLink: ""
       }
     },
     methods: {
+    	xclick(){
+    		console.log(this.firstLink);
+    	}
+    },
+    computed: {
 
-    }
+
+    },
+    ready() {
+    		this.firstLink = this.videoData[0].link
+    },
 }
 </script>
 <style>
 .viking-one {
-  position: absolute;
-  left: 0;
-  top: 0;
   width: 100%;
   height: 100%;
   background: url('../assets/img/one/one-bg.png') top center no-repeat;
@@ -81,7 +86,7 @@ export default {
   width: 6.1rem;
   height: 9.66rem;
   background-color: #ffffff;
-  border-radius: .07rem;
+  border-radius: .08rem;
   margin: 0 auto;
   padding-top: .29rem;
 }
@@ -101,33 +106,42 @@ export default {
   margin-bottom: .1rem;
   line-height: .22rem;
 }
-.video-box{
-	margin:  0 auto;
-	margin-top: .28rem;
-	width: 5.68rem;
-	height: 3.23rem;
-	border: .06rem solid #ffffff;
-	margin-bottom: .23rem;
-	box-shadow:  1px 0px 10px rgba(0, 0, 0, .05), -1px 0px 10px rgba(0, 0, 0, .05), 0px 4px 20px rgba(0, 0, 0, .2);
-}
-#mp4{
-	width: 5.56rem;
-	height: 3.1rem;
-}
-.more{
-	font-size: .2rem;
-	color: #363636;
-	margin-bottom: .06rem;
-	padding-left: .18rem;
-}
-.more .more-icon{
-	display: inline-block;
-	width: .19rem;
-	height: .14rem;
-	background: url('../assets/img/one/more.png') center no-repeat;
-	margin-left: .1rem;
+
+.video-box {
+  margin: 0 auto;
+  margin-top: .28rem;
+  width: 5.68rem;
+  height: 3.23rem;
+  border: .06rem solid #ffffff;
+  margin-bottom: .23rem;
+  box-shadow: 1px 0px 10px rgba(0, 0, 0, .05), -1px 0px 10px rgba(0, 0, 0, .05), 0px 4px 20px rgba(0, 0, 0, .2);
 }
 
+#mp4 {
+  width: 5.56rem;
+  height: 3.1rem;
+}
 
+.more {
+  font-size: .2rem;
+  color: #363636;
+  margin-bottom: .06rem;
+  padding-left: .2rem;
+}
 
+.more .more-icon {
+  display: inline-block;
+  width: .19rem;
+  height: .14rem;
+  background: url('../assets/img/one/more.png') center no-repeat;
+  margin-left: .1rem;
+}
+
+.line {
+  width: 5.68rem;
+  height: .02rem;
+  margin: 0 auto;
+  background-color: #3b3b3b;
+  margin-bottom: .09rem;
+}
 </style>
