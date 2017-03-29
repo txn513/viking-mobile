@@ -166,7 +166,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .viking-two {
   width: 100%;
   height: 100%;
@@ -285,4 +285,29 @@ export default {
   text-indent: 2em;
   line-height: .36rem;
 }
+
+
+.dot-wrap {
+  height: .16rem;
+  position: absolute;
+  left: 50%;
+  top: 10.28rem;
+  transform: translateX(-50%);
+  transition: all .2s ease;
+}
+
+.dot-wrap li {
+  float: left;
+  width: .16rem;
+  height: .16rem;
+  margin: 0 .05rem;
+  border-radius: .08rem;
+  border: 2px solid #b81b48;
+}
+
+.dot-wrap li.active {
+  background-color: #b81b48;
+  width: .32rem;
+}
+
 </style>
