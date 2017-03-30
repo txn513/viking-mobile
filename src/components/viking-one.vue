@@ -1,11 +1,11 @@
 <template>
   <div class="viking-one">
     <div class="one-outer">
-      <div class="container" style="left:0">
+      <div class="container" style="left:0" @touchstart="cardTouchStart" @touchmove.prevent="cardTouchMove" @touchend="cardTouchEnd">
       <!-- 第一屏 -->
-        <div class="one-wrap">
-          <div class="white white-left"></div>
-          <div class="white white-right"></div>
+        <div class="one-wrap current">
+         <!--  <div class="white white-left"></div>
+          <div class="white white-right"></div> -->
           <div class="one oneLeft left">
             <h3 class="vk-title">维京荣耀 &nbsp;屡获殊荣</h3>
             <p class="vk-text">旗下46艘维京船自2012年起屡获殊荣</p>
@@ -53,8 +53,8 @@
         </div>
         <!-- 第二屏 -->
         <div class="one-wrap">
-          <div class="white white-left"></div>
-          <div class="white white-right"></div>
+          <!-- <div class="white white-left"></div>
+          <div class="white white-right"></div> -->
           <div class="one oneCenter center">
             <h3 class="vk-title">巡游人文欧洲 &nbsp;体验内河游轮之魅</h3>
             <p class="vk-text">河流是人类文明的摇篮</p>
@@ -87,8 +87,8 @@
         </div>
         <!-- 第三屏 -->
         <div class="one-wrap">
-          <div class="white white-left"></div>
-          <div class="white white-right"></div>
+          <!-- <div class="white white-left"></div>
+          <div class="white white-right"></div> -->
           <div class="one oneRight right">
             <h3 class="vk-title">维京游轮 &nbsp;游轮界的劳斯莱斯</h3>
             <p class="vk-text">旨在为全球旅行者提供高品质的内河与海洋游轮服务</p>
@@ -138,10 +138,79 @@ export default {
         Allwidth: '',
         imgurl: require('./logo.png'),
         isCards:0,
+
+        //滑动变量
+        cardStartPos:0,
+        cardMoveDis : 0,
+        cardNewPos:0,
+        cardConWidth: 0,
+        windowWidth: 0,
+        htmlFontSize: 0,
+        $container: null
       }
     },
     methods: {
+      getTranslateX(){
+        return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-one .container'),null).transform.substring(7).split(',')[4]) || 0
+      },
+      cardTouchStart(e){
+        this.cardStartPos = e.targetTouches[0].pageX;
+        // this.cardNewPos = e.currentTarget.offsetLeft;
+        this.cardNewPos = this.getTranslateX();
+        console.log(this.cardNewPos);
+        this.$container.className="container";
+      },
+      cardTouchMove(e){
+        this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
+        var pos = this.cardNewPos + this.cardMoveDis;
+        if(pos > 0){
+          // e.currentTarget.style.left = 0+'px';
+          e.currentTarget.style.transform = "translate3d(0,0,0)"
+        }
+        else if (pos <-(this.cardConWidth-this.windowWidth)){
+          // e.currentTarget.style.left = -(this.cardConWidth-this.windowWidth) + 'px';
+          e.currentTarget.style.transform = "translate3d("+ (-(this.cardConWidth-this.windowWidth)) + 'px' +",0,0)";
+        }
+        else {
+          // e.currentTarget.style.left = pos + 'px';
+          e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
+        }
 
+
+        if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
+          document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className="one-wrap";
+          document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[0].className ="one-wrap current";
+        }
+        else if (this.getTranslateX() <= -(2.95*this.htmlFontSize) && this.getTranslateX() > -(8.85*this.htmlFontSize)){
+          document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[0].className="one-wrap";
+          document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[2].className="one-wrap";
+          document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className ="one-wrap current";
+        }
+        else {
+          document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className="one-wrap";
+          document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[2].className ="one-wrap current";
+        }
+
+      },
+      cardTouchEnd(e){
+        this.$container.className="container containerAnimation";
+        if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
+          e.currentTarget.style.transform = "translate3d(0,0,0)"
+          this.isCards = 0;
+
+        }
+        else if (this.getTranslateX() <= -(2.95*this.htmlFontSize) && this.getTranslateX() > -(8.85*this.htmlFontSize)){
+          e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 1;
+          // e.currentTarget.style.left = (-5.9*this.htmlFontSize) + 'px';
+        }
+        else {
+          e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 2;
+          // e.currentTarget.style.left = (-5.9*2*this.htmlFontSize) + 'px';
+
+        }
+      },
     },
     mounted() {
       this.firstLink = this.videoData[0].link;
@@ -150,74 +219,77 @@ export default {
       // ==========================  滑动   ================================================
       var self = this;
       var xstar, ystar, xmove, ymove, xend, yend, disx;
-      document.addEventListener('touchstart', function(e) {
+      // document.addEventListener('touchstart', function(e) {
 
-        xstar = e.touches[0].pageX;
-        ystar = e.touches[0].pageX;
+      //   xstar = e.touches[0].pageX;
+      //   ystar = e.touches[0].pageX;
 
 
-      }, false);
-      document.addEventListener('touchmove', function(e) {
-      	e.preventDefault()
-        xmove = e.touches[0].pageX;
-        ymove = e.touches[0].pageX;
-        var disx = xmove-xstar
-        console.log(disx);
-        document.querySelector('.container').style.left = disx/100+parseInt(document.querySelector('.container').style.left)/100 +'rem'
+      // }, false);
+      // document.addEventListener('touchmove', function(e) {
+      // 	e.preventDefault()
+      //   xmove = e.touches[0].pageX;
+      //   ymove = e.touches[0].pageX;
+      //   var disx = xmove-xstar
+      //   console.log(disx);
+      //   document.querySelector('.container').style.left = disx/100+parseInt(document.querySelector('.container').style.left)/100 +'rem'
 
-      }, false);
+      // }, false);
 
-      document.addEventListener('touchend', function(e) {
-        xend = e.changedTouches[0].pageX;
-        yend = e.changedTouches[0].pageY;
-        if (xstar - xend < -45) { //右滑动
-        	 //小圆点
-          self.isCards--
-          if (self.isCards<=0) {
-          	self.isCards = 0
-          }
-        	console.log('右滑动');
-          document.querySelector('.container').style.left = -7.5*self.isCards +'rem'
-
-         
-        } else if (xstar - xend > 45) { //左滑动
-        	 //小圆点
-          self.isCards++
-          if (self.isCards>=2) {
-          	self.isCards = 2
-          }
-        	console.log('左滑动');
-          document.querySelector('.container').style.left = -7.5*self.isCards +'rem'
+      // document.addEventListener('touchend', function(e) {
+      //   xend = e.changedTouches[0].pageX;
+      //   yend = e.changedTouches[0].pageY;
+      //   if (xstar - xend < -45) { //右滑动
+      //   	 //小圆点
+      //     self.isCards--
+      //     if (self.isCards<=0) {
+      //     	self.isCards = 0
+      //     }
+      //   	console.log('右滑动');
+      //     document.querySelector('.container').style.left = -7.5*self.isCards +'rem'
 
          
-        } else if (xstar - xend >= -45 && xstar - xend < 0) { //不满足右滑动
-          if (xend < 0) {
-            console.log('满足右滑动');
-          } else {
-            console.log('test');
-          }
-        } else if (xstar - xend <= 45 && xstar - xend > 0) { //不满足左滑动
-          if (xend > 636) {
-            console.log('不满足左滑动');
-          } else {
-            console.log('test');
-          }
+      //   } else if (xstar - xend > 45) { //左滑动
+      //   	 //小圆点
+      //     self.isCards++
+      //     if (self.isCards>=2) {
+      //     	self.isCards = 2
+      //     }
+      //   	console.log('左滑动');
+      //     document.querySelector('.container').style.left = -7.5*self.isCards +'rem'
 
-        } else {
-          return
-        }
-        //清除事件监听
-        document.removeEventListener('touchstart', function() {})
-        document.removeEventListener('touchmove', function() {})
-        document.removeEventListener('touchend', function() {})
-      }, false);
+         
+      //   } else if (xstar - xend >= -45 && xstar - xend < 0) { //不满足右滑动
+      //     if (xend < 0) {
+      //       console.log('满足右滑动');
+      //     } else {
+      //       console.log('test');
+      //     }
+      //   } else if (xstar - xend <= 45 && xstar - xend > 0) { //不满足左滑动
+      //     if (xend > 636) {
+      //       console.log('不满足左滑动');
+      //     } else {
+      //       console.log('test');
+      //     }
 
-
+      //   } else {
+      //     return
+      //   }
+      //   //清除事件监听
+      //   document.removeEventListener('touchstart', function() {})
+      //   document.removeEventListener('touchmove', function() {})
+      //   document.removeEventListener('touchend', function() {})
+      // }, false);
+      this.$container = document.querySelector('.viking-one .container');
+      this.cardConWidth = document.querySelector('.viking-one .container').clientWidth;
+      this.htmlFontSize = parseFloat(document.documentElement.style.fontSize);
+      this.windowWidth = document.body.clientWidth;
+      console.log(-(2.95*this.htmlFontSize));
 
 
     },
     ready() {
-
+      
     },
     created: function() {
       //ajax请求数据
@@ -230,11 +302,11 @@ export default {
 
 }
 </script>
-<style>
+<style scoped lang="scss">
 .viking-one {
   width: 100%;
   height: 100%;
-  background: url('../assets/img/one/one-bg.png') top center no-repeat;
+  // background: url('../assets/img/one/one-bg.png') top center no-repeat;
   background-size: 100% 100%;
   overflow: hidden;
 }
@@ -251,20 +323,38 @@ export default {
   padding-top: .41rem;
   position: relative;
   overflow: hidden;
+  transform-style: preserve-3d;
 }
 
 .container {
-  width: 22.5rem;
+  width: 20.5rem;
   height: 9.66rem;
   position: absolute;
   left: 0;
-  transition: all .3s ease;
+  padding-left: 0.7rem;
+/*  transition: all .3s ease;*/
+}
+.containerAnimation {
+  transition: all 0.5s linear
 }
 
 .one-wrap {
-  width: 7.5rem;
+  width: 6.1rem;
   position: relative;
   float: left;
+  margin: 0 -0.1rem;
+  transform: scale(0.8);
+  transition: all .8s ease;
+  &:first-of-type {
+    margin-left: 0;
+  }
+  &:last-of-type {
+    margin-right: 0;
+  }
+  &.current {
+    transform: scale(1);
+    transition: all .8s ease;
+  }
 }
 
 .one-wrap .white {
@@ -292,7 +382,7 @@ export default {
   height: 9.66rem;
   background-color: #ffffff;
   border-radius: .08rem;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
   padding-top: .29rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, .3);
 }
@@ -501,6 +591,7 @@ export default {
   float: right;
   padding-left: 1.49rem;
   padding-top: .33rem;
+  text-align:left;
 }
 
 .glory >div {
