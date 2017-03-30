@@ -93,34 +93,34 @@
       	 			<span>8种房型 &nbsp;满足不同需求</span>
       	 		</h3>
             <ul class="cf-classes clearfix">
-              <li @click="changeClassesActive(0)" :class="{'active':isClassesActive == 0}">浪漫法式露台房(中层)</li>
-              <li @click="changeClassesActive(1)" :class="{'active':isClassesActive == 1}">标准客房</li>
-              <li @click="changeClassesActive(2)" :class="{'active':isClassesActive == 2}">精选标准客房</li>
-              <li @click="changeClassesActive(3)" :class="{'active':isClassesActive == 3}">浪漫法式露台房(上层)</li>
-              <li @click="changeClassesActive(4)" :class="{'active':isClassesActive == 4}">精致阳台客房(中层)</li>
-              <li @click="changeClassesActive(5)" :class="{'active':isClassesActive == 5}">精致阳台客房(上层)</li>
-              <li @click="changeClassesActive(6)" :class="{'active':isClassesActive == 6}">豪华阳台套房</li>
-              <li @click="changeClassesActive(7)" :class="{'active':isClassesActive == 7}">奢享家套房</li>
+              <li @click="changeClassesActivecf" :class="{'active':isClassesActivecf == 0}">浪漫法式露台房(中层)</li>
+              <li @click="changeClassesActivecf" :class="{'active':isClassesActivecf == 1}">标准客房</li>
+              <li @click="changeClassesActivecf" :class="{'active':isClassesActivecf == 2}">精选标准客房</li>
+              <li @click="changeClassesActivecf" :class="{'active':isClassesActivecf == 3}">浪漫法式露台房(上层)</li>
+              <li @click="changeClassesActivecf" :class="{'active':isClassesActivecf == 4}">精致阳台客房(中层)</li>
+              <li @click="changeClassesActivecf" :class="{'active':isClassesActivecf == 5}">精致阳台客房(上层)</li>
+              <li @click="changeClassesActivecf" :class="{'active':isClassesActivecf == 6}">豪华阳台套房</li>
+              <li @click="changeClassesActivecf" :class="{'active':isClassesActivecf == 7}">奢享家套房</li>
             </ul>
 
             <div class="cf-detail clearfix">
-              <h4 class="cf-name"><span v-show="isClassesActive == 0"></span>{{cfData[isClassesActive].cfName}}</h4>
+              <h4 class="cf-name"><span v-show="isClassesActivecf == 0"></span>{{cfData[isClassesActivecf].cfName}}</h4>
               <div class="line"></div>
-              <p class="vk-text4" v-html="cfData[isClassesActive].cfSize"></p>
-              <img v-if="isClassesActive == 0" src="../assets/img/three/cf-1.png" alt="">
-              <img v-if="isClassesActive == 1" src="../assets/img/three/cf-2.png" alt="">
-              <img v-if="isClassesActive == 2" src="../assets/img/three/cf-2.png" alt="">
-              <img v-if="isClassesActive == 3" src="../assets/img/three/cf-1.png" alt="">
-              <img v-if="isClassesActive == 4" src="../assets/img/three/cf-3.png" alt="">
-              <img v-if="isClassesActive == 5" src="../assets/img/three/cf-3.png" alt="">
-              <img v-if="isClassesActive == 6" src="../assets/img/three/cf-4.png" alt="">
-              <img v-if="isClassesActive == 7" src="../assets/img/three/cf-4.png" alt="">
+              <p class="vk-text4" v-html="cfData[isClassesActivecf].cfSize"></p>
+              <img v-if="isClassesActivecf == 0" src="../assets/img/three/cf-1.png" alt="">
+              <img v-if="isClassesActivecf == 1" src="../assets/img/three/cf-2.png" alt="">
+              <img v-if="isClassesActivecf == 2" src="../assets/img/three/cf-2.png" alt="">
+              <img v-if="isClassesActivecf == 3" src="../assets/img/three/cf-1.png" alt="">
+              <img v-if="isClassesActivecf == 4" src="../assets/img/three/cf-3.png" alt="">
+              <img v-if="isClassesActivecf == 5" src="../assets/img/three/cf-3.png" alt="">
+              <img v-if="isClassesActivecf == 6" src="../assets/img/three/cf-4.png" alt="">
+              <img v-if="isClassesActivecf == 7" src="../assets/img/three/cf-4.png" alt="">
             </div>
 						
 						<div class="cf-describe">
 							<p class="cf-describe-title">房间设施</p>
 							<ul class="cf-specific clearfix">
-							    <li v-for="item in cfData[isClassesActive].cfLong">{{item}}</li>
+							    <li v-for="item in cfData[isClassesActivecf].cfLong">{{item}}</li>
 							    <!-- <li>· 客房内配有实木衣柜、卫星电话、冰柜、保险箱、以及40寸索尼平板电视</li>
 							    <li>· 可通过电视娱乐系统收看电影电视：超过30部电影（配有中文字幕），CCTV频道，专门购物频道以及相关港口城市频道等</li>
 							    <li>· 200cm X 160cm豪华大床 (提供双床选择)，床下空间可容纳行李箱</li>
@@ -151,26 +151,26 @@
       	 			<span>中西结合 &nbsp;畅饮美酒</span>
       	 		</h3>
             <ul class="cf-classes clearfix">
-              <li @click="changeClassesActive(0)" :class="{'active':isClassesActive == 0}">刘一凡定制菜单</li>
-              <li @click="changeClassesActive(1)" :class="{'active':isClassesActive == 1}">中西自助</li>
-              <li @click="changeClassesActive(2)" :class="{'active':isClassesActive == 2}">欢迎晚宴</li>
-              <li @click="changeClassesActive(3)" :class="{'active':isClassesActive == 3}">当地美食</li>
-              <li @click="changeClassesActive(4)" :class="{'active':isClassesActive == 4}">畅饮美酒</li>
-              <li @click="changeClassesActive(5)" :class="{'active':isClassesActive == 5}">现煮面档</li>
+              <li @click="changeClassesActivems" :class="{'active':isClassesActivems == 0}">刘一凡定制菜单</li>
+              <li @click="changeClassesActivems" :class="{'active':isClassesActivems == 1}">中西自助</li>
+              <li @click="changeClassesActivems" :class="{'active':isClassesActivems == 2}">欢迎晚宴</li>
+              <li @click="changeClassesActivems" :class="{'active':isClassesActivems == 3}">当地美食</li>
+              <li @click="changeClassesActivems" :class="{'active':isClassesActivems == 4}">畅饮美酒</li>
+              <li @click="changeClassesActivems" :class="{'active':isClassesActivems == 5}">现煮面档</li>
             </ul>
 
             <div class="cf-detail clearfix">
-              <h4 class="cf-name">{{foodData[isClassesActive].name}}</h4>
-              <img v-if="isClassesActive == 0" src="../assets/img/three/meishi/ms_1.png" alt="">
-              <img v-if="isClassesActive == 1" src="../assets/img/three/meishi/ms_2.png" alt="">
-              <img v-if="isClassesActive == 2" src="../assets/img/three/meishi/ms_3.png" alt="">
-              <img v-if="isClassesActive == 3" src="../assets/img/three/meishi/ms_4.png" alt="">
-              <img v-if="isClassesActive == 4" src="../assets/img/three/meishi/ms_5.png" alt="">
-              <img v-if="isClassesActive == 5" src="../assets/img/three/meishi/ms_6.png" alt="">
+              <h4 class="cf-name">{{foodData[isClassesActivems].name}}</h4>
+              <img v-if="isClassesActivems == 0" src="../assets/img/three/meishi/ms_1.png" alt="">
+              <img v-if="isClassesActivems == 1" src="../assets/img/three/meishi/ms_2.png" alt="">
+              <img v-if="isClassesActivems == 2" src="../assets/img/three/meishi/ms_3.png" alt="">
+              <img v-if="isClassesActivems == 3" src="../assets/img/three/meishi/ms_4.png" alt="">
+              <img v-if="isClassesActivems == 4" src="../assets/img/three/meishi/ms_5.png" alt="">
+              <img v-if="isClassesActivems == 5" src="../assets/img/three/meishi/ms_6.png" alt="">
             </div>
 						
 						<div class="cf-describe">
-							<p class="detail-text" v-for="item in foodData[isClassesActive].describe">{{item}}</p>
+							<p class="detail-text" v-for="item in foodData[isClassesActivems].describe">{{item}}</p>
 							<!-- <p class="detail-text">作为蓝带大师和《顶级厨师》的评委</p>
 							<p class="detail-text">他致力于将中西美食融合荟萃</p>
 							<p class="detail-text">带给每一位维京贵宾舌尖上的感动</p>
@@ -189,23 +189,23 @@
       	 			<span>美食美酒 &nbsp;美景怡情</span>
       	 		</h3>
             <ul class="cf-classes clearfix">
-              <li @click="changeClassesActive(0)" :class="{'active':isClassesActive == 0}">餐厅</li>
-              <li @click="changeClassesActive(1)" :class="{'active':isClassesActive == 1}">观景酒廊</li>
-              <li @click="changeClassesActive(2)" :class="{'active':isClassesActive == 2}">咖啡吧</li>
-              <li @click="changeClassesActive(3)" :class="{'active':isClassesActive == 3}">乐饮酒廊</li>
+              <li @click="changeClassesActivect" :class="{'active':isClassesActivect == 0}">餐厅</li>
+              <li @click="changeClassesActivect" :class="{'active':isClassesActivect == 1}">观景酒廊</li>
+              <li @click="changeClassesActivect" :class="{'active':isClassesActivect == 2}">咖啡吧</li>
+              <li @click="changeClassesActivect" :class="{'active':isClassesActivect == 3}">乐饮酒廊</li>
             </ul>
 
             <div class="cf-detail clearfix">
-              <h4 class="cf-name">{{restaurantData[isClassesActive].name}}</h4>
-              <img v-if="isClassesActive == 0" src="../assets/img/three/canting/ct_1.png" alt="">
-              <img v-if="isClassesActive == 1" src="../assets/img/three/canting/ct_2.png" alt="">
-              <img v-if="isClassesActive == 2" src="../assets/img/three/canting/ct_3.png" alt="">
-              <img v-if="isClassesActive == 3" src="../assets/img/three/canting/ct_4.png" alt="">
+              <h4 class="cf-name">{{restaurantData[isClassesActivect].name}}</h4>
+              <img v-if="isClassesActivect == 0" src="../assets/img/three/canting/ct_1.png" alt="">
+              <img v-if="isClassesActivect == 1" src="../assets/img/three/canting/ct_2.png" alt="">
+              <img v-if="isClassesActivect == 2" src="../assets/img/three/canting/ct_3.png" alt="">
+              <img v-if="isClassesActivect == 3" src="../assets/img/three/canting/ct_4.png" alt="">
             </div>
 						
 						<div class="cf-describe">
-							<p class="detail-text" v-for="item in restaurantData[isClassesActive].place">{{item}}</p>
-							<p class="detail-text detail-text-mt">{{restaurantData[isClassesActive].describe}}</p>
+							<p class="detail-text" v-for="item in restaurantData[isClassesActivect].place">{{item}}</p>
+							<p class="detail-text detail-text-mt">{{restaurantData[isClassesActivect].describe}}</p>
 							
 						</div>
 
@@ -220,30 +220,32 @@
       	 			<span>河轮时光 &nbsp;悠闲惬意</span>
       	 		</h3>
             <ul class="cf-classes clearfix">
-              <li @click="changeClassesActive(0)" :class="{'active':isClassesActive == 0}">日光甲板</li>
-              <li @click="changeClassesActive(1)" :class="{'active':isClassesActive == 1}">空中花园</li>
-              <li @click="changeClassesActive(2)" :class="{'active':isClassesActive == 2}">散步道</li>
-              <li @click="changeClassesActive(3)" :class="{'active':isClassesActive == 3}">阅览区/网络中心</li>
-              <li @click="changeClassesActive(4)" :class="{'active':isClassesActive == 4}">礼宾台</li>
-              <li @click="changeClassesActive(5)" :class="{'active':isClassesActive == 5}">精品商店</li>
-              <li @click="changeClassesActive(6)" :class="{'active':isClassesActive == 6}">甲板图</li>
+              <li @click="changeClassesActiveyl" :class="{'active':isClassesActiveyl == 0}">日光甲板</li>
+              <li @click="changeClassesActiveyl" :class="{'active':isClassesActiveyl == 1}">空中花园</li>
+              <li @click="changeClassesActiveyl" :class="{'active':isClassesActiveyl == 2}">散步道</li>
+              <li @click="changeClassesActiveyl" :class="{'active':isClassesActiveyl == 3}">阅览区/网络中心</li>
+              <li @click="changeClassesActiveyl" :class="{'active':isClassesActiveyl == 4}">礼宾台</li>
+              <li @click="changeClassesActiveyl" :class="{'active':isClassesActiveyl == 5}">精品商店</li>
+              <li @click="changeClassesActiveyl" :class="{'active':isClassesActiveyl == 6}">甲板图</li>
             </ul>
 
             <div class="cf-detail clearfix">
-              <h4 class="cf-name">{{recreationData[isClassesActive].name}}</h4>
-              <img v-if="isClassesActive == 0" src="../assets/img/three/yule/yl_1.png" alt="">
-              <img v-if="isClassesActive == 1" src="../assets/img/three/yule/yl_2.png" alt="">
-              <img v-if="isClassesActive == 2" src="../assets/img/three/yule/yl_3.png" alt="">
-              <img v-if="isClassesActive == 3" src="../assets/img/three/yule/yl_4.png" alt="">
-              <img v-if="isClassesActive == 4" src="../assets/img/three/yule/yl_5.png" alt="">
-              <img v-if="isClassesActive == 5" src="../assets/img/three/yule/yl_6.png" alt="">
-              <img v-if="isClassesActive == 6" src="../assets/img/three/yule/yl_6.png" alt="">
+              <h4 class="cf-name">{{recreationData[isClassesActiveyl].name}}</h4>
+              <img v-if="isClassesActiveyl == 0" src="../assets/img/three/yule/yl_1.png" alt="">
+              <img v-if="isClassesActiveyl == 1" src="../assets/img/three/yule/yl_2.png" alt="">
+              <img v-if="isClassesActiveyl == 2" src="../assets/img/three/yule/yl_3.png" alt="">
+              <img v-if="isClassesActiveyl == 3" src="../assets/img/three/yule/yl_4.png" alt="">
+              <img v-if="isClassesActiveyl == 4" src="../assets/img/three/yule/yl_5.png" alt="">
+              <img v-if="isClassesActiveyl == 5" src="../assets/img/three/yule/yl_6.png" alt="">
+              <img v-if="isClassesActiveyl == 6" src="../assets/img/three/yule/yl_7.png" alt="">
             </div>
 						
 						<div class="cf-describe">
-							<p class="detail-text" v-for="item in restaurantData[isClassesActive].place">{{item}}</p>
-							<p class="detail-text detail-text-mt">{{restaurantData[isClassesActive].describe}}</p>
-							
+							<template v-if="isClassesActiveyl != 6">
+								<p class="detail-text" v-for="item in recreationData[isClassesActiveyl].place">{{item}}</p>
+								<p class="detail-text detail-text-mt">{{recreationData[isClassesActiveyl].describe}}</p>
+							</template>
+							<img v-if="isClassesActiveyl == 6" style="width: 7.02rem;height" src="../assets/img/three/yule/jiaban.png" alt="">
 						</div>
 
           </div>
@@ -272,65 +274,133 @@ export default {
     return {
     	isHide:0,
       isCards: 0,
-      isClassesActive:0,
+      isClassesActivecf:0,      //舱房导航栏
+      isClassesActivems:0,			//美食导航栏
+      isClassesActivect:0,			//餐厅导航栏
+      isClassesActiveyl:0,			//甲板娱乐导航栏
       shipData:vikingData.ship,    //河轮介绍
       shipIndex:0,                 //1-6艘河轮
       cfData:vikingData.cf,       //舱房
       foodData:vikingData.food,   //美食荟萃
       restaurantData:vikingData.restaurant,  //餐厅  
       recreationData:vikingData.recreation,   //游轮娱乐
+      cfTimer:'',									//舱房定时器
+      msTimer:'',									//美食荟萃定时器
+      ctTimer:'',									//餐厅定时器
+      ylTimer:'',									//甲板娱乐定时器
     }
   },
   methods:{
   	init(){ //切换屏幕时初始化
-  		this.isClassesActive=0;
+  		this.isClassesActivecf=0;
+  		this.isClassesActivems=0;
+  		this.isClassesActivect=0;
+  		this.isClassesActiveyl=0;
   	},
-  	changeClassesActive(i){   //房型等类目切换
-  		this.isClassesActive = i;
-  		// var child = e.currentTarget;
-  		//    //房型等类目切换
-  		// this.isClassesActive = i;
-  		// var i = 0;
-    //     while( (child = child.previousElementSibling) != null ) 
-    //       ////console.log(child);
-    //       i++;
-    //       console.log(i);
-
-    //    this.isClassesActive = i;
+  	changeClassesActivecf(e){   //房型等类目切换
+  		var child = e.currentTarget;
+  		var i = 0;
+        while( (child = child.previousElementSibling) != null ) 
+          i++;
+       this.isClassesActivecf = i;
+       clearInterval(this.cfTimer);
+  	},
+  	changeClassesActivems(e){   //美食等类目切换
+  		var child = e.currentTarget;
+  		var i = 0;
+        while( (child = child.previousElementSibling) != null ) 
+          i++;
+       this.isClassesActivems = i;
+       clearInterval(this.msTimer);
+  	},
+  	changeClassesActivect(e){   //餐厅酒廊等类目切换
+  		var child = e.currentTarget;
+  		var i = 0;
+        while( (child = child.previousElementSibling) != null ) 
+          i++;
+       this.isClassesActivect = i;
+       clearInterval(this.ctTimer);
+  	},
+  	changeClassesActiveyl(e){   //甲板娱乐等类目切换
+  		var child = e.currentTarget;
+  		var i = 0;
+        while( (child = child.previousElementSibling) != null ) 
+          i++;
+       this.isClassesActiveyl = i;
+       clearInterval(this.ylTimer);
   	},
   	changeShipIndex(i){   //点击切换不同的游轮介绍
   		this.shipIndex = i
-  		console.log(i);
-  	}
+  	},
+  	autoCf(){    //舱房自动轮播
+  		var self = this;
+  		var i = self.isClassesActivecf;
+  			this.cfTimer = setInterval(function(){
+  				i++;
+  				i = i%8
+  				self.isClassesActivecf=i;
+  			},5000)
+  	},
+  	autoMs(){    //美食荟萃自动轮播
+  		var self = this;
+  		var i = self.isClassesActivems;
+  			this.msTimer = setInterval(function(){
+  				i++;
+  				i = i%6
+  				self.isClassesActivems=i;
+  			},5000)
+  	},
+  	autoCt(){    //餐厅酒廊自动轮播
+  		var self = this;
+  		var i = self.isClassesActivect;
+  			this.ctTimer = setInterval(function(){
+  				i++;
+  				i = i%4
+  				self.isClassesActivect=i;
+  			},5000)
+  	},
+  	autoYl(){    //餐厅酒廊自动轮播
+  		var self = this;
+  		var i = self.isClassesActiveyl;
+  			this.ylTimer = setInterval(function(){
+  				i++;
+  				i = i%7
+  				self.isClassesActiveyl=i;
+  			},5000)
+  	},
   },
   mounted(){
-  	      // ==========================  滑动   ================================================
+  		this.autoCf() 
+  		this.autoMs() 
+  		this.autoCt() 
+  		this.autoYl() 
+  	  // ==========================  滑动   ================================================
       var self = this;
       var xstar, ystar, xmove, ymove, xend, yend, disx;
-      document.querySelector('.viking-three .container').addEventListener('touchstart', function(e) {
+      var boxDom = document.querySelector('.viking-three .container');
+      boxDom.addEventListener('touchstart', function(e) {
 
         xstar = e.touches[0].pageX;
         ystar = e.touches[0].pageX;
 
 
       }, false);
-      document.querySelector('.viking-three .container').addEventListener('touchmove', function(e) {
+      boxDom.addEventListener('touchmove', function(e) {
         e.preventDefault()
         xmove = e.touches[0].pageX;
         ymove = e.touches[0].pageX;
         var disx = xstar - xmove
-        console.log(disx + "disx");
         if (disx < 0) { //往右拖动
-          document.querySelector('.viking-three .container').style.left = -(disx / 100 + parseInt(document.querySelector('.viking-three .container').style.left) / 100) + 'rem'
+          boxDom.style.left = -(disx / 100 + parseInt(boxDom.style.left) / 100) + 'rem'
         } else { //往左拖动
         	console.log(1);
-          document.querySelector('.viking-three .container').style.left = (parseInt(document.querySelector('.viking-three .container').style.left) / 100-disx / 100  ) + 'rem'
+          boxDom.style.left = (parseInt(boxDom.style.left) / 100-disx / 100  ) + 'rem'
 
         }
 
       }, false);
 
-      document.querySelector('.viking-three .container').addEventListener('touchend', function(e) {
+      boxDom.addEventListener('touchend', function(e) {
         xend = e.changedTouches[0].pageX;
         yend = e.changedTouches[0].pageY;
         if (xstar - xend < -45) { //右滑动
@@ -340,7 +410,7 @@ export default {
               self.isCards = 0
             }
           console.log('右滑动');
-          document.querySelector('.viking-three .container').style.left = -7.5 * self.isCards + 'rem';
+          boxDom.style.left = -7.5 * self.isCards + 'rem';
           self.init();
 
 
@@ -351,7 +421,7 @@ export default {
               self.isCards = 5
             }
           console.log('左滑动');
-          document.querySelector('.viking-three .container').style.left = -7.5 * self.isCards + 'rem';
+          boxDom.style.left = -7.5 * self.isCards + 'rem';
           self.init();
 
 
@@ -372,9 +442,9 @@ export default {
           return
         }
         //清除事件监听
-        document.querySelector('.viking-three .container').removeEventListener('touchstart', function() {})
-        document.querySelector('.viking-three .container').removeEventListener('touchmove', function() {})
-        document.querySelector('.viking-three .container').removeEventListener('touchend', function() {})
+        boxDom.removeEventListener('touchstart', function() {})
+        boxDom.removeEventListener('touchmove', function() {})
+        boxDom.removeEventListener('touchend', function() {})
       }, false);
 
   }
@@ -617,12 +687,26 @@ export default {
   font-size: .22rem;
   color: #3f3f3f;
   padding-left: .1rem;
+  text-align: left;
 }
 
 .cf-classes li.active {
   background-color: #e10452;
   color: #ffffff;
   box-shadow: 1px 0px 2px rgba(0, 0, 0, .1), -1px 0px 2px rgba(0, 0, 0, .1), 0px 4px 15px #a57284;
+  -webkit-animation:bounce 1s .3s ease both;
+	-moz-animation:bounce 1s .3s ease both;
+}
+
+@-webkit-keyframes bounce{
+0%,20%,50%,80%,100%{-webkit-transform:translateY(0)}
+40%{-webkit-transform:translateY(-10px)}
+60%{-webkit-transform:translateY(-5px)}
+}
+@-moz-keyframes bounce{
+0%,20%,50%,80%,100%{-moz-transform:translateY(0)}
+40%{-moz-transform:translateY(-10px)}
+60%{-moz-transform:translateY(-5px)}
 }
 
 .cf-detail {

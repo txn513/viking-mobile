@@ -325,6 +325,13 @@ var recreation = [
 			],
 			"describe":''
 		},
+		{
+			"name":'甲板图',
+			"place":[
+					'琳琅满目的精品商店，让您在船上也能尽情购物。前往主甲板，来到礼宾台附近，您就能找到它。',
+			],
+			"describe":''
+		},
 ];
 
 module.exports.recreation = recreation;
