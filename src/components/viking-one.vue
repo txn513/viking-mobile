@@ -146,7 +146,7 @@ export default {
         cardConWidth: 0,
         windowWidth: 0,
         htmlFontSize: 0,
-        $container: null
+        $container: null,
       }
     },
     methods: {

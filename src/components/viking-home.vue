@@ -1,14 +1,46 @@
 <template>
-	<div class="big-viking">viking-home</div>
+	<div class="viking-home">
+		<img src="../assets/img/home/home_bg.png" class="home-bg">
+		<img src="../assets/img/home/arrow.gif" class="home-arrow">
+	</div>
 </template>
 <script>
 	export default {
-		name: 'viking-home'
+		name: 'viking-home',
+		data () {
+		    return {
+		      	homeBgSrc: '',
+		    }
+		}		
 	}
 </script>
 <style lang="scss" scoped>
-	$bgColor: #ccc;
-	.big-viking {
-		background: $bgColor;
+	.viking-home {
+		position: relative;
+		height: 100%;
+		width: 100%;
+		text-align: center;
+		overflow:hidden;
+		img {
+			position: absolute;
+			min-height: 100%;
+			min-width:100%;
+			margin: 0 auto;
+			top: 0;
+			left: 50%;
+			transform: translate(-50%, 0);
+		}
+		.home-arrow {
+			position:absolute;
+			bottom: 1rem;
+			top: auto;
+			left: 50%;
+			transform: translate(-50%,0);
+			height: 1.65rem;
+			width: 1.62rem;
+			z-index: 100;
+			min-height: auto;
+    		min-width: auto;
+		}
 	}
 </style>

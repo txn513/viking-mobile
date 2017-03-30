@@ -1,11 +1,11 @@
 <template>
   <div class="viking-two">
     <div class="two-outer">
-      <div class="container" style="left:0">
+      <div class="container" style="left:0" @touchstart="cardTouchStart" @touchmove.prevent="cardTouchMove" @touchend="cardTouchEnd">
         <!-- 真正一价全包 &nbsp;轻装出行 -->
-        <div class="two-wrap">
-          <div class="white white-left"></div>
-          <div class="white white-right"></div>
+        <div class="two-wrap current">
+          <!-- <div class="white white-left"></div>
+          <div class="white white-right"></div> -->
           <div class="two">
             <h3 class="vk-title">真正一价全包 &nbsp;轻装出行</h3>
             <p class="vk-text">专为中国游客量身定制的欧洲内河游轮</p>
@@ -21,8 +21,8 @@
         </div>
         <!-- 24小时全程中文礼宾服务 -->
         <div class="two-wrap">
-          <div class="white white-left"></div>
-          <div class="white white-right"></div>
+      <!--     <div class="white white-left"></div>
+          <div class="white white-right"></div> -->
           <div class="two">
             <h3 class="vk-title">24小时全程中文礼宾服务</h3>
             <p class="vk-text">从机舱门接机开始的全程中文礼宾服务</p>
@@ -33,8 +33,8 @@
         </div>
         <!-- 河上的中式厨师 -->
         <div class="two-wrap">
-          <div class="white white-left"></div>
-          <div class="white white-right"></div>
+   <!--        <div class="white white-left"></div>
+          <div class="white white-right"></div> -->
           <div class="two">
             <h3 class="vk-title">欧洲河上的中式厨房</h3>
             <p class="vk-text">特聘星厨刘一帆为维京美食顾问</p>
@@ -51,8 +51,6 @@
         </div>
         <!-- 深入欧洲腹地 -->
         <div class="two-wrap">
-          <div class="white white-left"></div>
-          <div class="white white-right"></div>
           <div class="two">
             <h3 class="vk-title">深入欧洲腹地 &nbsp;领略世遗之美</h3>
             <p class="vk-text">瓦豪河谷 &nbsp;科隆大教堂 &nbsp;美泉宫</p>
@@ -63,8 +61,8 @@
         </div>
         <!-- 分期免息 -->
         <div class="two-wrap">
-          <div class="white white-left"></div>
-          <div class="white white-right"></div>
+          <!-- <div class="white white-left"></div>
+          <div class="white white-right"></div> -->
           <div class="two">
             <h3 class="vk-title">分期免息 &nbsp;最低首付￥1158</h3>
             <p class="vk-text">维京游轮深圳合作授权 &nbsp;精品小团 &nbsp;保证出发</p>
@@ -89,90 +87,185 @@ export default {
   data() {
       return {
         msg: '',
-        isCards: 0
+        isCards: 0,
+        //滑动变量
+        cardStartPos:0,
+        cardMoveDis : 0,
+        cardNewPos:0,
+        cardConWidth: 0,
+        windowWidth: 0,
+        htmlFontSize: 0,
+        $container: null
       }
+    },
+    methods:{
+      getTranslateX(){
+        return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-two .container'),null).transform.substring(7).split(',')[4]) || 0
+      },
+      cardTouchStart(e){
+        this.cardStartPos = e.targetTouches[0].pageX;
+        // this.cardNewPos = e.currentTarget.offsetLeft;
+        this.cardNewPos = this.getTranslateX();
+        console.log(this.cardNewPos);
+        this.$container.className="container";
+      },
+      cardTouchMove(e){
+        this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
+        var pos = this.cardNewPos + this.cardMoveDis;
+        // if(pos > 0){
+        //   // e.currentTarget.style.left = 0+'px';
+        //   //e.currentTarget.style.transform = "translate3d(0,0,0)"
+        // }
+        // else if (pos <-(this.cardConWidth-this.windowWidth)){
+        //   // e.currentTarget.style.left = -(this.cardConWidth-this.windowWidth) + 'px';
+        //   //e.currentTarget.style.transform = "translate3d("+ (-(this.cardConWidth-this.windowWidth)) + 'px' +",0,0)";
+        // }
+        // else {
+        //   // e.currentTarget.style.left = pos + 'px';
+          
+        // }
+        e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
+
+        if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
+          this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
+          this.$container.querySelectorAll('.two-wrap')[0].className ="two-wrap current";
+        }
+        else if (this.getTranslateX() <= -(2.95*this.htmlFontSize) && this.getTranslateX() > -(8.85*this.htmlFontSize)){
+          this.$container.querySelectorAll('.two-wrap')[0].className="two-wrap";
+          this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
+          this.$container.querySelectorAll('.two-wrap')[1].className ="two-wrap current";
+        }
+        else if (this.getTranslateX() <= -(8.85*this.htmlFontSize) && this.getTranslateX() > -((5.9*2+2.95)*this.htmlFontSize)){
+          this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
+          this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
+          this.$container.querySelectorAll('.two-wrap')[2].className ="two-wrap current";
+        }
+        else if (this.getTranslateX() <= -((5.9*2+2.95)*this.htmlFontSize) && this.getTranslateX() > -((5.9*3+2.95)*this.htmlFontSize)){
+          this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
+          this.$container.querySelectorAll('.two-wrap')[4].className="two-wrap";
+          this.$container.querySelectorAll('.two-wrap')[3].className ="two-wrap current";
+        }
+        else {
+          this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
+          this.$container.querySelectorAll('.two-wrap')[4].className ="two-wrap current";
+        }
+
+      },
+      cardTouchEnd(e){
+        this.$container.className="container containerAnimation";
+        if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
+          e.currentTarget.style.transform = "translate3d(0,0,0)"
+          this.isCards = 0;
+
+        }
+        else if (this.getTranslateX() <= -(2.95*this.htmlFontSize) && this.getTranslateX() > -(8.85*this.htmlFontSize)){
+          e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 1;
+          // e.currentTarget.style.left = (-5.9*this.htmlFontSize) + 'px';
+        }
+        else if (this.getTranslateX() <= -(8.85*this.htmlFontSize) && this.getTranslateX() > -((5.9*2+2.95)*this.htmlFontSize)){
+          e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 2;
+        }
+         else if (this.getTranslateX() <= -((5.9*2+2.95)*this.htmlFontSize) && this.getTranslateX() > -((5.9*3+2.95)*this.htmlFontSize)){
+          e.currentTarget.style.transform = "translate3d("+ (-5.9*3*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 3;
+         }
+        else {
+          e.currentTarget.style.transform = "translate3d("+ (-5.9*4*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 4;
+          // e.currentTarget.style.left = (-5.9*2*this.htmlFontSize) + 'px';
+
+        }
+      },
     },
     mounted() {
       // ==========================  滑动   ================================================
       var self = this;
       var xstar, ystar, xmove, ymove, xend, yend, disx;
-      document.querySelector('.container').addEventListener('touchstart', function(e) {
+      // document.querySelector('.container').addEventListener('touchstart', function(e) {
 
-        xstar = e.touches[0].pageX;
-        ystar = e.touches[0].pageX;
-
-
-      }, false);
-      document.addEventListener('touchmove', function(e) {
-        e.preventDefault()
-        xmove = e.touches[0].pageX;
-        ymove = e.touches[0].pageX;
-        var disx = xstar - xmove
-        console.log(disx + "disx");
-        if (disx < 0) { //往右拖动
-          document.querySelector('.container').style.left = -(disx / 100 + parseInt(document.querySelector('.container').style.left) / 100) + 'rem'
-        } else { //往左拖动
-        	console.log(1);
-          document.querySelector('.container').style.left = (parseInt(document.querySelector('.container').style.left) / 100-disx / 100  ) + 'rem'
-
-        }
-
-      }, false);
-
-      document.addEventListener('touchend', function(e) {
-        xend = e.changedTouches[0].pageX;
-        yend = e.changedTouches[0].pageY;
-        if (xstar - xend < -45) { //右滑动
-          //小圆点
-          self.isCards--
-            if (self.isCards <= 0) {
-              self.isCards = 0
-            }
-          console.log('右滑动');
-          document.querySelector('.container').style.left = -7.5 * self.isCards + 'rem'
+      //   xstar = e.touches[0].pageX;
+      //   ystar = e.touches[0].pageX;
 
 
-        } else if (xstar - xend > 45) { //左滑动
-          //小圆点
-          self.isCards++
-            if (self.isCards >= 4) {
-              self.isCards = 4
-            }
-          console.log('左滑动');
-          document.querySelector('.container').style.left = -7.5 * self.isCards + 'rem'
+      // }, false);
+      // document.addEventListener('touchmove', function(e) {
+      //   e.preventDefault()
+      //   xmove = e.touches[0].pageX;
+      //   ymove = e.touches[0].pageX;
+      //   var disx = xstar - xmove
+      //   console.log(disx + "disx");
+      //   if (disx < 0) { //往右拖动
+      //     document.querySelector('.container').style.left = -(disx / 100 + parseInt(document.querySelector('.container').style.left) / 100) + 'rem'
+      //   } else { //往左拖动
+      //   	console.log(1);
+      //     document.querySelector('.container').style.left = (parseInt(document.querySelector('.container').style.left) / 100-disx / 100  ) + 'rem'
+
+      //   }
+
+      // }, false);
+
+      // document.addEventListener('touchend', function(e) {
+      //   xend = e.changedTouches[0].pageX;
+      //   yend = e.changedTouches[0].pageY;
+      //   if (xstar - xend < -45) { //右滑动
+      //     //小圆点
+      //     self.isCards--
+      //       if (self.isCards <= 0) {
+      //         self.isCards = 0
+      //       }
+      //     console.log('右滑动');
+      //     document.querySelector('.container').style.left = -7.5 * self.isCards + 'rem'
 
 
-        } else if (xstar - xend >= -45 && xstar - xend < 0) { //不满足右滑动
-          if (xend < 0) {
-            console.log('满足右滑动');
-          } else {
-            console.log('test');
-          }
-        } else if (xstar - xend <= 45 && xstar - xend > 0) { //不满足左滑动
-          if (xend > 636) {
-            console.log('不满足左滑动');
-          } else {
-            console.log('test');
-          }
+      //   } else if (xstar - xend > 45) { //左滑动
+      //     //小圆点
+      //     self.isCards++
+      //       if (self.isCards >= 4) {
+      //         self.isCards = 4
+      //       }
+      //     console.log('左滑动');
+      //     document.querySelector('.container').style.left = -7.5 * self.isCards + 'rem'
 
-        } else {
-          return
-        }
-        //清除事件监听
-        document.removeEventListener('touchstart', function() {})
-        document.removeEventListener('touchmove', function() {})
-        document.removeEventListener('touchend', function() {})
-      }, false);
+
+      //   } else if (xstar - xend >= -45 && xstar - xend < 0) { //不满足右滑动
+      //     if (xend < 0) {
+      //       console.log('满足右滑动');
+      //     } else {
+      //       console.log('test');
+      //     }
+      //   } else if (xstar - xend <= 45 && xstar - xend > 0) { //不满足左滑动
+      //     if (xend > 636) {
+      //       console.log('不满足左滑动');
+      //     } else {
+      //       console.log('test');
+      //     }
+
+      //   } else {
+      //     return
+      //   }
+      //   //清除事件监听
+      //   document.removeEventListener('touchstart', function() {})
+      //   document.removeEventListener('touchmove', function() {})
+      //   document.removeEventListener('touchend', function() {})
+      // }, false);
+      this.$container = document.querySelector('.viking-two .container');
+      this.cardConWidth = document.querySelector('.viking-two .container').clientWidth;
+      this.htmlFontSize = parseFloat(document.documentElement.style.fontSize);
+      this.windowWidth = document.body.clientWidth;
+      // console.log(this.$container.querySelectorAll('.two-wrap')[0]);
     }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 .viking-two {
   width: 100%;
   height: 100%;
-  background: url('../assets/img/two/two-bg.png') top center no-repeat;
-  background-size: 100% 100%;
+  // background: url('../assets/img/two/two-bg.png') top center no-repeat;
+  // background-size: 100% 100%;
   overflow: hidden;
+  text-align:left;
 }
 
 .container {
@@ -180,7 +273,11 @@ export default {
   height: 9.66rem;
   position: absolute;
   left: 0;
-  transition: all .3s ease;
+  padding-left: 0.7rem;
+  /*transition: all .3s ease;*/
+}
+.containerAnimation {
+  transition: all 0.5s linear
 }
 
 .viking-two * {
@@ -195,12 +292,26 @@ export default {
   padding-top: .41rem;
   position: relative;
   overflow: hidden;
+  transform-style: preserve-3d;
 }
 
 .two-wrap {
-  width: 7.5rem;
+  width: 6.1rem;
   position: relative;
   float: left;
+  margin: 0 -0.1rem;
+  transform: scale(0.8);
+  transition: all .8s ease;
+  &:first-of-type {
+    margin-left: 0;
+  }
+  &:last-of-type {
+    margin-right: 0;
+  }
+  &.current {
+    transform: scale(1);
+    transition: all .8s ease;
+  }
 }
 
 .two-wrap .white {

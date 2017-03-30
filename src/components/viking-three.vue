@@ -2,7 +2,7 @@
   <div class="viking-three">
     <div class="three-outer">
       <!-- container -->
-      <div class="container" style="left:0">
+      <div class="container" style="left:0" @touchstart="cardTouchStart" @touchmove.prevent="cardTouchMove" @touchend="cardTouchEnd">
         <!-- 游轮介绍01 -->
         <div class="three-wrap" v-if="isHide==0">
           <div class="three">
@@ -288,6 +288,15 @@ export default {
       msTimer:'',									//美食荟萃定时器
       ctTimer:'',									//餐厅定时器
       ylTimer:'',									//甲板娱乐定时器
+
+      //滑动变量
+        cardStartPos:0,
+        cardMoveDis : 0,
+        cardNewPos:0,
+        cardConWidth: 0,
+        windowWidth: 0,
+        htmlFontSize: 0,
+        $container: null
     }
   },
   methods:{
@@ -368,6 +377,54 @@ export default {
   				self.isClassesActiveyl=i;
   			},5000)
   	},
+
+    getTranslateX(){
+        return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-three .container'),null).transform.substring(7).split(',')[4]) || 0
+      },
+      cardTouchStart(e){
+        this.cardStartPos = e.targetTouches[0].pageX;
+        // this.cardNewPos = e.currentTarget.offsetLeft;
+        this.cardNewPos = this.getTranslateX();
+        //console.log(this.cardNewPos);
+        this.$container.className="container";
+      },
+      cardTouchMove(e){
+        this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
+        var pos = this.cardNewPos + this.cardMoveDis;
+         
+        e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
+
+      },
+      cardTouchEnd(e){
+        this.$container.className="container containerAnimation";
+        if(this.getTranslateX() > -(3.75*this.htmlFontSize) ){
+          e.currentTarget.style.transform = "translate3d(0,0,0)"
+          this.isCards = 0;
+
+        }
+        else if (this.getTranslateX() <= -(3.57*this.htmlFontSize) && this.getTranslateX() > -((3.75+7.5)*this.htmlFontSize)){
+          e.currentTarget.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 1;
+          // e.currentTarget.style.left = (-5.9*this.htmlFontSize) + 'px';
+        }
+        else if (this.getTranslateX() <= -((3.75+7.5)*this.htmlFontSize) && this.getTranslateX() > -((7.5*2+3.75)*this.htmlFontSize)){
+          e.currentTarget.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 2;
+        }
+         else if (this.getTranslateX() <= -((7.5*2+3.75)*this.htmlFontSize) && this.getTranslateX() > -((7.5*3+3.75)*this.htmlFontSize)){
+          e.currentTarget.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 3;
+         }
+         else if (this.getTranslateX() <= -((7.5*3+3.75)*this.htmlFontSize) && this.getTranslateX() > -((7.5*4+3.75)*this.htmlFontSize)){
+          e.currentTarget.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 4;
+         }
+         else {
+          e.currentTarget.style.transform = "translate3d("+ (-7.5*5*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 5;
+         }
+        
+      },
   },
   mounted(){
   		this.autoCf() 
@@ -378,74 +435,79 @@ export default {
       var self = this;
       var xstar, ystar, xmove, ymove, xend, yend, disx;
       var boxDom = document.querySelector('.viking-three .container');
-      boxDom.addEventListener('touchstart', function(e) {
+      // boxDom.addEventListener('touchstart', function(e) {
 
-        xstar = e.touches[0].pageX;
-        ystar = e.touches[0].pageX;
-
-
-      }, false);
-      boxDom.addEventListener('touchmove', function(e) {
-        e.preventDefault()
-        xmove = e.touches[0].pageX;
-        ymove = e.touches[0].pageX;
-        var disx = xstar - xmove
-        if (disx < 0) { //往右拖动
-          boxDom.style.left = -(disx / 100 + parseInt(boxDom.style.left) / 100) + 'rem'
-        } else { //往左拖动
-        	console.log(1);
-          boxDom.style.left = (parseInt(boxDom.style.left) / 100-disx / 100  ) + 'rem'
-
-        }
-
-      }, false);
-
-      boxDom.addEventListener('touchend', function(e) {
-        xend = e.changedTouches[0].pageX;
-        yend = e.changedTouches[0].pageY;
-        if (xstar - xend < -45) { //右滑动
-          //小圆点
-          self.isCards--
-            if (self.isCards <= 0) {
-              self.isCards = 0
-            }
-          console.log('右滑动');
-          boxDom.style.left = -7.5 * self.isCards + 'rem';
-          self.init();
+      //   xstar = e.touches[0].pageX;
+      //   ystar = e.touches[0].pageX;
 
 
-        } else if (xstar - xend > 45) { //左滑动
-          //小圆点
-          self.isCards++
-            if (self.isCards >= 5) {
-              self.isCards = 5
-            }
-          console.log('左滑动');
-          boxDom.style.left = -7.5 * self.isCards + 'rem';
-          self.init();
+      // }, false);
+      // boxDom.addEventListener('touchmove', function(e) {
+      //   e.preventDefault()
+      //   xmove = e.touches[0].pageX;
+      //   ymove = e.touches[0].pageX;
+      //   var disx = xstar - xmove
+      //   if (disx < 0) { //往右拖动
+      //     boxDom.style.left = -(disx / 100 + parseInt(boxDom.style.left) / 100) + 'rem'
+      //   } else { //往左拖动
+      //   	console.log(1);
+      //     boxDom.style.left = (parseInt(boxDom.style.left) / 100-disx / 100  ) + 'rem'
+
+      //   }
+
+      // }, false);
+
+      // boxDom.addEventListener('touchend', function(e) {
+      //   xend = e.changedTouches[0].pageX;
+      //   yend = e.changedTouches[0].pageY;
+      //   if (xstar - xend < -45) { //右滑动
+      //     //小圆点
+      //     self.isCards--
+      //       if (self.isCards <= 0) {
+      //         self.isCards = 0
+      //       }
+      //     console.log('右滑动');
+      //     boxDom.style.left = -7.5 * self.isCards + 'rem';
+      //     self.init();
 
 
-        } else if (xstar - xend >= -45 && xstar - xend < 0) { //不满足右滑动
-          if (xend < 0) {
-            console.log('满足右滑动');
-          } else {
-            console.log('test');
-          }
-        } else if (xstar - xend <= 45 && xstar - xend > 0) { //不满足左滑动
-          if (xend > 636) {
-            console.log('不满足左滑动');
-          } else {
-            console.log('test');
-          }
+      //   } else if (xstar - xend > 45) { //左滑动
+      //     //小圆点
+      //     self.isCards++
+      //       if (self.isCards >= 5) {
+      //         self.isCards = 5
+      //       }
+      //     console.log('左滑动');
+      //     boxDom.style.left = -7.5 * self.isCards + 'rem';
+      //     self.init();
 
-        } else {
-          return
-        }
-        //清除事件监听
-        boxDom.removeEventListener('touchstart', function() {})
-        boxDom.removeEventListener('touchmove', function() {})
-        boxDom.removeEventListener('touchend', function() {})
-      }, false);
+
+      //   } else if (xstar - xend >= -45 && xstar - xend < 0) { //不满足右滑动
+      //     if (xend < 0) {
+      //       console.log('满足右滑动');
+      //     } else {
+      //       console.log('test');
+      //     }
+      //   } else if (xstar - xend <= 45 && xstar - xend > 0) { //不满足左滑动
+      //     if (xend > 636) {
+      //       console.log('不满足左滑动');
+      //     } else {
+      //       console.log('test');
+      //     }
+
+      //   } else {
+      //     return
+      //   }
+      //   //清除事件监听
+      //   boxDom.removeEventListener('touchstart', function() {})
+      //   boxDom.removeEventListener('touchmove', function() {})
+      //   boxDom.removeEventListener('touchend', function() {})
+      // }, false);
+
+      this.$container = document.querySelector('.viking-three .container');
+      this.cardConWidth = document.querySelector('.viking-three .container').clientWidth;
+      this.htmlFontSize = parseFloat(document.documentElement.style.fontSize);
+      this.windowWidth = document.body.clientWidth;
 
   }
 }
@@ -486,9 +548,10 @@ export default {
    width: 45rem;
   position: absolute;
   left: 0;
-  transition: all .3s ease;
 }
-
+.containerAnimation {
+  transition: all 0.5s linear
+}
 
 .viking-three * {
   font-family: "Microsoft YaHei";
