@@ -196,7 +196,7 @@
             </ul>
 
             <div class="cf-detail clearfix">
-              <h4 class="cf-name">餐厅</h4>
+              <h4 class="cf-name">{{restaurantData[isClassesActive].name}}</h4>
               <img v-if="isClassesActive == 0" src="../assets/img/three/canting/ct_1.png" alt="">
               <img v-if="isClassesActive == 1" src="../assets/img/three/canting/ct_2.png" alt="">
               <img v-if="isClassesActive == 2" src="../assets/img/three/canting/ct_3.png" alt="">
@@ -204,10 +204,8 @@
             </div>
 						
 						<div class="cf-describe">
-							<p class="detail-text">餐厅：第二层甲板</p>
-							<p class="detail-text">座位：190个座位</p>
-							<p class="detail-text detail-text-mb" >坐式用餐不需要预订，可随意选座，不接受预订</p>
-							<p class="detail-text">船上餐厅不仅带给您美景与美食的双重享受，更有轻松优雅的氛围、精致考究的布置、热情周到的服务，让每次用餐都成为航程中快乐的点缀。</p>
+							<p class="detail-text" v-for="item in restaurantData[isClassesActive].place">{{item}}</p>
+							<p class="detail-text detail-text-mt">{{restaurantData[isClassesActive].describe}}</p>
 							
 						</div>
 
@@ -232,7 +230,7 @@
             </ul>
 
             <div class="cf-detail clearfix">
-              <h4 class="cf-name">日光甲板</h4>
+              <h4 class="cf-name">{{recreationData[isClassesActive].name}}</h4>
               <img v-if="isClassesActive == 0" src="../assets/img/three/yule/yl_1.png" alt="">
               <img v-if="isClassesActive == 1" src="../assets/img/three/yule/yl_2.png" alt="">
               <img v-if="isClassesActive == 2" src="../assets/img/three/yule/yl_3.png" alt="">
@@ -243,11 +241,8 @@
             </div>
 						
 						<div class="cf-describe">
-							<p class="detail-text">第四层甲板</p>
-							<p class="detail-text">阳光甲板：带顶棚，3个花冠形状和3个伞形</p>
-							<p class="detail-text">椅子：船头有60把椅子，船尾有40把椅子</p>
-							<p class="detail-text detail-text-mb" >漫步径：130米长</p>
-							<p class="detail-text">在内河游轮的最高层，两端便是日光甲板。您可以依着栏杆，任凭微风拂过脸颊，两岸美景从身边缓缓后退；当然也可以窝在舒适的躺椅中，躲在遮阳伞下享受一片阴凉。在比邻酒廊的那端的日光甲板，可通向船桥。</p>
+							<p class="detail-text" v-for="item in restaurantData[isClassesActive].place">{{item}}</p>
+							<p class="detail-text detail-text-mt">{{restaurantData[isClassesActive].describe}}</p>
 							
 						</div>
 
@@ -282,6 +277,8 @@ export default {
       shipIndex:0,                 //1-6艘河轮
       cfData:vikingData.cf,       //舱房
       foodData:vikingData.food,   //美食荟萃
+      restaurantData:vikingData.restaurant,  //餐厅  
+      recreationData:vikingData.recreation,   //游轮娱乐
     }
   },
   methods:{
@@ -290,6 +287,16 @@ export default {
   	},
   	changeClassesActive(i){   //房型等类目切换
   		this.isClassesActive = i;
+  		// var child = e.currentTarget;
+  		//    //房型等类目切换
+  		// this.isClassesActive = i;
+  		// var i = 0;
+    //     while( (child = child.previousElementSibling) != null ) 
+    //       ////console.log(child);
+    //       i++;
+    //       console.log(i);
+
+    //    this.isClassesActive = i;
   	},
   	changeShipIndex(i){   //点击切换不同的游轮介绍
   		this.shipIndex = i
@@ -300,30 +307,30 @@ export default {
   	      // ==========================  滑动   ================================================
       var self = this;
       var xstar, ystar, xmove, ymove, xend, yend, disx;
-      document.querySelector('.container').addEventListener('touchstart', function(e) {
+      document.querySelector('.viking-three .container').addEventListener('touchstart', function(e) {
 
         xstar = e.touches[0].pageX;
         ystar = e.touches[0].pageX;
 
 
       }, false);
-      document.addEventListener('touchmove', function(e) {
+      document.querySelector('.viking-three .container').addEventListener('touchmove', function(e) {
         e.preventDefault()
         xmove = e.touches[0].pageX;
         ymove = e.touches[0].pageX;
         var disx = xstar - xmove
         console.log(disx + "disx");
         if (disx < 0) { //往右拖动
-          document.querySelector('.container').style.left = -(disx / 100 + parseInt(document.querySelector('.container').style.left) / 100) + 'rem'
+          document.querySelector('.viking-three .container').style.left = -(disx / 100 + parseInt(document.querySelector('.viking-three .container').style.left) / 100) + 'rem'
         } else { //往左拖动
         	console.log(1);
-          document.querySelector('.container').style.left = (parseInt(document.querySelector('.container').style.left) / 100-disx / 100  ) + 'rem'
+          document.querySelector('.viking-three .container').style.left = (parseInt(document.querySelector('.viking-three .container').style.left) / 100-disx / 100  ) + 'rem'
 
         }
 
       }, false);
 
-      document.addEventListener('touchend', function(e) {
+      document.querySelector('.viking-three .container').addEventListener('touchend', function(e) {
         xend = e.changedTouches[0].pageX;
         yend = e.changedTouches[0].pageY;
         if (xstar - xend < -45) { //右滑动
@@ -333,7 +340,7 @@ export default {
               self.isCards = 0
             }
           console.log('右滑动');
-          document.querySelector('.container').style.left = -7.5 * self.isCards + 'rem';
+          document.querySelector('.viking-three .container').style.left = -7.5 * self.isCards + 'rem';
           self.init();
 
 
@@ -344,7 +351,7 @@ export default {
               self.isCards = 5
             }
           console.log('左滑动');
-          document.querySelector('.container').style.left = -7.5 * self.isCards + 'rem';
+          document.querySelector('.viking-three .container').style.left = -7.5 * self.isCards + 'rem';
           self.init();
 
 
@@ -365,9 +372,9 @@ export default {
           return
         }
         //清除事件监听
-        document.removeEventListener('touchstart', function() {})
-        document.removeEventListener('touchmove', function() {})
-        document.removeEventListener('touchend', function() {})
+        document.querySelector('.viking-three .container').removeEventListener('touchstart', function() {})
+        document.querySelector('.viking-three .container').removeEventListener('touchmove', function() {})
+        document.querySelector('.viking-three .container').removeEventListener('touchend', function() {})
       }, false);
 
   }
@@ -689,8 +696,8 @@ export default {
 	line-height: .33rem;
 	text-align: left;
 }
-.detail-text-mb{
-	margin-bottom: .4rem;
+.detail-text-mt{
+	margin-top: .4rem;
 }
 
 
