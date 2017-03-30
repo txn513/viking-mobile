@@ -2,9 +2,9 @@
   <div class="viking-four">
     <div class="four-outer">
       <!-- container -->
-      <div class="container" style="left:0">
+      <div class="container" @touchstart="cardTouchStart" @touchmove.prevent="cardTouchMove" @touchend="cardTouchEnd">
         <!-- 精彩航线 -->
-        <div class="four-wrap" v-if="isHide==0">
+        <div class="four-wrap">
           <div class="four">
             <h3 class="vk-title">精彩航线 &nbsp;全年出发</h3>
             <p class="vk-text">蓝色多瑙 &nbsp;浪漫莱茵</p>
@@ -28,7 +28,7 @@
         </div>
 
         <!-- 8天莱茵河之旅 -->
-        <div class="four-wrap" v-if="isHide==1">
+        <div class="four-wrap">
           <div class="four">
             <h3 class="vk-title">8天莱茵河之旅 <span>(阿姆斯特丹→←巴塞尔)</span></h3>
             <p class="vk-text vk-text1">四国游丨荷兰 &nbsp;德国 &nbsp;法国 &nbsp;瑞士</p>
@@ -119,7 +119,7 @@
         </div>
 
 				<!-- 11天莱茵河之旅 -->
-				<div class="four-wrap" v-if="isHide==2">
+				<div class="four-wrap">
           <div class="four">
             <h3 class="vk-title">11天莱茵河之旅 <span>(阿姆斯特丹→←巴塞尔)</span></h3>
             <p class="vk-text vk-text1">四国游丨荷兰 &nbsp;德国 &nbsp;法国 &nbsp;瑞士</p>
@@ -223,7 +223,7 @@
 
         <!-- 8天多瑙河之旅 -->
 
-        <div class="four-wrap" v-if="isHide==3">
+        <div class="four-wrap" >
           <div class="four">
             <h3 class="vk-title">8天多瑙河之旅 <span>(维也纳→←布达佩斯)</span></h3>
             <p class="vk-text vk-text1">四国游丨奥地利 &nbsp;德国 &nbsp;斯伐洛克 &nbsp;匈牙利</p>
@@ -312,7 +312,7 @@
 
         <!-- 11天多瑙河之旅 -->
 
-        <div class="four-wrap" v-if="isHide==4">
+        <div class="four-wrap">
           <div class="four">
             <h3 class="vk-title">11天多瑙河之旅 <span>(维也纳→←布达佩斯)</span></h3>
             <p class="vk-text vk-text1">五国游丨奥地利 &nbsp;德国 &nbsp;捷克 &nbsp;斯伐洛克 &nbsp;匈牙利</p>
@@ -415,7 +415,6 @@
         <li :class="{'active':isCards == 2}"></li>
         <li :class="{'active':isCards == 3}"></li>
         <li :class="{'active':isCards == 4}"></li>
-        <li :class="{'active':isCards == 5}"></li>
       </ul>
     </div>
   </div>
@@ -429,17 +428,105 @@ export default {
         isCards: 0,
         isClassesActive: 0,
         isGoodsActive: 0,
-        msg: "viking-four.vue"
+        msg: "viking-four.vue",
+
+        //滑动变量
+        cardStartPos:0,
+        cardMoveDis : 0,
+        cardNewPos:0,
+        cardConWidth: 0,
+        windowWidth: 0,
+        htmlFontSize: 0,
+        $container: null
       }
     },
     methods: {
-      changeClassesActive(i) {
-        this.isClassesActive = i;
+      getTranslateX(){
+        return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-four .container'),null).transform.substring(7).split(',')[4]) || 0
       },
-      changeGoodsActive(i){
-      	this.isGoodsActive = i;
-      }
+      cardTouchStart(e){
+        this.cardStartPos = e.targetTouches[0].pageX;
+        // this.cardNewPos = e.currentTarget.offsetLeft;
+        this.cardNewPos = this.getTranslateX();
+        //console.log(this.cardNewPos);
+        this.$container.className="container";
+      },
+      cardTouchMove(e){
+        this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
+        var pos = this.cardNewPos + this.cardMoveDis;
+        // if(pos > 0){
+        //   // e.currentTarget.style.left = 0+'px';
+        //   e.currentTarget.style.transform = "translate3d(0,0,0)"
+        // }
+        // else if (pos <-(this.cardConWidth-this.windowWidth)){
+        //   // e.currentTarget.style.left = -(this.cardConWidth-this.windowWidth) + 'px';
+        //   e.currentTarget.style.transform = "translate3d("+ (-(this.cardConWidth-this.windowWidth)) + 'px' +",0,0)";
+        // }
+        // else {
+        //   // e.currentTarget.style.left = pos + 'px';
+          
+        // }
+		e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
+
+        // if(this.getTranslateX() > -() ){
+        //   this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
+        //   this.$container.querySelectorAll('.two-wrap')[0].className ="two-wrap current";
+        // }
+        // else if (this.getTranslateX() <= -(2.95*this.htmlFontSize) && this.getTranslateX() > -(8.85*this.htmlFontSize)){
+        //   this.$container.querySelectorAll('.two-wrap')[0].className="two-wrap";
+        //   this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
+        //   this.$container.querySelectorAll('.two-wrap')[1].className ="two-wrap current";
+        // }
+        // else if (this.getTranslateX() <= -(8.85*this.htmlFontSize) && this.getTranslateX() > -((5.9*2+2.95)*this.htmlFontSize)){
+        //   this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
+        //   this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
+        //   this.$container.querySelectorAll('.two-wrap')[2].className ="two-wrap current";
+        // }
+        // else if (this.getTranslateX() <= -((5.9*2+2.95)*this.htmlFontSize) && this.getTranslateX() > -((5.9*3+2.95)*this.htmlFontSize)){
+        //   this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
+        //   this.$container.querySelectorAll('.two-wrap')[4].className="two-wrap";
+        //   this.$container.querySelectorAll('.two-wrap')[3].className ="two-wrap current";
+        // }
+        // else {
+        //   this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
+        //   this.$container.querySelectorAll('.two-wrap')[4].className ="two-wrap current";
+        // }
+
+      },
+      cardTouchEnd(e){
+        this.$container.className="container containerAnimation";
+        if(this.getTranslateX() > -(3.75*this.htmlFontSize) ){
+          e.currentTarget.style.transform = "translate3d(0,0,0)"
+          this.isCards = 0;
+
+        }
+        else if (this.getTranslateX() <= -(3.57*this.htmlFontSize) && this.getTranslateX() > -((3.75+7.5)*this.htmlFontSize)){
+          e.currentTarget.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 1;
+          // e.currentTarget.style.left = (-5.9*this.htmlFontSize) + 'px';
+        }
+        else if (this.getTranslateX() <= -((3.75+7.5)*this.htmlFontSize) && this.getTranslateX() > -((7.5*2+3.75)*this.htmlFontSize)){
+          e.currentTarget.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 2;
+        }
+         else if (this.getTranslateX() <= -((7.5*2+3.75)*this.htmlFontSize) && this.getTranslateX() > -((7.5*3+3.75)*this.htmlFontSize)){
+          e.currentTarget.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 3;
+         }
+         else {
+          e.currentTarget.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
+          this.isCards = 4;
+         }
+        
+      },
+    },
+    mounted(){
+    	this.$container = document.querySelector('.viking-four .container');
+      	this.cardConWidth = document.querySelector('.viking-four .container').clientWidth;
+      	this.htmlFontSize = parseFloat(document.documentElement.style.fontSize);
+      	this.windowWidth = document.body.clientWidth;
     }
+
 }
 </script>
 <style scoped>
@@ -449,6 +536,7 @@ export default {
   background: url('../assets/img/four/four-bg.png') top center no-repeat;
   background-size: 100% 100%;
   overflow: hidden;
+  transform-style: preserve-3d;
 }
 .ellipsis {
     display: -webkit-box;
@@ -486,7 +574,10 @@ export default {
   width: 45rem;
   position: absolute;
   left: 0;
-  transition: all .3s ease;
+  transform: translate3d(0,0,0);
+}
+.containerAnimation {
+  transition: all 0.5s linear
 }
 
 .viking-four * {
@@ -508,6 +599,7 @@ export default {
   position: relative;
   float: left;
   padding: 0 .24rem;
+  transition: all .8s ease;
 }
 
 .four {
