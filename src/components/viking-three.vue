@@ -721,7 +721,6 @@ export default {
   font-size: .19rem;
   color: #757474;
   margin-bottom: .2rem;
-  font-weight: 600;
 }
 
 .vk-text3 {
