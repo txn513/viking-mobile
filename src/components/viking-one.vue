@@ -716,7 +716,7 @@ export default {
 }
 
 .glory >div .vk-text4 {
-  font-size: .19rem;
+  font-size: .2rem;
   color: #565555;
   margin-bottom: .1rem;
 }
