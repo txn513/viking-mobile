@@ -400,6 +400,12 @@ export default {
   				self.isClassesActiveyl=i;
   			},5000)
   	},
+    clearTimer(){
+      clearInterval(this.cfTimer);
+      clearInterval(this.msTimer);
+      clearInterval(this.ctTimer);
+      clearInterval(this.ylTimer);
+    },
 
     getTranslateX(){
         return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-three .container'),null).transform.substring(7).split(',')[4]) || 0
@@ -428,32 +434,48 @@ export default {
         else if (this.getTranslateX() <= -(3.57*this.htmlFontSize) && this.getTranslateX() > -((3.75+7.5)*this.htmlFontSize)){
           e.currentTarget.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
           this.isCards = 1;
+          this.clearTimer();
+          
           // e.currentTarget.style.left = (-5.9*this.htmlFontSize) + 'px';
         }
         else if (this.getTranslateX() <= -((3.75+7.5)*this.htmlFontSize) && this.getTranslateX() > -((7.5*2+3.75)*this.htmlFontSize)){
           e.currentTarget.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
           this.isCards = 2;
+
+          this.clearTimer();
+          this.autoCf();
         }
          else if (this.getTranslateX() <= -((7.5*2+3.75)*this.htmlFontSize) && this.getTranslateX() > -((7.5*3+3.75)*this.htmlFontSize)){
           e.currentTarget.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
           this.isCards = 3;
+          this.clearTimer();
+          this.autoMs();
          }
          else if (this.getTranslateX() <= -((7.5*3+3.75)*this.htmlFontSize) && this.getTranslateX() > -((7.5*4+3.75)*this.htmlFontSize)){
           e.currentTarget.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
           this.isCards = 4;
+          this.clearTimer();
+          this.autoCt()
          }
          else {
           e.currentTarget.style.transform = "translate3d("+ (-7.5*5*this.htmlFontSize) + 'px' +",0,0)"
           this.isCards = 5;
+          this.clearTimer();
+          this.autoYl();
          }
         
       },
   },
+  watch: {
+      isCards() {
+        this.init()
+      }
+    },
   mounted(){
-  		this.autoCf() 
-  		this.autoMs() 
-  		this.autoCt() 
-  		this.autoYl() 
+  		// this.autoCf() 
+  		// this.autoMs() 
+  		// this.autoCt() 
+  		// this.autoYl() 
   	  // ==========================  滑动   ================================================
       var self = this;
       var xstar, ystar, xmove, ymove, xend, yend, disx;
