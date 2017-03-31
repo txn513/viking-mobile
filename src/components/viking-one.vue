@@ -69,15 +69,15 @@
             <p class="vk-text">呈现于您的眼前</p>
             <div class="video-box">
               <!-- <span style="display: block;width: 100%;height: 1px;background-color: #cacaca"></span> -->
-              <video id="mp4" :src="firstLink" controls webkit-playsinline ></video>
+              <video :poster="imgurl1" id="mp4" :src="firstLink" controls webkit-playsinline ></video>
             </div>
             <p class="more">更多视频<span class="more-icon"></span></p>
             <div class="line"></div>
             <div class="video-wrap" @touchstart="testStart" @touchmove.stop="testMove" @touchend="testEnd">
               <ul class="videoSwiper" :style="{width:Allwidth+'px'}" style="left:0">
-                <li class="xvideo" v-for="item in videoData">
+                <li class="xvideo" v-for="(item,index) in videoData">
                   <div class="videosm">
-                    <video :src="item.link" controls  webkit-playsinline></video>
+                    <video class="smallVideo" @touchstart="videoPlay" @touchend="videoPlayTouchEnd" :src="item.link" controls  webkit-playsinline></video>
                   </div>
                   <p class="video-title">{{item.title}}</p>
                 </li>
@@ -136,7 +136,8 @@ export default {
         // }, ],
         firstLink: "",
         Allwidth: '',
-        imgurl: require('./logo.png'),
+        imgurl1: require('../assets/img/one/video1.png'),
+        imgurl2: require('../assets/img/one/video1.png'),
         isCards:0,
 
         //滑动变量
@@ -156,6 +157,14 @@ export default {
       }
     },
     methods: {
+      videoPlay(e){
+          
+      },
+      videoPlayTouchEnd(e){
+        if(this.proMoveDis == 0){
+          e.currentTarget.play()
+        }
+      },
       getTranslateX(){
         return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-one .container'),null).transform.substring(7).split(',')[4]) || 0
       },
@@ -232,13 +241,19 @@ export default {
         e.currentTarget.querySelector('.videoSwiper').style.transform = "translate(" + pos + "px" + ",0)";
       },
       testEnd(e) {
-
-        if (this.getVideoTranslateX() > 0) {
-          e.currentTarget.querySelector('.videoSwiper').style.transform = "translate(0,0)";
-        } 
-        else if (this.getVideoTranslateX() < -(this.Allwidth - this.proContainerWrapWidth)) {
-          e.currentTarget.querySelector('.videoSwiper').style.transform = "translate(" + (-(this.Allwidth - this.proContainerWrapWidth)) + "px" + ",0)";
+        if(this.Allwidth > this.proContainerWrapWidth){
+          if (this.getVideoTranslateX() >= 0) {
+            e.currentTarget.querySelector('.videoSwiper').style.transform = "translate(0,0)";
+          } 
+          else if (this.getVideoTranslateX() < -(this.Allwidth - this.proContainerWrapWidth)) {
+            e.currentTarget.querySelector('.videoSwiper').style.transform = "translate(" + (-(this.Allwidth - this.proContainerWrapWidth)) + "px" + ",0)";
+          }
         }
+        else {
+          e.currentTarget.querySelector('.videoSwiper').style.transform = "translate(0,0)";
+        }
+
+        
         //console.log( this.proMoveDis);
       },
     },
@@ -317,6 +332,16 @@ export default {
       this.windowWidth = document.body.clientWidth;
       console.log(-(2.95*this.htmlFontSize));
 
+      var self = this;
+      this.$http.get('/liner/liner_getLinerVideo').then(function(res) {
+        console.log(res);
+        self.videoData =res.data;
+        
+        self.firstLink = self.videoData[0].link;
+      self.Allwidth = (self.videoData.length * (1.83 + 0.1) - 0.1)*self.htmlFontSize; //更多视频总长度
+
+      }, function(err) {});
+
 
     },
     ready() {
@@ -324,21 +349,40 @@ export default {
     },
     created: function() {
       //ajax请求数据
-      var self = this;
-      this.$http.jsonp('http://www.linbaoyou.com/liner/liner_getLinerVideo').then(function(res) {
-        console.log(res);
-        self.videoData = JSON.parse(res.data);
-        
-        self.firstLink = self.videoData[0].link;
-      self.Allwidth = (self.videoData.length * (1.83 + 0.1) - 0.1)*self.htmlFontSize; //更多视频总长度
-
-      }, function(err) {});
+      
       
     },
 
 }
 </script>
 <style scoped lang="scss">
+
+/* This used to work for parent element of button divs */
+
+/* But it is not enough now, below dont hide play button parent div */
+
+.smallVideo::-webkit-media-controls-panel {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+/* Old shadow dom for play button */
+
+.smallVideo::--webkit-media-controls-play-button {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+/* New shadow dom for play button */
+
+/* This one works */
+
+.smallVideo::-webkit-media-controls-start-playback-button {
+  display: none!important;
+  -webkit-appearance: none;
+}
+
+
 .viking-one {
   width: 100%;
   height: 100%;

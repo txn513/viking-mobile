@@ -67,19 +67,19 @@
             <!-- 游轮介绍大图  end-->
 
             <p class="vk-text3">{{shipData[shipIndex].synopsis}}</p>
-            <div class="cruise-type mrigth">
+            <div @click="cfclick" class="cruise-type mrigth">
               <p class="type-name">舱房类型</p>
               <img class="type-img" src="../assets/img/three/cangfang.png" alt="">
             </div>
-            <div class="cruise-type">
+            <div @click="msclick" class="cruise-type">
               <p class="type-name">美食荟萃</p>
               <img class="type-img" src="../assets/img/three/meishi.png" alt="">
             </div>
-            <div class="cruise-type mrigth">
+            <div @click="ctclick" class="cruise-type mrigth">
               <p class="type-name">餐厅酒廊</p>
               <img class="type-img" src="../assets/img/three/canting.png" alt="">
             </div>
-            <div class="cruise-type">
+            <div @click="ylclick" class="cruise-type">
               <p class="type-name">游轮娱乐（甲板图）</p>
               <img class="type-img" src="../assets/img/three/jiaban.png" alt="">
             </div>
@@ -306,6 +306,26 @@ export default {
   		this.isClassesActivect=0;
   		this.isClassesActiveyl=0;
   	},
+    cfclick(){
+      this.$container.className="container containerAnimation";
+      this.$container.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
+      this.isCards = 2;
+    },
+    msclick(){
+      this.$container.className="container containerAnimation";
+      this.$container.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
+      this.isCards = 3;
+    },
+    ctclick(){
+      this.$container.className="container containerAnimation";
+      this.$container.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
+      this.isCards = 4;
+    },
+    ylclick(){
+      this.$container.className="container containerAnimation";
+      this.$container.style.transform = "translate3d("+ (-7.5*5*this.htmlFontSize) + 'px' +",0,0)"
+      this.isCards = 5;
+    },
   	changeClassesActivecf(e){   //房型等类目切换
   		var child = e.currentTarget;
   		var i = 0;
@@ -340,6 +360,9 @@ export default {
   	},
   	changeShipIndex(i){   //点击切换不同的游轮介绍
   		this.shipIndex = i
+      this.$container.className="container containerAnimation";
+      this.$container.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
+      this.isCards = 1;
   	},
   	autoCf(){    //舱房自动轮播
   		var self = this;
@@ -513,6 +536,7 @@ export default {
 }
 </script>
 <style scoped>
+
 .viking-three {
   width: 100%;
   height: 100%;

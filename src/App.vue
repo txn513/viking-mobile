@@ -3,7 +3,7 @@
     <!-- <img src="./assets/logo.png"> -->
     <!-- <a @click.prevent="clickLinkOne">Go to Hello</a>
     <a @click.prevent="clickLinkTwo">Go to Test</a> -->
-    <div class="touchWrap" style="margin-top: 0px" @touchstart='vTouchStart' @touchend="vTouchEnd" @touchmove="vTouchMove">
+    <div v-if="ifOnce" class="touchWrap" style="margin-top: 0px" @touchstart='vTouchStart' @touchend="vTouchEnd" @touchmove="vTouchMove">
       
         <viking-home></viking-home>
         
@@ -73,6 +73,7 @@ export default {
         navTranslateX: 0,
         $bigWrap: null,
         routerInterval: null,
+        ifOnce: true,
     }
   },
   created(){
@@ -178,6 +179,7 @@ export default {
       //console.log(this.moveDis);    
       if(Math.abs(this.moveDis) > 600){
         e.currentTarget.style.marginTop = -(this.windowHeight) +'px';
+        sessionStorage.i = 0;
       }  
       else {
         e.currentTarget.style.marginTop = 0 +'px';
@@ -293,11 +295,37 @@ export default {
 
   },
  mounted() {
+    if(sessionStorage.i){
+      this.ifOnce = false;
+    }
     this.$bigWrap = document.querySelector('.viking-big-wrap');
+    this.navObj = this.$el.querySelector('.viking-slide-btn');
+    this.navWidth = this.navObj.clientWidth;
+
     console.log( this.$route.params);
     // alert(document.body.clientWidth);
     // alert(document.body.clientHeight);
-   this.$router.push('/');
+   // this.$router.push('/');
+   var path = this.$router.history.current.fullPath;
+   console.log(path);
+   if(path.indexOf('vikingTwo') > 0){
+    this.$bigWrap.className = "viking-big-wrap viking-big-wrap-2";
+    this.navObj.style.transform = "translate3d("+ (this.navWidth)+"px" +",0,0)"
+
+   }
+   else if (path.indexOf('vikingThree') > 0){
+    this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
+    this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
+   }
+  else if (path.indexOf('vikingFour') >0){
+    this.$bigWrap.className = "viking-big-wrap viking-big-wrap-4";
+    this.navObj.style.transform = "translate3d("+ (this.navWidth*3)+"px" +",0,0)"
+   }
+   else {
+    this.$router.push('/');
+    this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
+    this.navObj.style.transform = "translate3d(0,0,0)"
+   }
    //console.log(this.$http);
  },
   components:{
