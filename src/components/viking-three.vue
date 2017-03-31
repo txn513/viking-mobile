@@ -519,6 +519,7 @@ export default {
   background: url('../assets/img/three/three-bg.png') top center no-repeat;
   background-size: 100% 100%;
   overflow: hidden;
+  text-align: left;
 }
 
 .dot-wrap {

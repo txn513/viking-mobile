@@ -21,6 +21,7 @@
 		width: 100%;
 		text-align: center;
 		overflow:hidden;
+		background-color: #2d72a1;
 		img {
 			position: absolute;
 			min-height: 100%;

@@ -69,15 +69,15 @@
             <p class="vk-text">呈现于您的眼前</p>
             <div class="video-box">
               <!-- <span style="display: block;width: 100%;height: 1px;background-color: #cacaca"></span> -->
-              <video id="mp4" :src="firstLink" controls webkit-playsinline :poster="imgurl"></video>
+              <video id="mp4" :src="firstLink" controls webkit-playsinline ></video>
             </div>
             <p class="more">更多视频<span class="more-icon"></span></p>
             <div class="line"></div>
-            <div class="video-wrap">
-              <ul :style="{width:Allwidth}" style="left:0">
+            <div class="video-wrap" @touchstart="testStart" @touchmove.stop="testMove" @touchend="testEnd">
+              <ul class="videoSwiper" :style="{width:Allwidth+'px'}" style="left:0">
                 <li class="xvideo" v-for="item in videoData">
                   <div class="videosm">
-                    <video :src="item.link" controls :poster="imgurl" webkit-playsinline></video>
+                    <video :src="item.link" controls  webkit-playsinline></video>
                   </div>
                   <p class="video-title">{{item.title}}</p>
                 </li>
@@ -117,23 +117,23 @@
 export default {
   data() {
       return {
-        // videoData:[],
-        videoData: [{
-          'title': 'Vikinfg<游轮带你去旅行>主题宣传片1111',
-          'link': 'http://image.linbaoyou.com/upload/test/video/2017032020302405.mp4'
-        }, {
-          'title': 'Vikinfg<游轮带你去旅行>主题宣传片22222',
-          'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4'
-        }, {
-          'title': 'Vikinfg<游轮带你去旅行>主题宣传片3333',
-          'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4'
-        }, {
-          'title': 'Vikinfg<游轮带你去旅行>主题宣传片3333',
-          'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4'
-        }, {
-          'title': 'Vikinfg<游轮带你去旅行>主题宣传片3333',
-          'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4'
-        }, ],
+        videoData:[],
+        // videoData: [{
+        //   'title': 'Vikinfg<游轮带你去旅行>主题宣传片1111',
+        //   'link': 'http://image.linbaoyou.com/upload/test/video/2017032020302405.mp4'
+        // }, {
+        //   'title': 'Vikinfg<游轮带你去旅行>主题宣传片22222',
+        //   'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4'
+        // }, {
+        //   'title': 'Vikinfg<游轮带你去旅行>主题宣传片3333',
+        //   'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4'
+        // }, {
+        //   'title': 'Vikinfg<游轮带你去旅行>主题宣传片3333',
+        //   'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4'
+        // }, {
+        //   'title': 'Vikinfg<游轮带你去旅行>主题宣传片3333',
+        //   'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4'
+        // }, ],
         firstLink: "",
         Allwidth: '',
         imgurl: require('./logo.png'),
@@ -147,11 +147,20 @@ export default {
         windowWidth: 0,
         htmlFontSize: 0,
         $container: null,
+
+        proStartPos: 0,
+        proMoveDis: 0,
+        proContainerWidth: 0,
+        proContainerWrapWidth: 0,
+        htmlFontSize:0,
       }
     },
     methods: {
       getTranslateX(){
         return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-one .container'),null).transform.substring(7).split(',')[4]) || 0
+      },
+      getVideoTranslateX(){
+        return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-one .videoSwiper'),null).transform.substring(7).split(',')[4]) || 0
       },
       cardTouchStart(e){
         this.cardStartPos = e.targetTouches[0].pageX;
@@ -211,10 +220,32 @@ export default {
 
         }
       },
+      testStart(e) {
+        this.proStartPos = e.targetTouches[0].pageX;
+        this.proMoveDis = 0;
+        this.newProPos = this.getVideoTranslateX();
+      },
+      testMove(e) {
+        e.stopPropagation();
+        this.proMoveDis = e.targetTouches[0].pageX - this.proStartPos;
+        var pos = this.newProPos + this.proMoveDis;
+        e.currentTarget.querySelector('.videoSwiper').style.transform = "translate(" + pos + "px" + ",0)";
+      },
+      testEnd(e) {
+
+        if (this.getVideoTranslateX() > 0) {
+          e.currentTarget.querySelector('.videoSwiper').style.transform = "translate(0,0)";
+        } 
+        else if (this.getVideoTranslateX() < -(this.Allwidth - this.proContainerWrapWidth)) {
+          e.currentTarget.querySelector('.videoSwiper').style.transform = "translate(" + (-(this.Allwidth - this.proContainerWrapWidth)) + "px" + ",0)";
+        }
+        //console.log( this.proMoveDis);
+      },
     },
     mounted() {
-      this.firstLink = this.videoData[0].link;
-      this.Allwidth = this.videoData.length * (1.83 + 0.1) - 0.1 + "rem"; //更多视频总长度
+      this.htmlFontSize = parseFloat(document.documentElement.style.fontSize);
+      
+      this.proContainerWrapWidth = this.$el.querySelector('.video-wrap').clientWidth;
 
       // ==========================  滑动   ================================================
       var self = this;
@@ -293,11 +324,16 @@ export default {
     },
     created: function() {
       //ajax请求数据
-      // this.$http.get('/liner/liner_getLinerVideo').then(function(res) {
-      //   this.videoData = JSON.parse(res.data);
-      // }, function(err) {});
+      var self = this;
+      this.$http.jsonp('http://www.linbaoyou.com/liner/liner_getLinerVideo').then(function(res) {
+        console.log(res);
+        self.videoData = JSON.parse(res.data);
+        
+        self.firstLink = self.videoData[0].link;
+      self.Allwidth = (self.videoData.length * (1.83 + 0.1) - 0.1)*self.htmlFontSize; //更多视频总长度
 
-
+      }, function(err) {});
+      
     },
 
 }
@@ -431,6 +467,7 @@ export default {
   color: #363636;
   margin-bottom: .06rem;
   padding-left: .2rem;
+  text-align: left;
 }
 
 .more .more-icon {
@@ -454,7 +491,7 @@ export default {
   height: 1.4rem;
   margin: 0 auto;
   position: relative;
-  overflow: auto;
+  overflow: hidden;
   transition: all .1s ease;
 }
 
