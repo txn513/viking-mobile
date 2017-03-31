@@ -2,8 +2,61 @@
   <div class="viking-one">
     <div class="one-outer">
       <div class="container" style="left:0" @touchstart="cardTouchStart" @touchmove.prevent="cardTouchMove" @touchend="cardTouchEnd">
-      <!-- 第一屏 -->
+      
+        <!-- 第一屏 -->
         <div class="one-wrap current">
+          <!-- <div class="white white-left"></div>
+          <div class="white white-right"></div> -->
+          <div class="one oneCenter center">
+            <h3 class="vk-title">巡游人文欧洲 &nbsp;体验内河游轮之魅</h3>
+            <p class="vk-text">河流是人类文明的摇篮</p>
+            <p class="vk-text">每一条河流 &nbsp;都有着自己的故事</p>
+            <p class="vk-text">一如欧洲的莱茵河与多瑙河</p>
+            <p class="vk-text">蜿蜒于欧洲诸国</p>
+            <p class="vk-text">流经之地 &nbsp;即是欧洲文明的腹地</p>
+            <p class="vk-text">维京内河游轮 &nbsp;航行于这两条璀璨流域</p>
+            <p class="vk-text">更穿梭于河流两岸的人文之美</p>
+            <p class="vk-text">将宏伟教堂 &nbsp;古老建筑</p>
+            <p class="vk-text">摩登艺术中心和璀璨的都市生活</p>
+            <p class="vk-text">呈现于您的眼前</p>
+            <div class="video-box">
+              <!-- <span style="display: block;width: 100%;height: 1px;background-color: #cacaca"></span> -->
+              <!-- :poster="imgurl1" -->
+              <video id="mp4" controls webkit-playsinline ></video>
+            </div>
+            <p class="more">更多视频<span class="more-icon"></span></p>
+            <div class="line"></div>
+            <div class="video-wrap" @touchstart="testStart" @touchmove.stop="testMove" @touchend="testEnd">
+              <ul class="videoSwiper" :style="{width:Allwidth+'px'}" style="left:0">
+                <li class="xvideo" v-for="(item,index) in videoData">
+                  <div class="videosm">
+                    <video class="smallVideo" @touchstart="videoPlay" @touchend="videoPlayTouchEnd" :poster="item.cover" :src="item.link" controls  webkit-playsinline></video>
+                  </div>
+                  <p class="video-title">{{item.title}}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- 第二屏 -->
+        <div class="one-wrap">
+          <!-- <div class="white white-left"></div>
+          <div class="white white-right"></div> -->
+          <div class="one oneRight right">
+            <h3 class="vk-title">维京游轮 &nbsp;游轮界的劳斯莱斯</h3>
+            <p class="vk-text">旨在为全球旅行者提供高品质的内河与海洋游轮服务</p>
+            <img class="pic1" src="../assets/img/one/pic1.png" height="404" width="568" alt="">
+            <p class="vk-text1">优先入港 &nbsp;量身定制</p>
+            <p class="vk-text2">维京邮轮拥有62艘内河游轮</p>
+            <p class="vk-text2">4艘海洋游轮 超过120个停靠口岸</p>
+            <p class="vk-text2">累计接待38万游客 &nbsp;&nbsp;340万游客累积巡航天数</p>
+            <div class="line1"></div>
+            <p class="vk-text3"><span> &nbsp;*&nbsp;</span>作为市场领导者维京游轮可优先进入城区各主要景点2016年推出首批为中国游客量身打造的欧洲内河游轮航线</p>
+          </div>
+        </div>
+
+        <!-- 第三屏 -->
+        <div class="one-wrap ">
          <!--  <div class="white white-left"></div>
           <div class="white white-right"></div> -->
           <div class="one oneLeft left">
@@ -49,57 +102,6 @@
                 <p class="vk-text4">......</p>
               </div>
             </div>
-          </div>
-        </div>
-        <!-- 第二屏 -->
-        <div class="one-wrap">
-          <!-- <div class="white white-left"></div>
-          <div class="white white-right"></div> -->
-          <div class="one oneCenter center">
-            <h3 class="vk-title">巡游人文欧洲 &nbsp;体验内河游轮之魅</h3>
-            <p class="vk-text">河流是人类文明的摇篮</p>
-            <p class="vk-text">每一条河流 &nbsp;都有着自己的故事</p>
-            <p class="vk-text">一如欧洲的莱茵河与多瑙河</p>
-            <p class="vk-text">蜿蜒于欧洲诸国</p>
-            <p class="vk-text">流经之地 &nbsp;即是欧洲文明的腹地</p>
-            <p class="vk-text">维京内河游轮 &nbsp;航行于这两条璀璨流域</p>
-            <p class="vk-text">更穿梭于河流两岸的人文之美</p>
-            <p class="vk-text">将宏伟教堂 &nbsp;古老建筑</p>
-            <p class="vk-text">摩登艺术中心和璀璨的都市生活</p>
-            <p class="vk-text">呈现于您的眼前</p>
-            <div class="video-box">
-              <!-- <span style="display: block;width: 100%;height: 1px;background-color: #cacaca"></span> -->
-              <!-- :poster="imgurl1" -->
-              <video id="mp4" controls webkit-playsinline ></video>
-            </div>
-            <p class="more">更多视频<span class="more-icon"></span></p>
-            <div class="line"></div>
-            <div class="video-wrap" @touchstart="testStart" @touchmove.stop="testMove" @touchend="testEnd">
-              <ul class="videoSwiper" :style="{width:Allwidth+'px'}" style="left:0">
-                <li class="xvideo" v-for="(item,index) in videoData">
-                  <div class="videosm">
-                    <video class="smallVideo" @touchstart="videoPlay" @touchend="videoPlayTouchEnd" :poster="item.cover" :src="item.link" controls  webkit-playsinline></video>
-                  </div>
-                  <p class="video-title">{{item.title}}</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- 第三屏 -->
-        <div class="one-wrap">
-          <!-- <div class="white white-left"></div>
-          <div class="white white-right"></div> -->
-          <div class="one oneRight right">
-            <h3 class="vk-title">维京游轮 &nbsp;游轮界的劳斯莱斯</h3>
-            <p class="vk-text">旨在为全球旅行者提供高品质的内河与海洋游轮服务</p>
-            <img class="pic1" src="../assets/img/one/pic1.png" height="404" width="568" alt="">
-            <p class="vk-text1">优先入港 &nbsp;量身定制</p>
-            <p class="vk-text2">维京邮轮拥有62艘内河游轮</p>
-            <p class="vk-text2">4艘海洋游轮 超过120个停靠口岸</p>
-            <p class="vk-text2">累计接待38万游客 &nbsp;&nbsp;340万游客累积巡航天数</p>
-            <div class="line1"></div>
-            <p class="vk-text3"><span> &nbsp;*&nbsp;</span>作为市场领导者维京游轮可优先进入城区各主要景点2016年推出首批为中国游客量身打造的欧洲内河游轮航线</p>
           </div>
         </div>
         
