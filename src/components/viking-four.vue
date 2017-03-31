@@ -8,19 +8,19 @@
           <div class="four">
             <h3 class="vk-title">精彩航线 &nbsp;全年出发</h3>
             <p class="vk-text">蓝色多瑙 &nbsp;浪漫莱茵</p>
-            <div class="route clearfix">
+            <div @click="clickLyh8" class="route clearfix">
               <h4 class="route-title">8天莱茵河之旅丨 <span>四国游 &nbsp;(阿姆斯特丹——巴塞尔)</span></h4>
               <img src="../assets/img/four/route-1-8.png" alt="">
             </div>
-            <div class="route clearfix">
+            <div @click="clickLyh11" class="route clearfix">
               <h4 class="route-title">11天莱茵河经典之旅丨 <span>四国游 &nbsp;(阿姆斯特丹——巴塞尔)</span></h4>
               <img src="../assets/img/four/route-1-11.png" alt="">
             </div>
-            <div class="route clearfix">
+            <div @click="clickDnh8" class="route clearfix">
               <h4 class="route-title">8天多瑙河之旅丨 <span>四国游 &nbsp;(维也纳——布达佩斯)</span></h4>
               <img src="../assets/img/four/route-2-8.png" alt="">
             </div>
-            <div class="route clearfix">
+            <div @click="clickDnh11" class="route clearfix">
               <h4 class="route-title">11天多瑙河之旅丨 <span>五国游 &nbsp;(维也纳——布达佩斯)</span></h4>
               <img src="../assets/img/four/route-2-11.png" alt="">
             </div>
@@ -29,7 +29,7 @@
         <!-- 8天莱茵河之旅 -->
         <div class="four-wrap">
           <div class="four">
-            <h3 class="vk-title">8天莱茵河之旅 <span>(阿姆斯特丹→←巴塞尔)</span></h3>
+            <h3 class="vk-title">8天莱茵河之旅 <span>(阿姆斯特丹←→巴塞尔)</span></h3>
             <p class="vk-text vk-text1">四国游丨荷兰 &nbsp;德国 &nbsp;法国 &nbsp;瑞士</p>
             <ul class="classes clearfix">
               <li class="line"></li>
@@ -102,7 +102,7 @@
         <!-- 11天莱茵河之旅 -->
         <div class="four-wrap">
           <div class="four">
-            <h3 class="vk-title">11天莱茵河之旅 <span>(阿姆斯特丹→←巴塞尔)</span></h3>
+            <h3 class="vk-title">11天莱茵河之旅 <span>(阿姆斯特丹←→巴塞尔)</span></h3>
             <p class="vk-text vk-text1">四国游丨荷兰 &nbsp;德国 &nbsp;法国 &nbsp;瑞士</p>
             <ul class="classes classes11 clearfix">
               <li class="line"></li>
@@ -186,7 +186,7 @@
         <!-- 8天多瑙河之旅 -->
         <div class="four-wrap">
           <div class="four">
-            <h3 class="vk-title">8天多瑙河之旅 <span>(维也纳→←布达佩斯)</span></h3>
+            <h3 class="vk-title">8天多瑙河之旅 <span>(维也纳←→布达佩斯)</span></h3>
             <p class="vk-text vk-text1">四国游丨奥地利 &nbsp;德国 &nbsp;斯伐洛克 &nbsp;匈牙利</p>
             <ul class="classes clearfix">
               <li class="line"></li>
@@ -254,7 +254,7 @@
         <!-- 11天多瑙河之旅 -->
         <div class="four-wrap">
           <div class="four">
-            <h3 class="vk-title">11天多瑙河之旅 <span>(维也纳→←布达佩斯)</span></h3>
+            <h3 class="vk-title">11天多瑙河之旅 <span>(维也纳←→布达佩斯)</span></h3>
             <p class="vk-text vk-text1">五国游丨奥地利 &nbsp;德国 &nbsp;捷克 &nbsp;斯伐洛克 &nbsp;匈牙利</p>
             <ul class="classes classes11 clearfix">
               <li class="line"></li>
@@ -651,6 +651,26 @@ export default {
       		location.href = e.currentTarget.href;
       	}
       },
+      clickLyh8(){
+        this.$container.className="container containerAnimation";
+        this.$container.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
+        this.isCards = 1;
+      },
+      clickLyh11(){
+        this.$container.className="container containerAnimation";
+        this.$container.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
+        this.isCards = 2;
+      },
+      clickDnh8(){
+        this.$container.className="container containerAnimation";
+        this.$container.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
+        this.isCards = 3;
+      },
+      clickDnh11(){
+        this.$container.className="container containerAnimation";
+        this.$container.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
+        this.isCards = 4;
+      }
     },
     mounted() {
       this.$container = document.querySelector('.viking-four .container');
@@ -728,7 +748,7 @@ export default {
 }
 
 .dot-wrap li.active {
-  background-color: #b81b48;
+  background-color: #ce1747;
   width: .32rem;
 }
 
@@ -802,7 +822,7 @@ export default {
   width: 7.02rem;
   height: 1.68rem;
   display: block;
-  box-shadow: 1px 0px 2px rgba(0, 0, 0, .1), -1px 0px 2px rgba(0, 0, 0, .1), 0px 4px 15px rgba(0, 0, 0, .3);
+  box-shadow: .01rem 0rem .02rem rgba(0, 0, 0, .1), -0.01rem 0rem .02rem rgba(0, 0, 0, .1), 0rem .04rem .15rem rgba(0, 0, 0, .3);
 }
 
 .route-title {
@@ -864,7 +884,8 @@ export default {
 .classes li div.active {
   background-color: #d8194c;
   color: #ffffff;
-  border-radius: .04rem
+  border-radius: .04rem;
+  box-shadow: .01rem 0rem .02rem rgba(230, 90,127, .5), -0.01rem 0rem .02rem rgba(230, 90,127, .5), 0 .04rem .05rem rgba(230, 90,127, .55);
 }
 
 .classes li div.active:before {
@@ -928,7 +949,7 @@ export default {
 .goods-nav.active {
   background-color: #d8194c;
   color: #fff;
-  box-shadow: 1px 0px 2px rgba(0, 0, 0, .1), -1px 0px 2px rgba(0, 0, 0, .1), 0px 4px 20px rgba(0, 0, 0, .2);
+  box-shadow:.01rem 0rem .02rem rgba(230, 90,127, .54), -0.01rem 0rem .02rem rgba(230, 90,127, .54), 0 .04rem .08rem rgba(230, 90,127, .74);
 }
 
 .vk-text2 {
@@ -940,12 +961,11 @@ export default {
 
 .goods-wrap {
   width: 100%;
-  overflow-x: scroll;
+  overflow-x: hidden;
 }
 
 .goods {
-  /* 宽度待计算 */
-  height: 3rem;
+  height: 3.15rem;
 }
 
 .goods-content {
@@ -955,7 +975,7 @@ export default {
   height: 2.98rem;
   float: left;
   border: 1px solid #bcbcbc;
-  box-shadow: 1px 0px 2px rgba(0, 0, 0, .1), -1px 0px 2px rgba(0, 0, 0, .1), 0px 4px 20px rgba(0, 0, 0, .2);
+  box-shadow: .01rem 0rem .02rem rgba(0, 0, 0, .1), -0.01rem 0rem .02rem rgba(0, 0, 0, .1), 0rem .04rem .1rem rgba(0, 0, 0, .1);
 }
 
 .goods-content img {

@@ -565,7 +565,7 @@ export default {
 }
 
 .dot-wrap li.active {
-  background-color: #b81b48;
+  background-color: #ce1747;
   width: .32rem;
 }
 
@@ -723,7 +723,7 @@ export default {
   height: 1.38rem;
   width: 3.39rem;
   margin-bottom: .24rem;
-  box-shadow: 1px 0px 2px rgba(0, 0, 0, .1), -1px 0px 2px rgba(0, 0, 0, .1), 0px 4px 15px #a57284;
+  box-shadow: 1px 0px 2px rgba(0, 0, 0, .1), -1px 0px 2px rgba(0, 0, 0, .1), 0px 4px 15px rgba(0, 0, 0, .3);
 }
 
 .cruise-type.mrigth {

@@ -341,7 +341,7 @@ export default {
   border-radius: .08rem;
   margin: 0 auto;
   padding-top: .32rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+  box-shadow: .01rem 0rem .1rem rgba(39, 6, 15, 0.25), -0.01rem 0rem .1rem rgba(39, 6, 15, 0.25), 0 .04rem .8rem rgba(39, 6, 15, 0.5);
 }
 
 .vk-title {
@@ -417,7 +417,7 @@ export default {
 }
 
 .dot-wrap li.active {
-  background-color: #b81b48;
+  background-color: #ce1747;
   width: .32rem;
 }
 

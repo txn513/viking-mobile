@@ -69,7 +69,8 @@
             <p class="vk-text">呈现于您的眼前</p>
             <div class="video-box">
               <!-- <span style="display: block;width: 100%;height: 1px;background-color: #cacaca"></span> -->
-              <video :poster="imgurl1" id="mp4" :src="firstLink" controls webkit-playsinline ></video>
+              <!-- :poster="imgurl1" -->
+              <video id="mp4" controls webkit-playsinline ></video>
             </div>
             <p class="more">更多视频<span class="more-icon"></span></p>
             <div class="line"></div>
@@ -77,7 +78,7 @@
               <ul class="videoSwiper" :style="{width:Allwidth+'px'}" style="left:0">
                 <li class="xvideo" v-for="(item,index) in videoData">
                   <div class="videosm">
-                    <video class="smallVideo" @touchstart="videoPlay" @touchend="videoPlayTouchEnd" :src="item.link" controls  webkit-playsinline></video>
+                    <video class="smallVideo" @touchstart="videoPlay" @touchend="videoPlayTouchEnd" :poster="item.cover" :src="item.link" controls  webkit-playsinline></video>
                   </div>
                   <p class="video-title">{{item.title}}</p>
                 </li>
@@ -134,7 +135,7 @@ export default {
         //   'title': 'Vikinfg<游轮带你去旅行>主题宣传片3333',
         //   'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4'
         // }, ],
-        firstLink: "",
+        firstLink: [],
         Allwidth: '',
         imgurl1: require('../assets/img/one/video1.png'),
         imgurl2: require('../assets/img/one/video1.png'),
@@ -256,7 +257,9 @@ export default {
         
         //console.log( this.proMoveDis);
       },
+      
     },
+
     mounted() {
       this.htmlFontSize = parseFloat(document.documentElement.style.fontSize);
       
@@ -328,28 +331,58 @@ export default {
       // }, false);
       this.$container = document.querySelector('.viking-one .container');
       this.cardConWidth = document.querySelector('.viking-one .container').clientWidth;
+      // this.htmlFontSize = parseFloat(document.documentElement.style.fontSize);
+      // this.windowWidth = document.body.clientWidth;
+      // var self = this;
+      // this.$http.get('/liner/liner_getLinerVideo').then(function(res) {
+      //   console.log(res);
+      //   self.videoData =res.data;
+        
+      //   // self.firstLink = self.videoData[0].link;
+      // self.Allwidth = (self.videoData.length * (1.83 + 0.1) - 0.1)*self.htmlFontSize; //更多视频总长度
+
+      // }, function(err) {});
+
+
+    },
+    created: function() {
+      //ajax请求数据
+      // console.log('test');
+      // this.videoData= [{
+      //     'title': 'Vikinfg<游轮带你去旅行>主题宣传片1111',
+      //     'link': 'http://image.linbaoyou.com/upload/test/video/2017032020302405.mp4',
+      //     "cover":'http://www.linbaoyou.com/viking/static/img/img_1.eca3476.png'
+      //   }, {
+      //     'title': 'Vikinfg<游轮带你去旅行>主题宣传片22222',
+      //     'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4',
+      //     "cover":'http://www.linbaoyou.com/viking/static/img/img_1.eca3476.png'
+      //   }, {
+      //     'title': 'Vikinfg<游轮带你去旅行>主题宣传片3333',
+      //     'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4',
+      //     "cover":'http://www.linbaoyou.com/viking/static/img/img_1.eca3476.png'
+      //   }, {
+      //     'title': 'Vikinfg<游轮带你去旅行>主题宣传片3333',
+      //     'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4',
+      //     "cover":'http://www.linbaoyou.com/viking/static/img/img_1.eca3476.png'
+      //   }, {
+      //     'title': 'Vikinfg<游轮带你去旅行>主题宣传片3333',
+      //     'link': 'http://image.linbaoyou.com/upload/test/video/20170320194127900.mp4',
+      //     "cover":'http://www.linbaoyou.com/viking/static/img/img_1.eca3476.png'
+      //   }, ];
       this.htmlFontSize = parseFloat(document.documentElement.style.fontSize);
       this.windowWidth = document.body.clientWidth;
-      console.log(-(2.95*this.htmlFontSize));
-
       var self = this;
       this.$http.get('/liner/liner_getLinerVideo').then(function(res) {
         console.log(res);
         self.videoData =res.data;
         
-        self.firstLink = self.videoData[0].link;
+        // self.firstLink[0] = self.videoData[0].link;
+        document.getElementById('mp4').src =self.videoData[0].link;
+        document.getElementById('mp4').setAttribute("poster",self.videoData[0].cover);
       self.Allwidth = (self.videoData.length * (1.83 + 0.1) - 0.1)*self.htmlFontSize; //更多视频总长度
 
       }, function(err) {});
 
-
-    },
-    ready() {
-      
-    },
-    created: function() {
-      //ajax请求数据
-      
       
     },
 
@@ -464,7 +497,7 @@ export default {
   border-radius: .08rem;
   /*margin: 0 auto;*/
   padding-top: .29rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+  box-shadow: .01rem 0rem .1rem rgba(45, 6, 17, 0.5), -0.01rem 0rem .1rem rgba(45, 6, 17, 0.5), 0 .04rem .8rem rgba(45, 6, 17, 0.7);
 }
 
 .left {
@@ -596,7 +629,7 @@ export default {
 }
 
 .dot-wrap li.active {
-  background-color: #b81b48;
+  background-color: #ce1747;
   width: .32rem;
 }
 
@@ -605,6 +638,8 @@ export default {
 }
 
 .oneRight .pic1 {
+  width: 5.68rem;
+  height: 4.04rem;
   display: block;
   margin: .29rem auto .6rem;
 }
