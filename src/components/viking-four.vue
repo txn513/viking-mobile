@@ -385,7 +385,12 @@ export default {
         widthGoods4: 0,
 
         aClickStartPos:0,
-        aClickMoveDis:0
+        aClickMoveDis:0,
+
+        touchStartTranslateX: 0,
+        navObj: null,
+        $bigWrap: null,
+        navWidth: 0,
 
       }
     },
@@ -500,6 +505,8 @@ export default {
         //console.log(this.cardNewPos);
         this.$container.className = "container";
 
+        this.touchStartTranslateX = this.getTranslateX();
+
       },
       cardTouchMove(e) {
         this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
@@ -510,6 +517,28 @@ export default {
       },
       cardTouchEnd(e) {
         this.$container.className = "container containerAnimation";
+
+        console.log(this.touchStartTranslateX);
+        if(this.touchStartTranslateX == (-30*this.htmlFontSize)){
+          if(this.cardMoveDis < -200) {
+            this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
+            this.navObj.style.transform = "translate3d(0,0,0)"
+            this.navObj.innerHTML = '维京荣耀';
+            this.$router.push('/');
+            
+
+          }
+        }
+        else if(this.touchStartTranslateX == 0){
+           if(this.cardMoveDis > 200) {
+            this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
+            this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
+            this.navObj.innerHTML = '邮轮介绍';
+            this.$router.push('/vikingThree');
+           }
+        }
+
+
         if (this.getTranslateX() > -(3.75 * this.htmlFontSize)) {
           e.currentTarget.style.transform = "translate3d(0,0,0)"
           this.isCards = 0;
@@ -679,6 +708,11 @@ export default {
       this.windowWidth = document.body.clientWidth;
       
       this.proContainerWrapWidth = this.$el.querySelector('.goods-wrap').clientWidth;
+
+
+      this.$bigWrap = document.querySelector('.viking-big-wrap');
+      this.navObj = document.querySelector('.viking-slide-btn');
+      this.navWidth = this.navObj.clientWidth;
 
     },
     // computed: {

@@ -95,7 +95,12 @@ export default {
         cardConWidth: 0,
         windowWidth: 0,
         htmlFontSize: 0,
-        $container: null
+        $container: null,
+
+        touchStartTranslateX:0,
+        navObj: null,
+        $bigWrap: null,
+        navWidth: 0,
       }
     },
     methods:{
@@ -108,6 +113,7 @@ export default {
         this.cardNewPos = this.getTranslateX();
         console.log(this.cardNewPos);
         this.$container.className="container";
+        this.touchStartTranslateX = this.getTranslateX();
       },
       cardTouchMove(e){
         this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
@@ -153,6 +159,27 @@ export default {
       },
       cardTouchEnd(e){
         this.$container.className="container containerAnimation";
+
+        if(this.touchStartTranslateX == (-23.6*this.htmlFontSize)){
+          if(this.cardMoveDis < -200) {
+            this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
+            this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
+            this.navObj.innerHTML = '邮轮介绍';
+            this.$router.push('/vikingThree');
+            
+
+          }
+        }
+        else if(this.touchStartTranslateX == 0){
+           if(this.cardMoveDis > 200) {
+            this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
+            this.navObj.style.transform = "translate3d(0,0,0)"
+            this.navObj.innerHTML = '一价全包';
+            this.$router.push('/');
+           }
+        }
+
+
         if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
           e.currentTarget.style.transform = "translate3d(0,0,0)"
           this.isCards = 0;
@@ -183,6 +210,11 @@ export default {
       // ==========================  滑动   ================================================
       var self = this;
       var xstar, ystar, xmove, ymove, xend, yend, disx;
+
+
+      this.$bigWrap = document.querySelector('.viking-big-wrap');
+      this.navObj = document.querySelector('.viking-slide-btn');
+      this.navWidth = this.navObj.clientWidth;
       // document.querySelector('.container').addEventListener('touchstart', function(e) {
 
       //   xstar = e.touches[0].pageX;

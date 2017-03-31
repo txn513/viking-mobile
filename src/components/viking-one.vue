@@ -26,7 +26,7 @@
             </div>
             <p class="more">更多视频<span class="more-icon"></span></p>
             <div class="line"></div>
-            <div class="video-wrap" @touchstart="testStart" @touchmove.stop="testMove" @touchend="testEnd">
+            <div class="video-wrap" @touchstart="testStart" @touchmove.prevent="testMove" @touchend="testEnd">
               <ul class="videoSwiper" :style="{width:Allwidth+'px'}" style="left:0">
                 <li class="xvideo" v-for="(item,index) in videoData">
                   <div class="videosm">
@@ -151,12 +151,19 @@ export default {
         windowWidth: 0,
         htmlFontSize: 0,
         $container: null,
+        cardIndex:0,
 
         proStartPos: 0,
         proMoveDis: 0,
         proContainerWidth: 0,
         proContainerWrapWidth: 0,
         htmlFontSize:0,
+
+
+        touchStartTranslateX:0,
+        navObj: null,
+        $bigWrap: null,
+        navWidth: 0,
       }
     },
     methods: {
@@ -180,23 +187,25 @@ export default {
         this.cardNewPos = this.getTranslateX();
         console.log(this.cardNewPos);
         this.$container.className="container";
+        this.touchStartTranslateX = this.getTranslateX();
+        
       },
       cardTouchMove(e){
         this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
         var pos = this.cardNewPos + this.cardMoveDis;
-        if(pos > 0){
-          // e.currentTarget.style.left = 0+'px';
-          e.currentTarget.style.transform = "translate3d(0,0,0)"
-        }
-        else if (pos <-(this.cardConWidth-this.windowWidth)){
-          // e.currentTarget.style.left = -(this.cardConWidth-this.windowWidth) + 'px';
-          e.currentTarget.style.transform = "translate3d("+ (-(this.cardConWidth-this.windowWidth)) + 'px' +",0,0)";
-        }
-        else {
-          // e.currentTarget.style.left = pos + 'px';
-          e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
-        }
-
+        // if(pos > 0){
+        //   // e.currentTarget.style.left = 0+'px';
+        //   e.currentTarget.style.transform = "translate3d(0,0,0)"
+        // }
+        // else if (pos <-(this.cardConWidth-this.windowWidth)){
+        //   // e.currentTarget.style.left = -(this.cardConWidth-this.windowWidth) + 'px';
+        //   e.currentTarget.style.transform = "translate3d("+ (-(this.cardConWidth-this.windowWidth)) + 'px' +",0,0)";
+        // }
+        // else {
+        //   // e.currentTarget.style.left = pos + 'px';
+          
+        // }
+        e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
 
         if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
           document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className="one-wrap";
@@ -215,6 +224,19 @@ export default {
       },
       cardTouchEnd(e){
         this.$container.className="container containerAnimation";
+
+// console.log(this.touchStartTranslateX);
+        if(this.touchStartTranslateX == (-11.8*this.htmlFontSize)){
+          if(this.cardMoveDis < 0) {
+            this.$bigWrap.className = "viking-big-wrap viking-big-wrap-2";
+            this.navObj.style.transform = "translate3d("+ (this.navWidth)+"px" +",0,0)"
+            this.navObj.innerHTML = '一价全包';
+            this.$router.push('/vikingTwo');
+            
+
+          }
+        }
+
         if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
           e.currentTarget.style.transform = "translate3d(0,0,0)"
           this.isCards = 0;
@@ -270,6 +292,10 @@ export default {
       // ==========================  滑动   ================================================
       var self = this;
       var xstar, ystar, xmove, ymove, xend, yend, disx;
+
+      this.$bigWrap = document.querySelector('.viking-big-wrap');
+      this.navObj = document.querySelector('.viking-slide-btn');
+      this.navWidth = this.navObj.clientWidth;
       // document.addEventListener('touchstart', function(e) {
 
       //   xstar = e.touches[0].pageX;

@@ -441,8 +441,6 @@ export default {
             this.navObj.style.transform = "translate3d("+ (this.navWidth*3)+"px" +",0,0)"
             this.navObj.innerHTML = '精彩航线';
             this.$router.push('/vikingFour');
-            
-
           }
         }
         else if(this.touchStartTranslateX == 0){

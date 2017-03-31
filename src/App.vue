@@ -131,6 +131,7 @@ export default {
           this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
           this.navObj.innerHTML = '邮轮介绍';
           this.routerPath = '/vikingThree'
+          this.$router.push('/vikingThree');
         }
         else {
           this.navObj.className = 'viking-slide-btn slideAnimation';
@@ -311,20 +312,27 @@ export default {
    if(path.indexOf('vikingTwo') > 0){
     this.$bigWrap.className = "viking-big-wrap viking-big-wrap-2";
     this.navObj.style.transform = "translate3d("+ (this.navWidth)+"px" +",0,0)"
+    this.navObj.innerHTML = '一价全包';
 
    }
    else if (path.indexOf('vikingThree') > 0){
     this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
     this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
+        this.navObj.innerHTML = '邮轮介绍';
    }
   else if (path.indexOf('vikingFour') >0){
     this.$bigWrap.className = "viking-big-wrap viking-big-wrap-4";
     this.navObj.style.transform = "translate3d("+ (this.navWidth*3)+"px" +",0,0)"
+
+    this.navObj.innerHTML = '精彩航线';
+
    }
    else {
     this.$router.push('/');
     this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
     this.navObj.style.transform = "translate3d(0,0,0)"
+    this.navObj.innerHTML = '维京荣耀';
+
    }
    //console.log(this.$http);
  },
@@ -536,6 +544,7 @@ $fontsize:0.18rem;
     font-size: 0.2rem;
     user-select: none;
     transform: translate(0,0);
+    box-shadow: 0 2px 8px rgba(66, 65, 65, 0.45), 0 -2px 8px rgba(66, 65, 65, 0.45);
   }
 }
 
