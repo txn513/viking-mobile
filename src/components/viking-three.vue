@@ -296,7 +296,12 @@ export default {
         cardConWidth: 0,
         windowWidth: 0,
         htmlFontSize: 0,
-        $container: null
+        $container: null,
+        touchStartTranslateX:0,
+
+        navObj: null,
+        $bigWrap: null,
+        navWidth: 0,
     }
   },
   methods:{
@@ -410,6 +415,7 @@ export default {
         this.cardNewPos = this.getTranslateX();
         //console.log(this.cardNewPos);
         this.$container.className="container";
+        this.touchStartTranslateX = this.getTranslateX();
       },
       cardTouchMove(e){
         this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
@@ -420,6 +426,28 @@ export default {
       },
       cardTouchEnd(e){
         this.$container.className="container containerAnimation";
+        //alert(touchStartTranslateX);
+        //console.log(this.touchStartTranslateX);
+        if(this.touchStartTranslateX == (-37.5*this.htmlFontSize)){
+          if(this.cardMoveDis < 0) {
+        //console.log(this.touchStartTranslateX);
+            this.$bigWrap.className = "viking-big-wrap viking-big-wrap-4";
+            this.navObj.style.transform = "translate3d("+ (this.navWidth*3)+"px" +",0,0)"
+            this.navObj.innerHTML = '精彩航线';
+            this.$router.push('/vikingFour');
+            
+
+          }
+        }
+        else if(this.touchStartTranslateX == 0){
+           if(this.cardMoveDis > 200) {
+            this.$bigWrap.className = "viking-big-wrap viking-big-wrap-2";
+            this.navObj.style.transform = "translate3d("+ (this.navWidth)+"px" +",0,0)"
+            this.navObj.innerHTML = '一价全包';
+            this.$router.push('/vikingTwo');
+           }
+        }
+
         if(this.getTranslateX() > -(3.75*this.htmlFontSize) ){
           e.currentTarget.style.transform = "translate3d(0,0,0)"
           this.isCards = 0;
@@ -458,6 +486,11 @@ export default {
       var self = this;
       var xstar, ystar, xmove, ymove, xend, yend, disx;
       var boxDom = document.querySelector('.viking-three .container');
+
+      this.$bigWrap = document.querySelector('.viking-big-wrap');
+      this.navObj = document.querySelector('.viking-slide-btn');
+      this.navWidth = this.navObj.clientWidth;
+
       // boxDom.addEventListener('touchstart', function(e) {
 
       //   xstar = e.touches[0].pageX;
