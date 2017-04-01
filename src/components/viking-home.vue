@@ -1,7 +1,7 @@
 <template>
 	<div class="viking-home">
-		<img src="../assets/img/home/home_bg.png" class="home-bg">
-		<img src="../assets/img/home/arrow.gif" class="home-arrow">
+		<img src="../assets/img/home/home_bg.gif" class="home-bg">
+		<!-- <img src="../assets/img/home/arrow.gif" class="home-arrow"> -->
 	</div>
 </template>
 <script>

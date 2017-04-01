@@ -435,7 +435,7 @@ export default {
         this.$container.className="container containerAnimation";
         //alert(touchStartTranslateX);
         //console.log(this.touchStartTranslateX);
-        if(this.touchStartTranslateX == (-37.5*this.htmlFontSize)){
+        if((this.touchStartTranslateX).toFixed(2) == (-37.5*this.htmlFontSize).toFixed(2)){
           if(this.cardMoveDis < 0) {
         //console.log(this.touchStartTranslateX);
             this.$bigWrap.className = "viking-big-wrap viking-big-wrap-4";

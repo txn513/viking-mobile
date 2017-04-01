@@ -161,7 +161,7 @@ export default {
       cardTouchEnd(e){
         this.$container.className="container containerAnimation";
 
-        if(this.touchStartTranslateX == (-23.6*this.htmlFontSize)){
+        if((this.touchStartTranslateX).toFixed(2) == (-23.6*this.htmlFontSize).toFixed(2)){
           if(this.cardMoveDis < -200) {
             this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
             this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
