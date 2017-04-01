@@ -422,6 +422,7 @@ export default {
         //console.log(this.cardNewPos);
         this.$container.className="container";
         this.touchStartTranslateX = this.getTranslateX();
+        this.cardMoveDis = 0;
       },
       cardTouchMove(e){
         this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;

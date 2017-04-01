@@ -512,6 +512,7 @@ export default {
         this.$container.className = "container";
 
         this.touchStartTranslateX = this.getTranslateX();
+        this.cardMoveDis = 0;
 
       },
       cardTouchMove(e) {

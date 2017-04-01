@@ -114,6 +114,7 @@ export default {
         console.log(this.cardNewPos);
         this.$container.className="container";
         this.touchStartTranslateX = this.getTranslateX();
+        this.cardMoveDis = 0;
       },
       cardTouchMove(e){
         this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
@@ -166,7 +167,8 @@ export default {
             this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
             this.navObj.innerHTML = '邮轮介绍';
             this.$router.push('/vikingThree');
-            
+          }
+          else {
 
           }
         }
