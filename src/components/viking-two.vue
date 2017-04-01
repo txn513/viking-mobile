@@ -434,7 +434,7 @@ export default {
   /*transition: all .3s ease;*/
 }
 .containerAnimation {
-  transition: all 0.6s ease-in-out
+  transition: all 0.4s ease-in-out
 }
 
 .viking-two * {
