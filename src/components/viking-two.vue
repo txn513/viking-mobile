@@ -104,6 +104,7 @@ export default {
 
         startMoveTime:0,
         endMoveTime:0,
+        lastIsCard:0
       }
     },
     methods:{
@@ -119,6 +120,7 @@ export default {
         this.touchStartTranslateX = this.getTranslateX();
         this.cardMoveDis = 0;
         this.startMoveTime = new Date().getTime();
+        this.lastIsCard = this.isCards
       },
       cardTouchMove(e){
         this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
@@ -207,7 +209,7 @@ export default {
         else {
           e.currentTarget.style.transform = "translate3d("+ (this.cardNewPos + this.cardMoveDis)+ 'px' +",0,0)";
         }
-
+        e.currentTarget.style.transform = "translate3d("+ (this.cardNewPos + this.cardMoveDis)+ 'px' +",0,0)";
       },
       cardTouchEnd(e){
         this.$container.className="container containerAnimation";
@@ -217,31 +219,31 @@ export default {
 
         if(moveTime <400){
           if(this.cardMoveDis <0){
-            if(this.isCards == 0){
+            if(this.lastIsCard == 0){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
               this.isCards = 1;
               this.$container.querySelectorAll('.two-wrap')[0].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[1].className ="two-wrap current";
             }
-            else if(this.isCards == 1){
+            else if(this.lastIsCard == 1){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
               this.isCards = 2;
               this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[2].className ="two-wrap current";
             }
-            else if(this.isCards == 2){
+            else if(this.lastIsCard == 2){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*3*this.htmlFontSize) + 'px' +",0,0)"
               this.isCards = 3;
               this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[3].className ="two-wrap current";
             }
-            else if(this.isCards == 3){
+            else if(this.lastIsCard == 3){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*4*this.htmlFontSize) + 'px' +",0,0)"
               this.isCards = 4;
               this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[4].className ="two-wrap current";
             }
-            else if(this.isCards == 4){
+            else if(this.lastIsCard == 4){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*4*this.htmlFontSize) + 'px' +",0,0)";
               this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
               this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
@@ -250,31 +252,31 @@ export default {
             }
           }
           else if(this.cardMoveDis >0){
-            if(this.isCards == 4){
+            if(this.lastIsCard == 4){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*3*this.htmlFontSize) + 'px' +",0,0)"
               this.isCards = 3;
               this.$container.querySelectorAll('.two-wrap')[4].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[3].className ="two-wrap current";
             }
-            else if(this.isCards == 3){
+            else if(this.lastIsCard == 3){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
               this.isCards = 2;
               this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[2].className ="two-wrap current";
             }
-            else if(this.isCards == 2){
+            else if(this.lastIsCard == 2){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
               this.isCards = 1;
               this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[1].className ="two-wrap current";
             }
-            else if (this.isCards == 1){
+            else if (this.lastIsCard == 1){
               e.currentTarget.style.transform = "translate3d(0,0,0)"
               this.isCards = 0;
               this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[0].className ="two-wrap current";
             }
-            else if (this.isCards == 0){
+            else if (this.lastIsCard == 0){
               e.currentTarget.style.transform = "translate3d(0,0,0)";
               this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
               this.navObj.style.transform = "translate3d(0,0,0)"

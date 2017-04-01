@@ -169,6 +169,7 @@ export default {
         $touchWrap:0,
         startMoveTime:0,
         endMoveTime:0,
+        lastIsCard:0,
       }
     },
     methods: {
@@ -188,7 +189,7 @@ export default {
       },
       bigVideoTouchEnd(e){
         // console.log(e);
-        //this.$container.style.transform = "translate3d(0,0,0)"
+        this.$container.style.transform = "translate3d(0,0,0)"
       },
       cardTouchStart(e){
         this.cardStartPos = e.targetTouches[0].pageX;
@@ -199,6 +200,7 @@ export default {
         this.touchStartTranslateX = this.getTranslateX();
         this.cardMoveDis = 0;
         this.startMoveTime = new Date().getTime();
+        this.lastIsCard = this.isCards;
       },
       cardTouchMove(e){
         this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
@@ -243,6 +245,14 @@ export default {
           e.currentTarget.className="container containerAnimation";
           if(this.isCards == 0){
             e.currentTarget.style.transform = "translate3d(0,0,0)"
+            if(this.cardMoveDis > 300){
+
+                this.$touchWrap.style.display="";
+                this.$touchWrap.className = 'touchWrap scrollAnimation';
+                
+
+                this.$touchWrap.style.transform = "translate3d(0,0,0)";
+              }
           }
           else if (this.isCards == 1){
             e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
@@ -270,20 +280,20 @@ export default {
         if(moveTime <400){
 
           if(this.cardMoveDis <0){
-              if(this.isCards == 0){
+              if(this.lastIsCard == 0){
               // alert(this.slideIndex );
               e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
               this.isCards = 1;
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[0].className="one-wrap";
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className ="one-wrap current";
             }
-            else if (this.isCards == 1){
+            else if (this.lastIsCard == 1){
                e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
                this.isCards = 2;
                document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className="one-wrap";
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[2].className ="one-wrap current";
             }
-            else if (this.isCards == 2){
+            else if (this.lastIsCard == 2){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
               this.$bigWrap.className = "viking-big-wrap viking-big-wrap-2";
               this.navObj.style.transform = "translate3d("+ (this.navWidth)+"px" +",0,0)"
@@ -292,25 +302,29 @@ export default {
             }
           }
           else if(this.cardMoveDis > 0){
-            if(this.isCards == 2){
+            if(this.lastIsCard == 2){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
               this.isCards = 1;
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[2].className="one-wrap";
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className ="one-wrap current";
             }
-            else if (this.isCards == 1){
+            else if (this.lastIsCard == 1){
               e.currentTarget.style.transform = "translate3d(0,0,0)"
               this.isCards = 0;
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className="one-wrap";
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[0].className ="one-wrap current";
             }
-            else if (this.isCards == 0){
+            else if (this.lastIsCard == 0){
               e.currentTarget.style.transform = "translate3d(0,0,0)"
-              this.$touchWrap.style.display="";
-              this.$touchWrap.className = 'touchWrap scrollAnimation';
-              
+              if(this.cardMoveDis > 300){
 
-              this.$touchWrap.style.transform = "translate3d(0,0,0)";
+                this.$touchWrap.style.display="";
+                this.$touchWrap.className = 'touchWrap scrollAnimation';
+                
+
+                this.$touchWrap.style.transform = "translate3d(0,0,0)";
+              }
+              
             }
           }
         }
