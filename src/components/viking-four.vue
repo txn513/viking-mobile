@@ -748,21 +748,25 @@ export default {
         this.$container.className="container containerAnimation";
         this.$container.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
         this.isCards = 1;
+        this.autoLyh8();
       },
       clickLyh11(){
         this.$container.className="container containerAnimation";
         this.$container.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
         this.isCards = 2;
+        this.autoLyh11();
       },
       clickDnh8(){
         this.$container.className="container containerAnimation";
         this.$container.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
         this.isCards = 3;
+        this.autoDnh8();
       },
       clickDnh11(){
         this.$container.className="container containerAnimation";
         this.$container.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
         this.isCards = 4;
+        this.autoDnh11();
       }
     },
     mounted() {
@@ -980,6 +984,7 @@ export default {
 }
 
 .classes li div.active {
+  /* transition: all .3s ease-in; */
   background-color: #d8194c;
   color: #ffffff;
   border-radius: .04rem;

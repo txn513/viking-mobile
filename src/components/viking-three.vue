@@ -315,21 +315,25 @@ export default {
       this.$container.className="container containerAnimation";
       this.$container.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
       this.isCards = 2;
+      this.autoCf();
     },
     msclick(){
       this.$container.className="container containerAnimation";
       this.$container.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
       this.isCards = 3;
+      this.autoMs();
     },
     ctclick(){
       this.$container.className="container containerAnimation";
       this.$container.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
       this.isCards = 4;
+      this.autoCt();
     },
     ylclick(){
       this.$container.className="container containerAnimation";
       this.$container.style.transform = "translate3d("+ (-7.5*5*this.htmlFontSize) + 'px' +",0,0)"
       this.isCards = 5;
+      this.autoYl();
     },
   	changeClassesActivecf(e){   //房型等类目切换
   		var child = e.currentTarget;
