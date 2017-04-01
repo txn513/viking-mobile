@@ -22,7 +22,7 @@
 		text-align: center;
 		overflow:hidden;
 		background-color: #2d72a1;
-		img {
+		.home-bg {
 			position: absolute;
 			min-height: 100%;
 			min-width:100%;
@@ -40,8 +40,6 @@
 			height: 1.65rem;
 			width: 1.62rem;
 			z-index: 100;
-			min-height: auto;
-    		min-width: auto;
 		}
 	}
 </style>
