@@ -755,27 +755,27 @@ console.log((-11.8*this.htmlFontSize*1000/1000).toFixed(2));
 }
 
 .glory1 {
-  background: url('../assets/img/one/logo_1.png') left top no-repeat;
+  background: url('../assets/img/one/logo_1.png') left center no-repeat;
 }
 
 .glory2 {
-  background: url('../assets/img/one/logo_2.png') left -.05rem no-repeat;
+  background: url('../assets/img/one/logo_2.png') left center no-repeat;
 }
 
 .glory3 {
-  background: url('../assets/img/one/logo_3.png') left -.08rem no-repeat;
+  background: url('../assets/img/one/logo_3.png') left center no-repeat;
 }
 
 .glory4 {
-  background: url('../assets/img/one/logo_4.png') left -.1rem no-repeat;
+  background: url('../assets/img/one/logo_4.png') left center no-repeat;
 }
 
 .glory5 {
-  background: url('../assets/img/one/logo_05.png') left top no-repeat;
+  background: url('../assets/img/one/logo_05.png') left center no-repeat;
 }
 
 .glory6 {
-  background: url('../assets/img/one/logo_06.png') left top no-repeat;
+  background: url('../assets/img/one/logo_06.png') left center no-repeat;
 }
 
 .glory6 >div {
