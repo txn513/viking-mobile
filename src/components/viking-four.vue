@@ -572,8 +572,48 @@ export default {
       cardTouchMove(e) {
         this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
         var pos = this.cardNewPos + this.cardMoveDis;
-       
-        e.currentTarget.style.transform = "translate3d(" + pos + 'px' + ",0,0)";
+
+        if(e.targetTouches[0].pageX <= 1){
+          this.$container.className="container containerAnimation";
+          if(this.isCards == 0){
+            e.currentTarget.style.transform = "translate3d(0,0,0)"
+          }
+          else if (this.isCards == 1){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 2){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 3){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 4){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
+          }
+        }
+        else if (parseInt(e.targetTouches[0].pageX/10) >= parseInt(this.windowWidth/10-1)){
+
+          e.currentTarget.className="container containerAnimation";
+          if(this.isCards == 0){
+            e.currentTarget.style.transform = "translate3d(0,0,0)"
+          }
+          else if (this.isCards == 1){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 2){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 3){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 4){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
+          }
+        }
+        else {
+          e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
+        }
+
 
       },
       cardTouchEnd(e) {
@@ -613,7 +653,7 @@ export default {
               this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
               this.navObj.style.transform = "translate3d(0,0,0)"
               this.navObj.innerHTML = '维京荣耀';
-              this.$router.push('/');
+              this.$router.replace('/');
             }
           }
           else if(this.cardMoveDis >0){
@@ -645,7 +685,7 @@ export default {
               this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
               this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
               this.navObj.innerHTML = '邮轮介绍';
-              this.$router.push('/vikingThree');
+              this.$router.replace('/vikingThree');
             }
           }
         }
@@ -656,7 +696,7 @@ export default {
                 this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
                 this.navObj.style.transform = "translate3d(0,0,0)"
                 this.navObj.innerHTML = '维京荣耀';
-                this.$router.push('/');
+                this.$router.replace('/');
                 
 
               }
@@ -666,7 +706,7 @@ export default {
                 this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
                 this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
                 this.navObj.innerHTML = '邮轮介绍';
-                this.$router.push('/vikingThree');
+                this.$router.replace('/vikingThree');
                }
             }
 

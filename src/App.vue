@@ -146,7 +146,7 @@ export default {
           this.navObj.innerHTML = '精彩航线';
           this.routerPath = '/vikingFour'
         }
-        this.$router.push(this.routerPath);
+        this.$router.replace(this.routerPath);
     },
     navClickEnd: function(e){
       e.preventDefault();
@@ -182,7 +182,7 @@ export default {
       }
       else {
         e.currentTarget.className = 'touchWrap scrollAnimation';
-        if(Math.abs(this.moveDis) > 400){
+        if(Math.abs(this.moveDis) > 300){
         // e.currentTarget.style.marginTop = -(this.windowHeight) +'px';
           e.currentTarget.style.transform = "translate3d(0,"+ (-(this.windowHeight)) +'px' +",0)"
           sessionStorage.i = 0;
@@ -302,7 +302,7 @@ export default {
         e.currentTarget.style.transform = "translate3d(0,0,0)";
         this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
         // this.$bigWrap.style.backgroundImage = "url('./assets/img/one/one-bg.png')";
-        this.$router.push('/');
+        this.$router.replace('/');
 
         // this.routerInterval = setTimeout(function(){
         //   self.$router.push('/');
@@ -312,19 +312,19 @@ export default {
         // e.currentTarget.style.left = (this.navOffsetLeft + this.navWidth) + "px";
         e.currentTarget.style.transform = "translate3d("+ (this.navWidth)+"px" +",0,0)"
         this.$bigWrap.className = "viking-big-wrap viking-big-wrap-2";
-        this.$router.push('/vikingTwo');
+        this.$router.replace('/vikingTwo');
       }
       else if (left > twoMidThree && left <= threeMidFour ){
         // e.currentTarget.style.left = (this.navOffsetLeft + this.navWidth*2) + "px";
         e.currentTarget.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
         this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
-        this.$router.push('/vikingThree');
+        this.$router.replace('/vikingThree');
       }
       else {
         // e.currentTarget.style.left = (this.navOffsetLeft + this.navWidth*3) + "px";
         e.currentTarget.style.transform = "translate3d("+ (this.navWidth*3)+"px" +",0,0)"
         this.$bigWrap.className = "viking-big-wrap viking-big-wrap-4";
-        this.$router.push('/vikingFour');
+        this.$router.replace('/vikingFour');
       }
       
     },
@@ -373,7 +373,7 @@ export default {
 
    }
    else {
-    this.$router.push('/');
+    this.$router.replace('/');
     this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
     this.navObj.style.transform = "translate3d(0,0,0)"
     this.navObj.innerHTML = '维京荣耀';

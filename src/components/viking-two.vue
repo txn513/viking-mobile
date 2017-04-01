@@ -104,7 +104,6 @@ export default {
 
         startMoveTime:0,
         endMoveTime:0,
-        slideIndex: 0,
       }
     },
     methods:{
@@ -136,30 +135,77 @@ export default {
         //   // e.currentTarget.style.left = pos + 'px';
           
         // }
-        e.currentTarget.style.transform = "translate3d("+ (this.cardNewPos + this.cardMoveDis)+ 'px' +",0,0)";
+        
 
         if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
           this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
           this.$container.querySelectorAll('.two-wrap')[0].className ="two-wrap current";
+          this.isCards = 0
         }
         else if (this.getTranslateX() <= -(2.95*this.htmlFontSize) && this.getTranslateX() > -(8.85*this.htmlFontSize)){
           this.$container.querySelectorAll('.two-wrap')[0].className="two-wrap";
           this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
           this.$container.querySelectorAll('.two-wrap')[1].className ="two-wrap current";
+          this.isCards = 1
         }
         else if (this.getTranslateX() <= -(8.85*this.htmlFontSize) && this.getTranslateX() > -((5.9*2+2.95)*this.htmlFontSize)){
           this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
           this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
           this.$container.querySelectorAll('.two-wrap')[2].className ="two-wrap current";
+          this.isCards = 2
         }
         else if (this.getTranslateX() <= -((5.9*2+2.95)*this.htmlFontSize) && this.getTranslateX() > -((5.9*3+2.95)*this.htmlFontSize)){
           this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
           this.$container.querySelectorAll('.two-wrap')[4].className="two-wrap";
           this.$container.querySelectorAll('.two-wrap')[3].className ="two-wrap current";
+          this.isCards = 3
         }
         else {
           this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
           this.$container.querySelectorAll('.two-wrap')[4].className ="two-wrap current";
+          this.isCards = 4
+        }
+
+
+        if(e.targetTouches[0].pageX <= 1){
+          this.$container.className="container containerAnimation";
+          if(this.isCards == 0){
+            e.currentTarget.style.transform = "translate3d(0,0,0)"
+          }
+          else if (this.isCards == 1){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 2){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 3){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*3*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 4){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*4*this.htmlFontSize) + 'px' +",0,0)"
+          }
+        }
+        else if (parseInt(e.targetTouches[0].pageX/10) >= parseInt(this.windowWidth/10-1)){
+
+          e.currentTarget.className="container containerAnimation";
+          if(this.isCards == 0){
+            e.currentTarget.style.transform = "translate3d(0,0,0)"
+          }
+          else if (this.isCards == 1){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 2){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 3){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*3*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 4){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*4*this.htmlFontSize) + 'px' +",0,0)"
+          }
+        }
+        else {
+          e.currentTarget.style.transform = "translate3d("+ (this.cardNewPos + this.cardMoveDis)+ 'px' +",0,0)";
         }
 
       },
@@ -171,77 +217,69 @@ export default {
 
         if(moveTime <400){
           if(this.cardMoveDis <0){
-            if(this.slideIndex == 0){
+            if(this.isCards == 0){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
-              this.slideIndex = 1
               this.isCards = 1;
               this.$container.querySelectorAll('.two-wrap')[0].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[1].className ="two-wrap current";
             }
-            else if(this.slideIndex == 1){
+            else if(this.isCards == 1){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
-              this.slideIndex = 2;
               this.isCards = 2;
               this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[2].className ="two-wrap current";
             }
-            else if(this.slideIndex == 2){
+            else if(this.isCards == 2){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*3*this.htmlFontSize) + 'px' +",0,0)"
-              this.slideIndex = 3;
               this.isCards = 3;
               this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[3].className ="two-wrap current";
             }
-            else if(this.slideIndex == 3){
+            else if(this.isCards == 3){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*4*this.htmlFontSize) + 'px' +",0,0)"
-              this.slideIndex = 4;
               this.isCards = 4;
               this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[4].className ="two-wrap current";
             }
-            else if(this.slideIndex == 4){
+            else if(this.isCards == 4){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*4*this.htmlFontSize) + 'px' +",0,0)";
               this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
               this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
               this.navObj.innerHTML = '邮轮介绍';
-              this.$router.push('/vikingThree');
+              this.$router.replace('/vikingThree');
             }
           }
           else if(this.cardMoveDis >0){
-            if(this.slideIndex == 4){
+            if(this.isCards == 4){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*3*this.htmlFontSize) + 'px' +",0,0)"
-              this.slideIndex = 3;
               this.isCards = 3;
               this.$container.querySelectorAll('.two-wrap')[4].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[3].className ="two-wrap current";
             }
-            else if(this.slideIndex == 3){
+            else if(this.isCards == 3){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
-              this.slideIndex = 2;
               this.isCards = 2;
               this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[2].className ="two-wrap current";
             }
-            else if(this.slideIndex == 2){
+            else if(this.isCards == 2){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
-              this.slideIndex = 1
               this.isCards = 1;
               this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[1].className ="two-wrap current";
             }
-            else if (this.slideIndex == 1){
+            else if (this.isCards == 1){
               e.currentTarget.style.transform = "translate3d(0,0,0)"
-              this.slideIndex = 0;
               this.isCards = 0;
               this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
               this.$container.querySelectorAll('.two-wrap')[0].className ="two-wrap current";
             }
-            else if (this.slideIndex == 0){
+            else if (this.isCards == 0){
               e.currentTarget.style.transform = "translate3d(0,0,0)";
               this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
               this.navObj.style.transform = "translate3d(0,0,0)"
               this.navObj.innerHTML = '一价全包';
-              this.$router.push('/');
+              this.$router.replace('/');
             }
           }
         }
@@ -251,7 +289,7 @@ export default {
               this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
               this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
               this.navObj.innerHTML = '邮轮介绍';
-              this.$router.push('/vikingThree');
+              this.$router.replace('/vikingThree');
             }
           }
           else if(this.touchStartTranslateX == 0){
@@ -259,7 +297,7 @@ export default {
               this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
               this.navObj.style.transform = "translate3d(0,0,0)"
               this.navObj.innerHTML = '一价全包';
-              this.$router.push('/');
+              this.$router.replace('/');
              }
           }
 

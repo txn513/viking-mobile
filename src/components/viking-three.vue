@@ -440,8 +440,56 @@ export default {
     cardTouchMove(e){
       this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
       var pos = this.cardNewPos + this.cardMoveDis;
+
+      if(e.targetTouches[0].pageX <= 1){
+          this.$container.className="container containerAnimation";
+          if(this.isCards == 0){
+            e.currentTarget.style.transform = "translate3d(0,0,0)"
+          }
+          else if (this.isCards == 1){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 2){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 3){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 4){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 5){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*5*this.htmlFontSize) + 'px' +",0,0)"
+          }
+        }
+        else if (parseInt(e.targetTouches[0].pageX/10) >= parseInt(this.windowWidth/10-1)){
+
+          e.currentTarget.className="container containerAnimation";
+          if(this.isCards == 0){
+            e.currentTarget.style.transform = "translate3d(0,0,0)"
+          }
+          else if (this.isCards == 1){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 2){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 3){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 4){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 5){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*5*this.htmlFontSize) + 'px' +",0,0)"
+          }
+        }
+        else {
+          e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
+        }
+
        
-      e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
+      
 
     },
     cardTouchEnd(e){
@@ -485,7 +533,7 @@ export default {
             this.$bigWrap.className = "viking-big-wrap viking-big-wrap-4";
             this.navObj.style.transform = "translate3d("+ (this.navWidth*3)+"px" +",0,0)"
             this.navObj.innerHTML = '精彩航线';
-            this.$router.push('/vikingFour');
+            this.$router.replace('/vikingFour');
           }
         }
         else if(this.cardMoveDis >0){
@@ -521,7 +569,7 @@ export default {
             this.$bigWrap.className = "viking-big-wrap viking-big-wrap-2";
             this.navObj.style.transform = "translate3d("+ (this.navWidth)+"px" +",0,0)"
             this.navObj.innerHTML = '一价全包';
-            this.$router.push('/vikingTwo');
+            this.$router.replace('/vikingTwo');
           }
 
         }
@@ -533,7 +581,7 @@ export default {
             this.$bigWrap.className = "viking-big-wrap viking-big-wrap-4";
             this.navObj.style.transform = "translate3d("+ (this.navWidth*3)+"px" +",0,0)"
             this.navObj.innerHTML = '精彩航线';
-            this.$router.push('/vikingFour');
+            this.$router.replace('/vikingFour');
           }
         }
         else if(this.touchStartTranslateX == 0){
@@ -541,7 +589,7 @@ export default {
             this.$bigWrap.className = "viking-big-wrap viking-big-wrap-2";
             this.navObj.style.transform = "translate3d("+ (this.navWidth)+"px" +",0,0)"
             this.navObj.innerHTML = '一价全包';
-            this.$router.push('/vikingTwo');
+            this.$router.replace('/vikingTwo');
            }
         }
 

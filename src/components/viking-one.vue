@@ -22,7 +22,7 @@
             <div class="video-box">
               <!-- <span style="display: block;width: 100%;height: 1px;background-color: #cacaca"></span> -->
               <!-- :poster="imgurl1" -->
-              <video id="mp4" controls webkit-playsinline ></video>
+              <video id="mp4" controls webkit-playsinline @touchend="bigVideoTouchEnd"></video>
             </div>
             <p class="more">更多视频<span class="more-icon"></span></p>
             <div class="line"></div>
@@ -169,7 +169,6 @@ export default {
         $touchWrap:0,
         startMoveTime:0,
         endMoveTime:0,
-        slideIndex: 0,
       }
     },
     methods: {
@@ -187,6 +186,10 @@ export default {
       getVideoTranslateX(){
         return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-one .videoSwiper'),null).transform.substring(7).split(',')[4]) || 0
       },
+      bigVideoTouchEnd(e){
+        // console.log(e);
+        //this.$container.style.transform = "translate3d(0,0,0)"
+      },
       cardTouchStart(e){
         this.cardStartPos = e.targetTouches[0].pageX;
         // this.cardNewPos = e.currentTarget.offsetLeft;
@@ -200,46 +203,66 @@ export default {
       cardTouchMove(e){
         this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
         var pos = this.cardNewPos + this.cardMoveDis;
-        // if(pos > 0){
-        //   // e.currentTarget.style.left = 0+'px';
-        //   e.currentTarget.style.transform = "translate3d(0,0,0)"
-        // }
-        // else if (pos <-(this.cardConWidth-this.windowWidth)){
-        //   // e.currentTarget.style.left = -(this.cardConWidth-this.windowWidth) + 'px';
-        //   e.currentTarget.style.transform = "translate3d("+ (-(this.cardConWidth-this.windowWidth)) + 'px' +",0,0)";
-        // }
-        // else {
-        //   // e.currentTarget.style.left = pos + 'px';
-          
-        // }
-        e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
+
+        // console.log(parseInt(e.targetTouches[0].pageX/10));
+        // console.log(parseInt(this.windowWidth/10));
+        
 
         if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
           document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className="one-wrap";
           document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[0].className ="one-wrap current";
+          this.isCards = 0
         }
         else if (this.getTranslateX() <= -(2.95*this.htmlFontSize) && this.getTranslateX() > -(8.85*this.htmlFontSize)){
           document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[0].className="one-wrap";
           document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[2].className="one-wrap";
           document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className ="one-wrap current";
+          this.isCards = 1
         }
         else {
           document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className="one-wrap";
           document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[2].className ="one-wrap current";
+          this.isCards = 2
         }
+
+        //console.log(this.isCards);
+        if(e.targetTouches[0].pageX <= 1){
+          this.$container.className="container containerAnimation";
+          if(this.isCards == 0){
+            e.currentTarget.style.transform = "translate3d(0,0,0)"
+          }
+          else if (this.isCards == 1){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 2){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
+          }
+        }
+        else if (parseInt(e.targetTouches[0].pageX/10) >= parseInt(this.windowWidth/10-1)){
+
+          e.currentTarget.className="container containerAnimation";
+          if(this.isCards == 0){
+            e.currentTarget.style.transform = "translate3d(0,0,0)"
+          }
+          else if (this.isCards == 1){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
+          }
+          else if (this.isCards == 2){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
+          }
+        }
+        else {
+          e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
+        }
+        
+
+
 
       },
       cardTouchEnd(e){
         this.$container.className="container containerAnimation";
         this.endMoveTime = new Date().getTime();
         var moveTime = this.endMoveTime - this.startMoveTime;
-        
-
-
-
-        
-
-
 
         //console.log((-11.8*this.htmlFontSize*1000/1000).toFixed(2));
 
@@ -247,45 +270,41 @@ export default {
         if(moveTime <400){
 
           if(this.cardMoveDis <0){
-              if(this.slideIndex == 0){
+              if(this.isCards == 0){
               // alert(this.slideIndex );
               e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
-              this.slideIndex = 1
               this.isCards = 1;
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[0].className="one-wrap";
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className ="one-wrap current";
             }
-            else if (this.slideIndex == 1){
+            else if (this.isCards == 1){
                e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
                this.isCards = 2;
-               this.slideIndex = 2;
                document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className="one-wrap";
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[2].className ="one-wrap current";
             }
-            else if (this.slideIndex == 2){
+            else if (this.isCards == 2){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
               this.$bigWrap.className = "viking-big-wrap viking-big-wrap-2";
               this.navObj.style.transform = "translate3d("+ (this.navWidth)+"px" +",0,0)"
               this.navObj.innerHTML = '一价全包';
-              this.$router.push('/vikingTwo');
+              this.$router.replace('/vikingTwo');
             }
           }
           else if(this.cardMoveDis > 0){
-            if(this.slideIndex == 2){
+            if(this.isCards == 2){
               e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
-              this.slideIndex = 1
               this.isCards = 1;
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[2].className="one-wrap";
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className ="one-wrap current";
             }
-            else if (this.slideIndex == 1){
+            else if (this.isCards == 1){
               e.currentTarget.style.transform = "translate3d(0,0,0)"
-              this.slideIndex = 0;
               this.isCards = 0;
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[1].className="one-wrap";
               document.querySelector('.viking-one .container').querySelectorAll('.one-wrap')[0].className ="one-wrap current";
             }
-            else if (this.slideIndex == 0){
+            else if (this.isCards == 0){
               e.currentTarget.style.transform = "translate3d(0,0,0)"
               this.$touchWrap.style.display="";
               this.$touchWrap.className = 'touchWrap scrollAnimation';
@@ -301,7 +320,7 @@ export default {
               this.$bigWrap.className = "viking-big-wrap viking-big-wrap-2";
               this.navObj.style.transform = "translate3d("+ (this.navWidth)+"px" +",0,0)"
               this.navObj.innerHTML = '一价全包';
-              this.$router.push('/vikingTwo');
+              this.$router.replace('/vikingTwo');
               
 
             }
