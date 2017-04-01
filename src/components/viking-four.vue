@@ -531,7 +531,7 @@ export default {
             self.widthGoods4 = res.data.info.length*((3.39+0.24)*self.htmlFontSize)-(0.24*self.htmlFontSize);
             self.proContainerWidth  = self.widthGoods4;
           });
-        }
+        } 
       },
       getTranslateX() {
         return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-four .container'), null).transform.substring(7).split(',')[4]) || 0
@@ -601,35 +601,35 @@ export default {
           e.currentTarget.style.transform = "translate3d(" + (-7.5 * this.htmlFontSize) + 'px' + ",0,0)"
           this.isCards = 1;
           this.clearTimer();
-          this.autoLyh8()
+          this.autoLyh8();
           // e.currentTarget.style.left = (-5.9*this.htmlFontSize) + 'px';
         } else if (this.getTranslateX() <= -((3.75 + 7.5) * this.htmlFontSize) && this.getTranslateX() > -((7.5 * 2 + 3.75) * this.htmlFontSize)) {
           e.currentTarget.style.transform = "translate3d(" + (-7.5 * 2 * this.htmlFontSize) + 'px' + ",0,0)"
           this.isCards = 2;
           this.clearTimer();
-          this.autoLyh11()
+          this.autoLyh11();
         } else if (this.getTranslateX() <= -((7.5 * 2 + 3.75) * this.htmlFontSize) && this.getTranslateX() > -((7.5 * 3 + 3.75) * this.htmlFontSize)) {
           e.currentTarget.style.transform = "translate3d(" + (-7.5 * 3 * this.htmlFontSize) + 'px' + ",0,0)"
           this.isCards = 3;
           this.clearTimer();
-          this.autoDnh8()
+          this.autoDnh8();
         } else {
           e.currentTarget.style.transform = "translate3d(" + (-7.5 * 4 * this.htmlFontSize) + 'px' + ",0,0)"
           this.isCards = 4;
           this.clearTimer();
-          this.autoDnh11()
+          this.autoDnh11();
         }
 
 
       },
-      getData() {
-        //请求数据
+      getData() {//请求数据
+        
         var self = this;
         // 8天莱茵河
         this.$http.jsonp('http://www.linbaoyou.com/travel/activity_albumProduct', {
           params: {
             theme: 'wj8lyh',
-            max: 20,
+            max: 2,
             type: 'team'
           },
           jsonp: "callback"
@@ -641,7 +641,7 @@ export default {
         this.$http.jsonp('http://www.linbaoyou.com/travel/activity_albumProduct', {
           params: {
             theme: 'wj11lyh',
-            max: 20,
+            max: 2,
             type: 'team'
           },
           jsonp: "callback"
@@ -653,7 +653,7 @@ export default {
         this.$http.jsonp('http://www.linbaoyou.com/travel/activity_albumProduct', {
           params: {
             theme: 'wj8dlh',
-            max: 20,
+            max: 2,
             type: 'team'
           },
           jsonp: "callback"
@@ -665,7 +665,7 @@ export default {
         this.$http.jsonp('http://www.linbaoyou.com/travel/activity_albumProduct', {
           params: {
             theme: 'wj11dlh',
-            max: 20,
+            max: 2,
             type: 'team'
           },
           jsonp: "callback"
@@ -742,6 +742,7 @@ export default {
       		location.href = e.currentTarget.href;
       	}
       },
+      //========  点击地图  跳转到相应的页码
       clickLyh8(){
         this.$container.className="container containerAnimation";
         this.$container.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
