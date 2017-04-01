@@ -392,6 +392,12 @@ export default {
         $bigWrap: null,
         navWidth: 0,
 
+        // 定时器
+        Timer:'',                 //
+        msTimer:'',                 //
+        ctTimer:'',                 //
+        ylTimer:'',                 //
+
       }
     },
     methods: {
