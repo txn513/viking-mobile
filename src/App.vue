@@ -3,11 +3,10 @@
     <!-- <img src="./assets/logo.png"> -->
     <!-- <a @click.prevent="clickLinkOne">Go to Hello</a>
     <a @click.prevent="clickLinkTwo">Go to Test</a> -->
-    <div v-if="ifOnce" class="touchWrap" style="margin-top: 0px" @touchstart='vTouchStart' @touchend="vTouchEnd" @touchmove="vTouchMove">
-      
-        <viking-home></viking-home>
-        
-        
+
+    <!-- v-if="ifOnce" -->
+    <div class="touchWrap" style="margin-top: 0px" @touchstart.prevent='vTouchStart' @touchend="vTouchEnd" @touchmove.prevent="vTouchMove">
+        <viking-home></viking-home> 
     </div>
     <div class="viking-big-wrap"> 
     <!-- 100% -->
@@ -57,6 +56,7 @@ export default {
         //点击初始位置
         startPos:0,
         touchMarginTop: 0,
+        touchTranslateY:0,
 
         //导航滑块点击初始位置
         navStartPos : 0,
@@ -73,7 +73,9 @@ export default {
         navTranslateX: 0,
         $bigWrap: null,
         routerInterval: null,
-        ifOnce: true,
+        ifOnce: false,
+
+        $touchWrap: null,
     }
   },
   created(){
@@ -90,6 +92,9 @@ export default {
     clickLinkTwo(){
       this.$router.push('/test')
     },
+    getHomeTranslateY(){
+        return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.touchWrap'),null).transform.substring(7).split(',')[5]) || 0
+      },
     getWindowHeight: function(){
       return document.body.clientHeight;
     },
@@ -151,43 +156,74 @@ export default {
       e.currentTarget.className = 'touchWrap';
       //console.log(e.targetTouches[0].pageY)
       this.startPos = e.targetTouches[0].pageY;
-      this.touchMarginTop = parseFloat(e.currentTarget.style.marginTop);
+      // this.touchMarginTop = parseFloat(e.currentTarget.style.marginTop);
+      this.touchTranslateY = this.getHomeTranslateY();
+      this.moveDis = 0;
     },
     vTouchMove: function(e){
-      e.preventDefault();
+      //console.log(e.targetTouches[0].pageY);
+      if(e.targetTouches[0].pageY >0){
 
-      if(this.startPos < this.windowHeight && parseFloat(e.currentTarget.style.marginTop) <=0 ){
+          if(this.startPos < this.windowHeight && this.getHomeTranslateY() <=0 ){
 
-        this.moveDis = e.targetTouches[0].pageY - this.startPos;
-        if(this.moveDis > 0){
-          this.moveDis = 0;
+          this.moveDis = e.targetTouches[0].pageY - this.startPos;
+          if(this.moveDis > 0){
+            this.moveDis = 0;
+          }
+          //console.log((Math.abs(this.touchMarginTop)+this.startPos));
+          //console.log(Math.abs(this.moveDis));
+          // if(Math.abs(this.moveDis) <= (Math.abs(this.touchMarginTop)+this.startPos)){
+          //   //console.log(this.moveDis);
+          //   e.currentTarget.style.marginTop = (this.touchMarginTop + this.moveDis) + 'px';
+          // }
+          e.currentTarget.style.transform = "translate3d(0,"+ (this.touchTranslateY + this.moveDis) +'px' +",0)"
+          //console.log(e.currentTarget.style.marginTop +10)
         }
-        //console.log((Math.abs(this.touchMarginTop)+this.startPos));
-        //console.log(Math.abs(this.moveDis));
-
-        if(Math.abs(this.moveDis) <= (Math.abs(this.touchMarginTop)+this.startPos)){
-          //console.log(this.moveDis);
-          e.currentTarget.style.marginTop = (this.touchMarginTop + this.moveDis) + 'px';
-        }
-        
-        //console.log(e.currentTarget.style.marginTop +10)
       }
+      else {
+        e.currentTarget.className = 'touchWrap scrollAnimation';
+        if(Math.abs(this.moveDis) > 400){
+        // e.currentTarget.style.marginTop = -(this.windowHeight) +'px';
+          e.currentTarget.style.transform = "translate3d(0,"+ (-(this.windowHeight)) +'px' +",0)"
+          sessionStorage.i = 0;
+          setTimeout(function(){
+            self.className = 'touchWrap';
+          },800);
+
+        }  
+        else {
+          // e.currentTarget.style.marginTop = 0 +'px';
+          e.currentTarget.style.transform = "translate3d(0,0,0)"
+        }
+      }
+
+      
       
       
     },
     vTouchEnd: function(e){
       e.currentTarget.className = 'touchWrap scrollAnimation';
+      var self = e.currentTarget;
       //console.log(this.moveDis);    
-      if(Math.abs(this.moveDis) > 600){
-        e.currentTarget.style.marginTop = -(this.windowHeight) +'px';
+      if(Math.abs(this.moveDis) > 400){
+        // e.currentTarget.style.marginTop = -(this.windowHeight) +'px';
+        e.currentTarget.style.transform = "translate3d(0,"+ (-(this.windowHeight)) +'px' +",0)"
         sessionStorage.i = 0;
+        setTimeout(function(){
+          self.className = 'touchWrap';
+        },800);
+
       }  
       else {
-        e.currentTarget.style.marginTop = 0 +'px';
+        // e.currentTarget.style.marginTop = 0 +'px';
+        e.currentTarget.style.transform = "translate3d(0,0,0)"
       }
       
 
       //console.log(e.targetTouches[0].pageY)
+    },
+    vTouchCancel: function(){
+      alert(1);
     },
     getNavTranslateX(){
       return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-slide-btn'),null).transform.substring(7).split(',')[4]) || 0
@@ -296,12 +332,21 @@ export default {
 
   },
  mounted() {
+  this.$touchWrap = document.querySelector('.touchWrap');
+  this.$touchWrap.className = 'touchWrap scrollAnimation';
     if(sessionStorage.i){
-      this.ifOnce = false;
+      // this.ifOnce = true;
+      this.$touchWrap.style.display = "none";
+      this.$touchWrap.style.transform = "translate3d(0,"+ (-(this.windowHeight)) +'px' +",0)"
+      var self = this;
+      setTimeout(function(){
+        self.$touchWrap.style.display = "";
+      },150);
     }
     this.$bigWrap = document.querySelector('.viking-big-wrap');
     this.navObj = this.$el.querySelector('.viking-slide-btn');
     this.navWidth = this.navObj.clientWidth;
+    
 
     console.log( this.$route.params);
     // alert(document.body.clientWidth);
@@ -343,6 +388,9 @@ export default {
 </script>
 
 <style lang="scss">
+.displayNone {
+  display:none;
+}
 //样式覆盖
 .two-outer {
   padding-top: 0.3rem !important;
@@ -438,12 +486,14 @@ $fontsize:0.18rem;
   color: #2c3e50;
   font-size: $fontsize;
   height: 100%;
+  transform-style: preserve-3d;
   .touchWrap {
     height: 100%;
     // 方案2
     position: absolute;
     width: 100%;
     z-index:100;
+    transform:translate3d(0,0,0);
   }
   .viking-content {
     // height: 10.44rem;

@@ -101,6 +101,10 @@ export default {
         navObj: null,
         $bigWrap: null,
         navWidth: 0,
+
+        startMoveTime:0,
+        endMoveTime:0,
+        slideIndex: 0,
       }
     },
     methods:{
@@ -115,10 +119,11 @@ export default {
         this.$container.className="container";
         this.touchStartTranslateX = this.getTranslateX();
         this.cardMoveDis = 0;
+        this.startMoveTime = new Date().getTime();
       },
       cardTouchMove(e){
         this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
-        var pos = this.cardNewPos + this.cardMoveDis;
+        // var pos = this.cardNewPos + this.cardMoveDis;
         // if(pos > 0){
         //   // e.currentTarget.style.left = 0+'px';
         //   //e.currentTarget.style.transform = "translate3d(0,0,0)"
@@ -131,7 +136,7 @@ export default {
         //   // e.currentTarget.style.left = pos + 'px';
           
         // }
-        e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
+        e.currentTarget.style.transform = "translate3d("+ (this.cardNewPos + this.cardMoveDis)+ 'px' +",0,0)";
 
         if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
           this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
@@ -160,52 +165,132 @@ export default {
       },
       cardTouchEnd(e){
         this.$container.className="container containerAnimation";
+        this.endMoveTime = new Date().getTime();
+        var moveTime = this.endMoveTime - this.startMoveTime;
 
-        if((this.touchStartTranslateX).toFixed(2) == (-23.6*this.htmlFontSize).toFixed(2)){
-          if(this.cardMoveDis < -200) {
-            this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
-            this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
-            this.navObj.innerHTML = '邮轮介绍';
-            this.$router.push('/vikingThree');
+
+        if(moveTime <400){
+          if(this.cardMoveDis <0){
+            if(this.slideIndex == 0){
+              e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
+              this.slideIndex = 1
+              this.isCards = 1;
+              this.$container.querySelectorAll('.two-wrap')[0].className="two-wrap";
+              this.$container.querySelectorAll('.two-wrap')[1].className ="two-wrap current";
+            }
+            else if(this.slideIndex == 1){
+              e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
+              this.slideIndex = 2;
+              this.isCards = 2;
+              this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
+              this.$container.querySelectorAll('.two-wrap')[2].className ="two-wrap current";
+            }
+            else if(this.slideIndex == 2){
+              e.currentTarget.style.transform = "translate3d("+ (-5.9*3*this.htmlFontSize) + 'px' +",0,0)"
+              this.slideIndex = 3;
+              this.isCards = 3;
+              this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
+              this.$container.querySelectorAll('.two-wrap')[3].className ="two-wrap current";
+            }
+            else if(this.slideIndex == 3){
+              e.currentTarget.style.transform = "translate3d("+ (-5.9*4*this.htmlFontSize) + 'px' +",0,0)"
+              this.slideIndex = 4;
+              this.isCards = 4;
+              this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
+              this.$container.querySelectorAll('.two-wrap')[4].className ="two-wrap current";
+            }
+            else if(this.slideIndex == 4){
+              e.currentTarget.style.transform = "translate3d("+ (-5.9*4*this.htmlFontSize) + 'px' +",0,0)";
+              this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
+              this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
+              this.navObj.innerHTML = '邮轮介绍';
+              this.$router.push('/vikingThree');
+            }
           }
-          else {
-
+          else if(this.cardMoveDis >0){
+            if(this.slideIndex == 4){
+              e.currentTarget.style.transform = "translate3d("+ (-5.9*3*this.htmlFontSize) + 'px' +",0,0)"
+              this.slideIndex = 3;
+              this.isCards = 3;
+              this.$container.querySelectorAll('.two-wrap')[4].className="two-wrap";
+              this.$container.querySelectorAll('.two-wrap')[3].className ="two-wrap current";
+            }
+            else if(this.slideIndex == 3){
+              e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
+              this.slideIndex = 2;
+              this.isCards = 2;
+              this.$container.querySelectorAll('.two-wrap')[3].className="two-wrap";
+              this.$container.querySelectorAll('.two-wrap')[2].className ="two-wrap current";
+            }
+            else if(this.slideIndex == 2){
+              e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
+              this.slideIndex = 1
+              this.isCards = 1;
+              this.$container.querySelectorAll('.two-wrap')[2].className="two-wrap";
+              this.$container.querySelectorAll('.two-wrap')[1].className ="two-wrap current";
+            }
+            else if (this.slideIndex == 1){
+              e.currentTarget.style.transform = "translate3d(0,0,0)"
+              this.slideIndex = 0;
+              this.isCards = 0;
+              this.$container.querySelectorAll('.two-wrap')[1].className="two-wrap";
+              this.$container.querySelectorAll('.two-wrap')[0].className ="two-wrap current";
+            }
+            else if (this.slideIndex == 0){
+              e.currentTarget.style.transform = "translate3d(0,0,0)";
+              this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
+              this.navObj.style.transform = "translate3d(0,0,0)"
+              this.navObj.innerHTML = '一价全包';
+              this.$router.push('/');
+            }
           }
         }
-        else if(this.touchStartTranslateX == 0){
-           if(this.cardMoveDis > 200) {
-            this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
-            this.navObj.style.transform = "translate3d(0,0,0)"
-            this.navObj.innerHTML = '一价全包';
-            this.$router.push('/');
-           }
-        }
-
-
-        if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
-          e.currentTarget.style.transform = "translate3d(0,0,0)"
-          this.isCards = 0;
-
-        }
-        else if (this.getTranslateX() <= -(2.95*this.htmlFontSize) && this.getTranslateX() > -(8.85*this.htmlFontSize)){
-          e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
-          this.isCards = 1;
-          // e.currentTarget.style.left = (-5.9*this.htmlFontSize) + 'px';
-        }
-        else if (this.getTranslateX() <= -(8.85*this.htmlFontSize) && this.getTranslateX() > -((5.9*2+2.95)*this.htmlFontSize)){
-          e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
-          this.isCards = 2;
-        }
-         else if (this.getTranslateX() <= -((5.9*2+2.95)*this.htmlFontSize) && this.getTranslateX() > -((5.9*3+2.95)*this.htmlFontSize)){
-          e.currentTarget.style.transform = "translate3d("+ (-5.9*3*this.htmlFontSize) + 'px' +",0,0)"
-          this.isCards = 3;
-         }
         else {
-          e.currentTarget.style.transform = "translate3d("+ (-5.9*4*this.htmlFontSize) + 'px' +",0,0)"
-          this.isCards = 4;
-          // e.currentTarget.style.left = (-5.9*2*this.htmlFontSize) + 'px';
+          if((this.touchStartTranslateX).toFixed(2) == (-23.6*this.htmlFontSize).toFixed(2)){
+            if(this.cardMoveDis < -200) {
+              this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
+              this.navObj.style.transform = "translate3d("+ (this.navWidth*2)+"px" +",0,0)"
+              this.navObj.innerHTML = '邮轮介绍';
+              this.$router.push('/vikingThree');
+            }
+          }
+          else if(this.touchStartTranslateX == 0){
+             if(this.cardMoveDis > 200) {
+              this.$bigWrap.className = "viking-big-wrap viking-big-wrap-1";
+              this.navObj.style.transform = "translate3d(0,0,0)"
+              this.navObj.innerHTML = '一价全包';
+              this.$router.push('/');
+             }
+          }
 
+
+          if(this.getTranslateX() > -(2.95*this.htmlFontSize) ){
+            e.currentTarget.style.transform = "translate3d(0,0,0)"
+            this.isCards = 0;
+
+          }
+          else if (this.getTranslateX() <= -(2.95*this.htmlFontSize) && this.getTranslateX() > -(8.85*this.htmlFontSize)){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 1;
+            // e.currentTarget.style.left = (-5.9*this.htmlFontSize) + 'px';
+          }
+          else if (this.getTranslateX() <= -(8.85*this.htmlFontSize) && this.getTranslateX() > -((5.9*2+2.95)*this.htmlFontSize)){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*2*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 2;
+          }
+           else if (this.getTranslateX() <= -((5.9*2+2.95)*this.htmlFontSize) && this.getTranslateX() > -((5.9*3+2.95)*this.htmlFontSize)){
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*3*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 3;
+           }
+          else {
+            e.currentTarget.style.transform = "translate3d("+ (-5.9*4*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 4;
+            // e.currentTarget.style.left = (-5.9*2*this.htmlFontSize) + 'px';
+
+          }
         }
+
+        
       },
     },
     mounted() {
@@ -311,7 +396,7 @@ export default {
   /*transition: all .3s ease;*/
 }
 .containerAnimation {
-  transition: all 0.5s linear
+  transition: all 0.6s ease-in-out
 }
 
 .viking-two * {

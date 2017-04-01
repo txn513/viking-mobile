@@ -302,6 +302,9 @@ export default {
         navObj: null,
         $bigWrap: null,
         navWidth: 0,
+
+        startMoveTime:0,
+        endMoveTime:0,
     }
   },
   methods:{
@@ -314,24 +317,28 @@ export default {
     cfclick(){
       this.$container.className="container containerAnimation";
       this.$container.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
+      this.slideIndex = 2;
       this.isCards = 2;
       this.autoCf();
     },
     msclick(){
       this.$container.className="container containerAnimation";
       this.$container.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
+      this.slideIndex = 3;
       this.isCards = 3;
       this.autoMs();
     },
     ctclick(){
       this.$container.className="container containerAnimation";
       this.$container.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
+      this.slideIndex = 4;
       this.isCards = 4;
       this.autoCt();
     },
     ylclick(){
       this.$container.className="container containerAnimation";
       this.$container.style.transform = "translate3d("+ (-7.5*5*this.htmlFontSize) + 'px' +",0,0)"
+      this.slideIndex = 5;
       this.isCards = 5;
       this.autoYl();
     },
@@ -371,6 +378,7 @@ export default {
   		this.shipIndex = i
       this.$container.className="container containerAnimation";
       this.$container.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
+      this.slideIndex = 1;
       this.isCards = 1;
   	},
   	autoCf(){    //舱房自动轮播
@@ -419,26 +427,106 @@ export default {
     getTranslateX(){
         return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-three .container'),null).transform.substring(7).split(',')[4]) || 0
       },
-      cardTouchStart(e){
-        this.cardStartPos = e.targetTouches[0].pageX;
-        // this.cardNewPos = e.currentTarget.offsetLeft;
-        this.cardNewPos = this.getTranslateX();
-        //console.log(this.cardNewPos);
-        this.$container.className="container";
-        this.touchStartTranslateX = this.getTranslateX();
-        this.cardMoveDis = 0;
-      },
-      cardTouchMove(e){
-        this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
-        var pos = this.cardNewPos + this.cardMoveDis;
-         
-        e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
+    cardTouchStart(e){
+      this.cardStartPos = e.targetTouches[0].pageX;
+      // this.cardNewPos = e.currentTarget.offsetLeft;
+      this.cardNewPos = this.getTranslateX();
+      //console.log(this.cardNewPos);
+      this.$container.className="container";
+      this.touchStartTranslateX = this.getTranslateX();
+      this.cardMoveDis = 0;
+      this.startMoveTime = new Date().getTime();
+    },
+    cardTouchMove(e){
+      this.cardMoveDis = e.targetTouches[0].pageX - this.cardStartPos;
+      var pos = this.cardNewPos + this.cardMoveDis;
+       
+      e.currentTarget.style.transform = "translate3d("+ pos+ 'px' +",0,0)";
 
-      },
-      cardTouchEnd(e){
-        this.$container.className="container containerAnimation";
-        //alert(touchStartTranslateX);
-        //console.log(this.touchStartTranslateX);
+    },
+    cardTouchEnd(e){
+      this.$container.className="container containerAnimation";
+      this.endMoveTime = new Date().getTime();
+      var moveTime = this.endMoveTime - this.startMoveTime;
+      // alert(this.slideIndex);
+      if(moveTime <400){
+        if(this.cardMoveDis <0){
+          if(this.isCards == 0){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 1;
+            this.clearTimer();
+          }
+          else if(this.isCards == 1){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 2;
+            this.clearTimer();
+            this.autoCf();
+          }
+          else if(this.isCards == 2){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 3;
+            this.clearTimer();
+            this.autoMs();
+          }
+          else if(this.isCards == 3){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 4;
+            this.clearTimer();
+            this.autoCt();
+          }
+          else if(this.isCards == 4){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*5*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 5;
+            this.clearTimer();
+            this.autoYl();
+          }
+          else if(this.isCards == 5){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*5*this.htmlFontSize) + 'px' +",0,0)";
+            this.$bigWrap.className = "viking-big-wrap viking-big-wrap-4";
+            this.navObj.style.transform = "translate3d("+ (this.navWidth*3)+"px" +",0,0)"
+            this.navObj.innerHTML = '精彩航线';
+            this.$router.push('/vikingFour');
+          }
+        }
+        else if(this.cardMoveDis >0){
+          if(this.isCards == 5){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*4*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 4;
+            this.clearTimer();
+            this.autoCt();
+          }
+          else if(this.isCards == 4){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*3*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 3;
+            this.clearTimer();
+            this.autoMs();
+          }
+          else if(this.isCards == 3){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*2*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 2;
+            this.clearTimer();
+            this.autoCf();
+          }
+          else if(this.isCards == 2){
+            e.currentTarget.style.transform = "translate3d("+ (-7.5*this.htmlFontSize) + 'px' +",0,0)"
+            this.isCards = 1;
+            this.clearTimer();
+          }
+          else if(this.isCards == 1){
+            e.currentTarget.style.transform = "translate3d(0,0,0)"
+            this.isCards = 0;
+          }
+          else if (this.isCards == 0){
+            e.currentTarget.style.transform = "translate3d(0,0,0)"
+            this.$bigWrap.className = "viking-big-wrap viking-big-wrap-2";
+            this.navObj.style.transform = "translate3d("+ (this.navWidth)+"px" +",0,0)"
+            this.navObj.innerHTML = '一价全包';
+            this.$router.push('/vikingTwo');
+          }
+
+        }
+      }
+      else {
         if((this.touchStartTranslateX).toFixed(2) == (-37.5*this.htmlFontSize).toFixed(2)){
           if(this.cardMoveDis < 0) {
         //console.log(this.touchStartTranslateX);
@@ -494,9 +582,16 @@ export default {
           this.clearTimer();
           this.autoYl();
          }
-        
-      },
+      }
+
+
+      
+      
+    },
   },
+
+
+
   watch: {
       isCards() {
         this.init()
@@ -633,8 +728,9 @@ export default {
   left: 0;
 }
 .containerAnimation {
-  transition: all 0.5s linear
+  transition: all 0.6s ease-in-out
 }
+
 
 .viking-three * {
   font-family: "Microsoft YaHei";
