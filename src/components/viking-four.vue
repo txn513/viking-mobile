@@ -110,46 +110,46 @@
                 <div @click="changeClassesActivelyn11(0)" :class="{'active':isClassesActivelyn11 == 0}">阿姆斯特丹<span v-show="isClassesActivelyn11!=0"></span></div>
               </li>
               <li>
-                <div @click="changeClassesActivelyn11(8)" :class="{'active':isClassesActivelyn11 == 8}">小孩堤防<span v-show="isClassesActivelyn11!=8"></span></div>
+                <div @click="changeClassesActivelyn11(1)" :class="{'active':isClassesActivelyn11 == 1}">小孩堤防<span v-show="isClassesActivelyn11!=1"></span></div>
               </li>
               <li>
-                <div @click="changeClassesActivelyn11(1)" :class="{'active':isClassesActivelyn11 == 1}">科隆<span v-show="isClassesActivelyn11!=1"></span></div>
+                <div @click="changeClassesActivelyn11(2)" :class="{'active':isClassesActivelyn11 == 2}">科隆<span v-show="isClassesActivelyn11!=2"></span></div>
               </li>
               <li>
-                <div @click="changeClassesActivelyn11(2)" :class="{'active':isClassesActivelyn11 == 2}">莱茵河中上游<span v-show="isClassesActivelyn11!=2"></span></div>
+                <div @click="changeClassesActivelyn11(3)" :class="{'active':isClassesActivelyn11 == 3}">莱茵河中上游<span v-show="isClassesActivelyn11!=3"></span></div>
               </li>
               <li>
-                <div @click="changeClassesActivelyn11(3)" :class="{'active':isClassesActivelyn11 == 3}">海德堡<span v-show="isClassesActivelyn11!=3"></span></div>
+                <div @click="changeClassesActivelyn11(4)" :class="{'active':isClassesActivelyn11 == 4}">海德堡<span v-show="isClassesActivelyn11!=4"></span></div>
               </li>
               <li>
-                <div @click="changeClassesActivelyn11(7)" :class="{'active':isClassesActivelyn11 == 7}">巴登巴登<span v-show="isClassesActivelyn11!=7"></span></div>
+                <div @click="changeClassesActivelyn11(5)" :class="{'active':isClassesActivelyn11 == 5}">巴登巴登<span v-show="isClassesActivelyn11!=5"></span></div>
               </li>
               <li>
-                <div @click="changeClassesActivelyn11(4)" :class="{'active':isClassesActivelyn11 == 4}">斯特拉斯堡<span v-show="isClassesActivelyn11!=4"></span></div>
+                <div @click="changeClassesActivelyn11(6)" :class="{'active':isClassesActivelyn11 == 6}">斯特拉斯堡<span v-show="isClassesActivelyn11!=6"></span></div>
               </li>
               <li>
-                <div @click="changeClassesActivelyn11(5)" :class="{'active':isClassesActivelyn11 == 5}">琉森<span v-show="isClassesActivelyn11!=5"></span></div>
+                <div @click="changeClassesActivelyn11(7)" :class="{'active':isClassesActivelyn11 == 7}">琉森<span v-show="isClassesActivelyn11!=7"></span></div>
               </li>
               <li>
-                <div style="width:1.8rem" @click="changeClassesActivelyn11(9)" :class="{'active':isClassesActivelyn11 == 9}">伯尔尼/格鲁耶<span v-show="isClassesActivelyn11!=9"></span></div>
+                <div style="width:1.8rem" @click="changeClassesActivelyn11(8)" :class="{'active':isClassesActivelyn11 == 8}">伯尔尼/格鲁耶<span v-show="isClassesActivelyn11!=8"></span></div>
               </li>
               <li>
-                <div @click="changeClassesActivelyn11(6)" :class="{'active':isClassesActivelyn11 == 6}">巴塞尔<span v-show="isClassesActivelyn11!=6"></span></div>
+                <div @click="changeClassesActivelyn11(9)" :class="{'active':isClassesActivelyn11 == 9}">巴塞尔<span v-show="isClassesActivelyn11!=9"></span></div>
               </li>
             </ul>
             <div class="picture clearfix">
               <img v-show="isClassesActivelyn11 == 0" src="../assets/img/four/lyh-8-1.png" alt="">
-              <img v-show="isClassesActivelyn11 == 1" src="../assets/img/four/lyh-8-2.png" alt="">
-              <img v-show="isClassesActivelyn11 == 2" src="../assets/img/four/lyh-8-3.png" alt="">
-              <img v-show="isClassesActivelyn11 == 3" src="../assets/img/four/lyh-8-4.png" alt="">
-              <img v-show="isClassesActivelyn11 == 4" src="../assets/img/four/lyh-8-5.png" alt="">
-              <img v-show="isClassesActivelyn11 == 5" src="../assets/img/four/lyh-8-6.png" alt="">
-              <img v-show="isClassesActivelyn11 == 6" src="../assets/img/four/lyh-8-7.png" alt="">
-              <img v-show="isClassesActivelyn11 == 7" src="../assets/img/four/lyh-8-8.png" alt="">
-              <img v-show="isClassesActivelyn11 == 8" src="../assets/img/four/lyh-8-9.png" alt="">
-              <img v-show="isClassesActivelyn11 == 9" src="../assets/img/four/lyh-8-10.png" alt="">
+              <img v-show="isClassesActivelyn11 == 2" src="../assets/img/four/lyh-8-2.png" alt="">
+              <img v-show="isClassesActivelyn11 == 3" src="../assets/img/four/lyh-8-3.png" alt="">
+              <img v-show="isClassesActivelyn11 == 4" src="../assets/img/four/lyh-8-4.png" alt="">
+              <img v-show="isClassesActivelyn11 == 6" src="../assets/img/four/lyh-8-5.png" alt="">
+              <img v-show="isClassesActivelyn11 == 7" src="../assets/img/four/lyh-8-6.png" alt="">
+              <img v-show="isClassesActivelyn11 == 9" src="../assets/img/four/lyh-8-7.png" alt="">
+              <img v-show="isClassesActivelyn11 == 5" src="../assets/img/four/lyh-8-8.png" alt="">
+              <img v-show="isClassesActivelyn11 == 1" src="../assets/img/four/lyh-8-9.png" alt="">
+              <img v-show="isClassesActivelyn11 == 8" src="../assets/img/four/lyh-8-10.png" alt="">
               <!-- 目的地文案 -->
-              <p>{{lyhData[isClassesActivelyn11].describe}}</p>
+              <p>{{lyhData2[isClassesActivelyn11].describe}}</p>
             </div>
             <div class="goods-nav-bar">
               <div :class="{'active':isGoodsActive == 0}" @click="changeGoodsActive(0)" class="goods-nav">跟团游 &nbsp;浪漫法式露台房</div>
@@ -271,13 +271,13 @@
                 <div @click="changeClassesActivednh11(3)" :class="{'active':isClassesActivednh11 == 3}">萨尔斯堡<span v-show="isClassesActivednh11!=3"></span></div>
               </li>
               <li>
-                <div @click="changeClassesActivednh11(6)" :class="{'active':isClassesActivednh11 == 6}">克鲁姆洛夫<span v-show="isClassesActivednh11!=6"></span></div>
+                <div @click="changeClassesActivednh11(4)" :class="{'active':isClassesActivednh11 == 4}">克鲁姆洛夫<span v-show="isClassesActivednh11!=4"></span></div>
               </li>
               <li>
-                <div @click="changeClassesActivednh11(4)" :class="{'active':isClassesActivednh11 == 4}">布拉迪斯拉发<span v-show="isClassesActivednh11!=4"></span></div>
+                <div @click="changeClassesActivednh11(5)" :class="{'active':isClassesActivednh11 == 5}">布拉迪斯拉发<span v-show="isClassesActivednh11!=5"></span></div>
               </li>
               <li>
-                <div @click="changeClassesActivednh11(5)" :class="{'active':isClassesActivednh11 == 5}">布达佩斯<span v-show="isClassesActivednh11!=5"></span></div>
+                <div @click="changeClassesActivednh11(6)" :class="{'active':isClassesActivednh11 == 6}">布达佩斯<span v-show="isClassesActivednh11!=6"></span></div>
               </li>
             </ul>
             <div class="picture clearfix">
@@ -285,11 +285,11 @@
               <img v-show="isClassesActivednh11 == 1" src="../assets/img/four/dnh-8-2.png" alt="">
               <img v-show="isClassesActivednh11 == 2" src="../assets/img/four/dnh-8-3.png" alt="">
               <img v-show="isClassesActivednh11 == 3" src="../assets/img/four/dnh-8-4.png" alt="">
-              <img v-show="isClassesActivednh11 == 4" src="../assets/img/four/dnh-8-5.png" alt="">
-              <img v-show="isClassesActivednh11 == 5" src="../assets/img/four/dnh-8-6.png" alt="">
-              <img v-show="isClassesActivednh11 == 6" src="../assets/img/four/dnh-8-7.png" alt="">
+              <img v-show="isClassesActivednh11 == 5" src="../assets/img/four/dnh-8-5.png" alt="">
+              <img v-show="isClassesActivednh11 == 6" src="../assets/img/four/dnh-8-6.png" alt="">
+              <img v-show="isClassesActivednh11 == 4" src="../assets/img/four/dnh-8-7.png" alt="">
               <!-- 目的地文案 -->
-              <p>{{dnhData[isClassesActivednh11].describe}}</p>
+              <p>{{dnhData2[isClassesActivednh11].describe}}</p>
             </div>
             <div class="goods-nav-bar">
               <div :class="{'active':isGoodsActive == 0}" @click="changeGoodsActive(0)" class="goods-nav">跟团游 &nbsp;浪漫法式露台房</div>
@@ -349,8 +349,10 @@ export default {
         isClassesActivednh8: 0, //8天多瑙河
         isClassesActivednh11: 0, //11天多瑙河
         isGoodsActive: 0,
-        lyhData: destination.rhine, //莱茵河文案
-        dnhData: destination.danube, //多瑙河文案
+        lyhData: destination.rhine, //莱茵河8天文案
+        lyhData2: destination.rhine11, //莱茵河77天文案
+        dnhData: destination.danube, //多瑙河8天文案
+        dnhData2: destination.danube11, //多瑙河11天文案
 
         //滑动变量
         cardStartPos: 0,
@@ -393,10 +395,10 @@ export default {
         navWidth: 0,
 
         // 定时器
-        Timer:'',                 //
-        msTimer:'',                 //
-        ctTimer:'',                 //
-        ylTimer:'',                 //
+        timerlyh8:null,                 //莱茵河定时器
+        timerlyh11:null,                 //莱茵河定时器
+        timerdnh8:null,                 //多瑙河定时器
+        timerdnh11:null,                 //多瑙河定时器
 
       }
     },
@@ -412,20 +414,66 @@ export default {
         document.querySelector('.goods3').style.transform = "translate3d(0,0,0)";
         document.querySelector('.goods4').style.transform = "translate3d(0,0,0)";
       },
+      autoLyh8(){    //莱茵河8天自动轮播
+        var self = this;
+        var i = self.isClassesActivelyn8;
+        this.timerlyh8 = setInterval(function(){
+          i++;
+          i = i%7;
+          self.isClassesActivelyn8=i;
+        },5000)
+      },
+      autoLyh11(){    //莱茵河11天自动轮播
+        var self = this;
+        var i = self.isClassesActivelyn11;
+        this.timerlyh11 = setInterval(function(){
+          i++;
+          i = i%10;
+          self.isClassesActivelyn11=i;
+        },5000)
+      },
+      autoDnh8(){    //多瑙河8天自动轮播
+        var self = this;
+        var i = self.isClassesActivednh8;
+        this.timerdnh8 = setInterval(function(){
+          i++;
+          i = i%6;
+          self.isClassesActivednh8=i;
+        },5000)
+      },
+      autoDnh11(){    //多瑙河11天自动轮播
+        var self = this;
+        var i = self.isClassesActivednh11;
+        this.timerdnh11 = setInterval(function(){
+          i++;
+          i = i%7;
+          self.isClassesActivednh11=i;
+        },5000)
+      },
+      clearTimer(){ //清空定时器
+          clearInterval(this.timerlyh8)
+          clearInterval(this.timerlyh11)
+          clearInterval(this.timerdnh8)
+          clearInterval(this.timerdnh11)
+      },
       changeClassesActive(i) {
         this.isClassesActive = i;
       },
       changeClassesActivelyn8(i) { //8天莱茵河
         this.isClassesActivelyn8 = i;
+        this.clearTimer();
       },
       changeClassesActivelyn11(i) { //11天莱茵河
         this.isClassesActivelyn11 = i;
+        this.clearTimer();
       },
       changeClassesActivednh8(i) { //8天多瑙河
         this.isClassesActivednh8 = i;
+        this.clearTimer();
       },
       changeClassesActivednh11(i) { //11天多瑙河
         this.isClassesActivednh11 = i;
+        this.clearTimer();
       },
       changeGoodsActive(i) {
         var self = this;
@@ -552,16 +600,24 @@ export default {
         } else if (this.getTranslateX() <= -(3.57 * this.htmlFontSize) && this.getTranslateX() > -((3.75 + 7.5) * this.htmlFontSize)) {
           e.currentTarget.style.transform = "translate3d(" + (-7.5 * this.htmlFontSize) + 'px' + ",0,0)"
           this.isCards = 1;
+          this.clearTimer();
+          this.autoLyh8()
           // e.currentTarget.style.left = (-5.9*this.htmlFontSize) + 'px';
         } else if (this.getTranslateX() <= -((3.75 + 7.5) * this.htmlFontSize) && this.getTranslateX() > -((7.5 * 2 + 3.75) * this.htmlFontSize)) {
           e.currentTarget.style.transform = "translate3d(" + (-7.5 * 2 * this.htmlFontSize) + 'px' + ",0,0)"
           this.isCards = 2;
+          this.clearTimer();
+          this.autoLyh11()
         } else if (this.getTranslateX() <= -((7.5 * 2 + 3.75) * this.htmlFontSize) && this.getTranslateX() > -((7.5 * 3 + 3.75) * this.htmlFontSize)) {
           e.currentTarget.style.transform = "translate3d(" + (-7.5 * 3 * this.htmlFontSize) + 'px' + ",0,0)"
           this.isCards = 3;
+          this.clearTimer();
+          this.autoDnh8()
         } else {
           e.currentTarget.style.transform = "translate3d(" + (-7.5 * 4 * this.htmlFontSize) + 'px' + ",0,0)"
           this.isCards = 4;
+          this.clearTimer();
+          this.autoDnh11()
         }
 
 
@@ -926,8 +982,20 @@ export default {
   color: #ffffff;
   border-radius: .04rem;
   box-shadow: .01rem 0rem .02rem rgba(230, 90,127, .5), -0.01rem 0rem .02rem rgba(230, 90,127, .5), 0 .04rem .05rem rgba(230, 90,127, .55);
+  -webkit-animation:bounce 1s .3s ease both;
+  -moz-animation:bounce 1s .3s ease both;
 }
 
+@-webkit-keyframes bounce{
+0%,20%,50%,80%,100%{-webkit-transform:translateY(0)}
+40%{-webkit-transform:translateY(-10px)}
+60%{-webkit-transform:translateY(-5px)}
+}
+@-moz-keyframes bounce{
+0%,20%,50%,80%,100%{-moz-transform:translateY(0)}
+40%{-moz-transform:translateY(-10px)}
+60%{-moz-transform:translateY(-5px)}
+}
 .classes li div.active:before {
   content: "";
   width: 0;
