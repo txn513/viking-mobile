@@ -136,7 +136,6 @@ export default {
           this.$bigWrap.className = "viking-big-wrap viking-big-wrap-3";
           this.navObj.innerHTML = '邮轮介绍';
           this.routerPath = '/vikingThree'
-          this.$router.push('/vikingThree');
         }
         else {
           this.navObj.className = 'viking-slide-btn slideAnimation';
