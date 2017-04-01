@@ -22,7 +22,8 @@
             <div class="video-box">
               <!-- <span style="display: block;width: 100%;height: 1px;background-color: #cacaca"></span> -->
               <!-- :poster="imgurl1" -->
-              <video id="mp4" controls webkit-playsinline @touchend="bigVideoTouchEnd"></video>
+              <video id="mp4" @touchstart="videoPlay" @touchend="videoPlayTouchEnd" class="smallVideo" controls webkit-playsinline ></video>
+              <div class="play-icon" @click="playIcon"></div>
             </div>
             <p class="more">更多视频<span class="more-icon"></span></p>
             <div class="line"></div>
@@ -178,8 +179,13 @@ export default {
       },
       videoPlayTouchEnd(e){
         if(this.proMoveDis == 0){
-          e.currentTarget.play()
+          e.currentTarget.play();
+          document.querySelector('.play-icon').style.display = "none"
         }
+      },
+      playIcon(){
+        document.querySelector('.play-icon').style.display = "none";
+        document.getElementById('mp4').play()
       },
       getTranslateX(){
         return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-one .container'),null).transform.substring(7).split(',')[4]) || 0
@@ -187,10 +193,10 @@ export default {
       getVideoTranslateX(){
         return parseFloat(document.defaultView.getComputedStyle(document.querySelector('.viking-one .videoSwiper'),null).transform.substring(7).split(',')[4]) || 0
       },
-      bigVideoTouchEnd(e){
-        // console.log(e);
-        this.$container.style.transform = "translate3d(0,0,0)"
-      },
+      // bigVideoTouchEnd(e){
+      //   // console.log(e);
+      //   this.$container.style.transform = "translate3d(0,0,0)"
+      // },
       cardTouchStart(e){
         this.cardStartPos = e.targetTouches[0].pageX;
         // this.cardNewPos = e.currentTarget.offsetLeft;
@@ -680,6 +686,29 @@ export default {
   border: .06rem solid #ffffff;
   margin-bottom: .23rem;
   box-shadow: 1px 0px 10px rgba(0, 0, 0, .05), -1px 0px 10px rgba(0, 0, 0, .05), 0px 4px 20px rgba(0, 0, 0, .2);
+  position: relative;
+}
+.play-icon{
+  position:absolute;
+  width: 1rem;
+  height:1rem;
+  border-radius: 50%;
+  background:rgba(0,0,0,.5);
+  left:50%;
+  top:50%; 
+  transform:translate(-50%,-50%); 
+}
+.play-icon:after{
+  content:"";
+    width: 0;
+    height: 0;
+    border-top: .3rem solid transparent;
+    border-left: .3rem solid rgba(255,255,255,.5);
+    border-bottom: .3rem solid transparent;
+    position: absolute;
+    left:50%;
+    top: 50%;
+    transform:translate(-35%,-50%); 
 }
 
 #mp4 {
