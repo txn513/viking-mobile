@@ -31,7 +31,7 @@
               <ul class="videoSwiper" :style="{width:Allwidth+'px'}" style="left:0">
                 <li class="xvideo" v-for="(item,index) in videoData">
                   <div class="videosm">
-                    <video class="smallVideo" @touchstart="videoPlay" @touchend="videoPlayTouchEnd" :poster="item.cover" :src="item.link" controls  webkit-playsinline></video>
+                    <video class="smallVideo" @touchstart="smallVideoPlay" @touchend="smallVideoPlayTouchEnd" :poster="item.cover" :src="item.link" controls  webkit-playsinline></video>
                   </div>
                   <p class="video-title">{{item.title}}</p>
                 </li>
@@ -174,11 +174,19 @@ export default {
       }
     },
     methods: {
+      smallVideoPlay(e){
+          //this.proMoveDis = 0;
+      },
+      smallVideoPlayTouchEnd(e){
+        if(this.proMoveDis == 0){
+          e.currentTarget.play();
+        }
+      },
       videoPlay(e){
-          
+        
       },
       videoPlayTouchEnd(e){
-        if(this.proMoveDis == 0){
+        if(this.cardMoveDis == 0){
           e.currentTarget.play();
           document.querySelector('.play-icon').style.display = "none"
         }
@@ -386,6 +394,7 @@ export default {
       testMove(e) {
         e.stopPropagation();
         this.proMoveDis = e.targetTouches[0].pageX - this.proStartPos;
+
         var pos = this.newProPos + this.proMoveDis;
         e.currentTarget.querySelector('.videoSwiper').style.transform = "translate(" + pos + "px" + ",0)";
       },
@@ -421,6 +430,12 @@ export default {
       this.navObj = document.querySelector('.viking-slide-btn');
       this.navWidth = this.navObj.clientWidth;
       this.$touchWrap = document.querySelector('.touchWrap');
+      document.getElementById('mp4').addEventListener('pause',function(){
+          document.querySelector('.play-icon').style.display = "";
+      })
+      document.getElementById('mp4').addEventListener('play',function(){
+          document.querySelector('.play-icon').style.display = "none";
+      })
       // document.addEventListener('touchstart', function(e) {
 
       //   xstar = e.touches[0].pageX;
